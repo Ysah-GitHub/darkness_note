@@ -1,4 +1,4 @@
-var sw_name = "1.1.2";
+var sw_name = "1.1.3";
 var sw_cache = [
   // --- Main
   "/",

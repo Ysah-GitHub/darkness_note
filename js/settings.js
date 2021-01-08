@@ -64,7 +64,7 @@ function settings_source_code(){
 
   let tmp_source_code_link = document.createElement("a");
   tmp_source_code_link.className = "settings_main_option_title";
-  tmp_source_code_link.href = "https://mega.nz/folder/yQdgnDLa#y58TZbqvAj6s6p4ewjA3og";
+  tmp_source_code_link.href = "https://github.com/Ysah-GitHub/darkness_note";
   tmp_source_code_link.target = "_blank";
   tmp_source_code_link.textContent = "Source Code";
   tmp_source_code.append(tmp_source_code_link);

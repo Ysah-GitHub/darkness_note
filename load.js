@@ -1,5 +1,5 @@
 var app = {
-  version: "1.1.2",
+  version: "1.1.3",
   device: device(),
   note: [],
   trash: []
