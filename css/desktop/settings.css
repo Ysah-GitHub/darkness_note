@@ -1,0 +1,32 @@
+#settings_main{
+  height: 256px;
+  overflow: auto;
+}
+
+.settings_main_option{
+  width: 320px;
+  height: 64px;
+  margin-top: 8px;
+  background-color: rgba(30, 30, 30, 0.8);
+}
+.settings_main_option:hover{
+  cursor: pointer;
+}
+
+.settings_main_option_title{
+  display: inline-block;
+  width: 320px;
+  height: 64px;
+  line-height: 64px;
+  vertical-align: top;
+  padding-left: 16px;
+  box-sizing: border-box;
+  font-size: 18px;
+}
+
+body.settings #note_main_canvas_settings{
+  background-color: rgb(30, 30, 30);
+}
+body.settings #note_main_canvas_settings:hover{
+  background-color: rgb(60, 40, 40);
+}

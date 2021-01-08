@@ -1,0 +1,28 @@
+.canvas:active{
+  filter: brightness(3);
+}
+
+.canvas_container{
+  display: inline-block;
+  line-height: 0;
+}
+.canvas_container:active{
+  background-color: rgb(30, 30, 30);
+}
+.canvas_container.active{
+  background-color: rgb(30, 30, 30);
+}
+
+.canvas_container.red:active{
+  background-color: rgb(60, 40, 40);
+}
+
+.canvas.arrow_first,
+.canvas.arrow_previous{
+  transform: rotate(-90deg);
+}
+
+.canvas.arrow_last,
+.canvas.arrow_next{
+  transform: rotate(90deg);
+}

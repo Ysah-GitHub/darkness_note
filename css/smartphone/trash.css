@@ -1,0 +1,70 @@
+#trash_list{
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+#trash_list > li{
+  position: relative;
+  height: 64px;
+  margin-top: 8px;
+  margin-left: 8px;
+  border-radius: 5px;
+  background-color: rgba(30, 30, 30, 0.8);
+}
+
+#trash_list p{
+  display: inline-block;
+  width: calc(100% - 128px);
+  height: 64px;
+  overflow: hidden;
+  line-height: 64px;
+  vertical-align: top;
+  padding-left: 16px;
+  box-sizing: border-box;
+  border-left: 1px solid rgb(40, 40, 40);
+  border-right: 1px solid rgb(40, 40, 40);
+  font-size: 18px;
+}
+
+#trash_background{
+  position: fixed;
+  width: 100%;
+  margin-top: calc(50vh - 160px);
+  text-align: center;
+}
+
+body.trash #note_main_canvas_trash{
+  background-color: rgb(30, 30, 30);
+}
+
+@media (orientation: portrait) {
+  #trash_list{
+    height: calc(100vh - 64px);
+  }
+
+  #trash_list > li{
+    width: calc(100% - 16px);
+  }
+
+  #note_main_canvas_trash{
+    margin-left: calc(100vw - 128px);
+  }
+}
+
+@media (orientation: landscape) {
+  #trash_list{
+    left: 0;
+    width: calc(100vw - 64px);
+  }
+
+  #trash_list > li{
+    display: inline-block;
+    width: calc(50% - 12px);
+  }
+
+  #note_main_canvas_trash{
+    margin-top: calc(100vh - 128px);
+  }
+}

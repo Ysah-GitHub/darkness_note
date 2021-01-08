@@ -1,0 +1,25 @@
+body, ol, li, p{
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  list-style-type: none;
+}
+
+input{
+  background: none;
+  border: none;
+  outline: none;
+}
+
+textarea{
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+a{
+  text-decoration: none;
+}

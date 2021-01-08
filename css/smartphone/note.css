@@ -1,0 +1,118 @@
+#note_main{
+  position: fixed;
+  background-color: rgb(50, 50, 50);
+}
+
+#note_main_header{
+  background-color: rgb(40, 40, 40);
+}
+
+#note_main_canvas_add{
+  position: absolute;
+  top: 0;
+  zoom: 0.5;
+}
+
+.note{
+  display: inline-block;
+  vertical-align: top;
+  background-color: rgb(50, 50, 50);
+}
+body.settings .note, body.trash .note{
+  display: none;
+}
+
+.note_header{
+  height: 64px;
+  background-color: rgb(40, 40, 40);
+}
+
+.note_title{
+  width: calc(100% - 128px);
+  height: 64px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  vertical-align: top;
+  font-size: 24px;
+}
+.note_title:focus{
+  background-color: rgb(30, 30, 30);
+}
+
+.note_text{
+  width: 100%;
+  height: 256px;
+  padding: 16px;
+  box-sizing: border-box;
+  line-height: 1.6em;
+  font-size: 20px;
+}
+
+.note_arrow{
+  height: 256px;
+  width: 64px;
+  line-height: 0;
+  background-color: rgb(30, 30, 30);
+  border-top: 1px solid rgb(40, 40, 40);
+  box-sizing: border-box;
+}
+
+@media (orientation: portrait) {
+  #note_main{
+    bottom: 0;
+    width: 100vw;
+    height: 64px;
+    border-top: 1px solid rgb(35, 35, 35);
+  }
+
+  #note_main_header{
+    width: 100%;
+  }
+
+  #note_main_canvas_add{
+    margin-left: 128px;
+    padding: 0 calc(50% - 192px);
+  }
+
+  .note{
+    width: 100vw;
+    height: 320px;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
+  }
+  .note:last-child{
+    margin-bottom: 64px;
+  }
+
+  .note_main{
+    height: 256px;
+  }
+}
+
+@media (orientation: landscape) {
+  #note_main{
+    right: 0;
+    width: 64px;
+    height: 100vh;
+    border-left: 1px solid rgb(35, 35, 35);
+  }
+
+  #note_main_header{
+    height: 100vh;
+  }
+
+
+  #note_main_canvas_add{
+    margin-top: 128px;
+    padding: calc(100vh - 192px) 0;
+  }
+
+  .note{
+    width: calc(50vw - 32px);
+    height: 320px;
+    border-left: 1px solid rgb(35 35 35);
+    box-sizing: border-box;
+  }
+  .note:last-child{
+    margin-right: 64px;
+  }
+}

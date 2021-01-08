@@ -1,0 +1,8 @@
+body{
+  background: rgb(45, 45, 45);
+}
+
+input, textarea, p, a{
+  font-family: "Lucida Console";
+  color: rgb(255, 255, 255);
+}

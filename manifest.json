@@ -1,0 +1,16 @@
+{
+  "name": "Darkness Note",
+  "short_name": "Darkness Note",
+  "description": "Free Software for Note Taking",
+  "start_url": "index.html",
+  "background_color": "rgb(45, 45, 45)",
+  "theme_color": "rgb(35, 35, 35)",
+  "orientation": "any",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "rsc/main.svg",
+      "sizes": "144x144"
+    }
+  ]
+}
