@@ -1,25 +1,37 @@
-#note_main{
-  position: fixed;
-  background-color: rgb(50, 50, 50);
-}
-
-#note_main_header{
-  background-color: rgb(40, 40, 40);
-}
-
-#note_main_canvas_add{
-  position: absolute;
-  top: 0;
-  zoom: 0.5;
-}
+@media (orientation: portrait) {#note_list{
+  height: calc(100vh - 16px - 64px - 64px - 16px);
+  overflow: auto;
+}}
+@media (orientation: landscape) {#note_list{
+  display: inline-block;
+  width: calc(100vw - 16px - 64px - 64px - 16px);
+  height: calc(100vh - 16px);
+  margin: 8px;
+  vertical-align: top;
+  overflow: auto;
+}}
 
 .note{
-  display: inline-block;
-  vertical-align: top;
-  background-color: rgb(50, 50, 50);
+  margin: 16px 0 0 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
-body.settings .note, body.trash .note{
-  display: none;
+@media (orientation: portrait) {
+  .note{
+    width: calc(100vw - 16px);
+    height: 320px;
+  }
+  .note:first-child{
+    margin: 0 0 0 8px;
+  }
+}
+@media (orientation: landscape) {
+  .note{
+    width: calc(100% - 16px);
+    height: 320px;
+  }
+  .note:first-child{
+    margin: 4px 0 0 8px;
+  }
 }
 
 .note_header{
@@ -28,91 +40,108 @@ body.settings .note, body.trash .note{
 }
 
 .note_title{
-  width: calc(100% - 128px);
-  height: 64px;
-  padding: 0 16px;
+  width: calc(100% - 64px - 64px);
+  height: 100%;
+  line-height: 64px;
+  padding: 0 8px;
   box-sizing: border-box;
   vertical-align: top;
-  font-size: 24px;
+  color: rgb(245, 245, 245);
+  font-family: "press_start_2p";
+  font-size: 16px;
+  transition: background-color 0.1s linear;
 }
-.note_title:focus{
+.note_title:hover, .note_title:focus{
   background-color: rgb(30, 30, 30);
+}
+.note_title.readonly:hover, .note_title.readonly:focus{
+  background-color: initial;
+}
+
+.note_main{
+  position: relative;
+  height: calc(100% - 64px);
+  background-color: rgb(50, 50, 50);
 }
 
 .note_text{
   width: 100%;
-  height: 256px;
+  height: 100%;
   padding: 16px;
+  line-height: 28px;
   box-sizing: border-box;
-  line-height: 1.6em;
-  font-size: 20px;
+  color: rgb(235, 235, 235);
+  font-family: "press_start_2p";
+  font-size: 14px;
+  overflow: auto;
+  cursor: auto;
 }
 
-.note_arrow{
-  height: 256px;
+.note_settings{
+  height: calc(320px - 64px);
+  overflow: auto;
+}
+
+.note_settings_header{
+  height: 64px;
+}
+.note_settings_header > *{
+  width: 63px;
+  border-right: 1px solid rgb(40, 40, 40);
+}
+.note_settings_header > *:last-child{
   width: 64px;
-  line-height: 0;
-  background-color: rgb(30, 30, 30);
-  border-top: 1px solid rgb(40, 40, 40);
+  padding: 0 calc(50% - 160px);
+  border: none;
+}
+
+.note_settings_name{
+  display: block;
+  width: 100%;
+  height: 64px;
+  padding: 16px;
+  line-height: 32px;
   box-sizing: border-box;
+  color: rgb(235, 235, 235);
+  font-family: "press_start_2p";
+  font-size: 12px;
+  background-color: rgb(55, 55, 55);
+  border-top: 5px solid rgb(50, 50, 50);
+  user-select: none;
+  transition: padding 0.15s linear, background-color 0.1s linear;
+}
+.note_settings_name:first-child{
+  height: 59px;
+  border-top: none;
+}
+.note_settings_name:hover{
+  cursor: pointer;
+  padding: 16px 16px 16px 32px;
+  background-color: rgb(30, 30, 30);
 }
 
-@media (orientation: portrait) {
-  #note_main{
-    bottom: 0;
-    width: 100vw;
-    height: 64px;
-    border-top: 1px solid rgb(35, 35, 35);
-  }
-
-  #note_main_header{
-    width: 100%;
-  }
-
-  #note_main_canvas_add{
-    margin-left: 128px;
-    padding: 0 calc(50% - 192px);
-  }
-
-  .note{
-    width: 100vw;
-    height: 320px;
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.5);
-  }
-  .note:last-child{
-    margin-bottom: 64px;
-  }
-
-  .note_main{
-    height: 256px;
-  }
+#note_fullscreen{
+  width: calc(100vw - 16px);
+  height: calc(100vh - 16px);
+  margin: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
-@media (orientation: landscape) {
-  #note_main{
-    right: 0;
-    width: 64px;
-    height: 100vh;
-    border-left: 1px solid rgb(35, 35, 35);
-  }
-
-  #note_main_header{
-    height: 100vh;
-  }
-
-
-  #note_main_canvas_add{
-    margin-top: 128px;
-    padding: calc(100vh - 192px) 0;
-  }
-
-  .note{
-    width: calc(50vw - 32px);
-    height: 320px;
-    border-left: 1px solid rgb(35 35 35);
-    box-sizing: border-box;
-  }
-  .note:last-child{
-    margin-right: 64px;
-  }
+#note_fullscreen .note_title{
+  width: calc(100% - 64px);
+  padding: 0 16px;
 }
+
+@media (orientation: portrait) {#note_settings{
+  height: calc(100vh - 16px - 64px - 64px - 16px);
+  padding: 0 8px;
+  overflow: auto;
+}}
+@media (orientation: landscape) {#note_settings{
+  display: inline-block;
+  width: calc(100vw - 16px - 64px - 64px - 16px);
+  height: calc(100vh - 16px);
+  margin: 8px;
+  vertical-align: top;
+  overflow: auto;
+}}

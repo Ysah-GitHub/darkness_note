@@ -1,43 +1,18 @@
-var sw_name = "1.1.3";
+importScripts("app.js");
+var sw_name = app.version;
 var sw_cache = [
   // --- Main
   "/",
   "index.html",
-  "manifest.json",
-  "load.js",
-  // --- CSS
-  "css/reset.css",
-  "css/main.css",
-  // --- JS
-  "js/canvas_draw.js",
-  "js/canvas.js",
-  "js/note.js",
-  "js/settings.js",
-  "js/trash.js",
+  "rsc/manifest/manifest_" + app.language + ".json",
+  "app.js",
+  "app_load.js",
   // --- Ressources
-  "rsc/main.svg"
+  "rsc/font/press_start_2p.ttf",
+  "rsc/svg/main.svg"
 ];
-
-if (/Mobi/.test(navigator.userAgent)) {
-  // --- Smartphone
-  sw_cache = sw_cache.concat([
-    // --- CSS
-    "css/smartphone/canvas.css",
-    "css/smartphone/note.css",
-    "css/smartphone/settings.css",
-    "css/smartphone/trash.css"
-  ]);
-}
-else {
-  // --- Desktop
-  sw_cache = sw_cache.concat([
-    // --- CSS
-    "css/desktop/canvas.css",
-    "css/desktop/note.css",
-    "css/desktop/settings.css",
-    "css/desktop/trash.css"
-  ]);
-}
+sw_cache = sw_cache.concat(app_file_list_css());
+sw_cache = sw_cache.concat(app_file_list_js());
 
 self.addEventListener("install", event => {
   event.waitUntil(

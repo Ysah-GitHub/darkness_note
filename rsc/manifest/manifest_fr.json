@@ -1,0 +1,23 @@
+{
+  "name": "Darkness Note",
+  "short_name": "Darkness Note",
+  "description": "Logiciel Libre pour la prise de notes",
+  "start_url": "../../index.html",
+  "background_color": "rgb(45, 45, 45)",
+  "theme_color": "rgb(35, 35, 35)",
+  "orientation": "any",
+  "display": "fullscreen",
+  "icons": [
+    {
+      "src": "../svg/main.svg",
+      "sizes": "512x512",
+      "type": "image/svg",
+      "purpose": "any maskable"
+    }, {
+      "src": "../png/main.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,61 +1,33 @@
-#trash_list{
-  height: 256px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-#trash_list::-webkit-scrollbar {
-  width: 10px;
-}
-#trash_list::-webkit-scrollbar-track {
-  background-color: rgba(30, 30, 30, 0.8);
-}
-#trash_list::-webkit-scrollbar-thumb {
-  background-color: rgb(50, 50, 50);
-}
-#trash_list::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(60, 60, 60);
-}
-
-#trash_list > li{
+#trash{
   position: relative;
-  display: inline-block;
-  width: 320px;
-  height: 64px;
-  margin-top: 8px;
-  background-color: rgba(30, 30, 30, 0.8);
+  z-index: 0;
+  background-color: rgb(45, 45, 45);
 }
 
-#trash_list p{
-  display: inline-block;
-  width: 192px;
-  height: 64px;
-  overflow: hidden;
-  line-height: 64px;
+#trash_number{
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin-top: 256px;
+  text-align: center;
+  color: rgb(65, 65, 65);
+  font-family: "press_start_2p";
+  font-size: 14px;
+  user-select: none;
+  transition: color 0.1s linear;
+}
+#trash_number.orange{
+  color: rgb(130, 90, 65);
+}
+#trash_number.red{
+  color: rgb(130, 65, 65);
+}
+
+#trash_list > .note{
   vertical-align: top;
-  padding-left: 16px;
-  box-sizing: border-box;
-  border-left: 1px solid rgb(40, 40, 40);
-  border-right: 1px solid rgb(40, 40, 40);
-  font-size: 18px;
 }
 
-#trash_background{
-  position: fixed;
-  width: 310px;
-  height: 256px;
-  overflow: hidden;
-}
-
-#canvas_trash_background{
-  margin-top: -32px;
-}
-
-#note_main_canvas_trash{
-  margin-left: 192px;
-}
-body.trash #note_main_canvas_trash{
-  background-color: rgb(30, 30, 30);
-}
-body.trash #note_main_canvas_trash:hover{
-  background-color: rgb(60, 40, 40);
+#trash_list .note_title:hover, #trash_list .note_title:focus{
+  background-color: initial;
 }

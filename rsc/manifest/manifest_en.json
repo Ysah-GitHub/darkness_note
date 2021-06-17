@@ -9,8 +9,15 @@
   "display": "fullscreen",
   "icons": [
     {
-      "src": "rsc/main.svg",
-      "sizes": "144x144"
+      "src": "../svg/main.svg",
+      "sizes": "512x512",
+      "type": "image/svg",
+      "purpose": "any maskable"
+    }, {
+      "src": "../png/main.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

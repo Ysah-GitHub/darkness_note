@@ -1,0 +1,12 @@
+body{
+  background-color: rgb(45, 45, 45);
+}
+
+/* Thanks CodeMan38 for this font <3 */
+/* Link : https://fonts.google.com/specimen/Press+Start+2P */
+/* Contact : cody@zone38.net */
+@font-face {
+  font-family: "press_start_2p";
+  src: url("../../rsc/font/press_start_2p.ttf");
+  font-display: swap;
+}

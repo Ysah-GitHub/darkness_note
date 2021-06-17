@@ -1,70 +1,98 @@
-#trash_list{
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-#trash_list > li{
-  position: relative;
-  height: 64px;
-  margin-top: 8px;
-  margin-left: 8px;
-  border-radius: 5px;
-  background-color: rgba(30, 30, 30, 0.8);
-}
-
-#trash_list p{
-  display: inline-block;
-  width: calc(100% - 128px);
-  height: 64px;
+#trash{
+  margin: 8px 0 8px 8px;
   overflow: hidden;
-  line-height: 64px;
+  background-color: rgb(45, 45, 45);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+@media (orientation: portrait) {#trash{
+  width: calc(100vw - 16px);
+  height: 64px;
+}}
+@media (orientation: landscape) {#trash{
+  display: inline-block;
+  width: 64px;
+  height: calc(100vh - 16px);
   vertical-align: top;
-  padding-left: 16px;
-  box-sizing: border-box;
-  border-left: 1px solid rgb(40, 40, 40);
-  border-right: 1px solid rgb(40, 40, 40);
-  font-size: 18px;
-}
+}}
 
-#trash_background{
-  position: fixed;
-  width: 100%;
-  margin-top: calc(50vh - 160px);
+@media (orientation: portrait) {#trash_header{
+  display: inline-block;
+  width: calc(100% - 64px - 4px);
+}}
+@media (orientation: landscape) {#trash_header{
+  height: calc(100vh - 16px - 64px - 4px);
+}}
+
+#trash_number{
+  color: rgb(65, 65, 65);
+  font-family: "press_start_2p";
+  font-size: 12px;
   text-align: center;
+  user-select: none;
+  transition: color 0.1s linear;
+}
+@media (orientation: portrait) {#trash_number{
+  display: inline-block;
+  width: calc(100% - 64px);
+  height: 70px;
+  line-height: 70px;
+  vertical-align: top;
+  text-align: right;
+}}
+@media (orientation: landscape) {#trash_number{
+  width: 64px;
+  height: 32px;
+  margin-top: calc(100vh - 16px - 64px - 4px - 64px - 32px);
+}}
+#trash_number.orange{
+  color: rgb(130, 90, 65);
+}
+#trash_number.red{
+  color: rgb(130, 65, 65);
 }
 
-body.trash #note_main_canvas_trash{
-  background-color: rgb(30, 30, 30);
+#trash_back{
+  margin: 8px 0 8px 8px;
+  background-color: rgb(45, 45, 45);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
+@media (orientation: portrait) {#trash_back{
+  width: calc(100vw - 16px);
+  height: 64px;
+}}
+@media (orientation: landscape) {#trash_back{
+  display: inline-block;
+  width: 64px;
+  height: calc(100vh - 16px);
+  vertical-align: top;
+}}
 
-@media (orientation: portrait) {
-  #trash_list{
-    height: calc(100vh - 64px);
-  }
+@media (orientation: portrait) {#trash_list{
+  height: calc(100vh - 16px - 64px - 64px - 16px);
+  overflow: auto;
+}}
+@media (orientation: landscape) {#trash_list{
+  display: inline-block;
+  width: calc(100vw - 16px - 64px - 64px - 16px);
+  height: calc(100vh - 16px);
+  margin: 8px;
+  vertical-align: top;
+  overflow: auto;
+}}
 
-  #trash_list > li{
-    width: calc(100% - 16px);
-  }
-
-  #note_main_canvas_trash{
-    margin-left: calc(100vw - 128px);
-  }
+#trash_delete_all{
+  background-color: rgb(45, 45, 45);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
-
-@media (orientation: landscape) {
-  #trash_list{
-    left: 0;
-    width: calc(100vw - 64px);
-  }
-
-  #trash_list > li{
-    display: inline-block;
-    width: calc(50% - 12px);
-  }
-
-  #note_main_canvas_trash{
-    margin-top: calc(100vh - 128px);
-  }
-}
+@media (orientation: portrait) {#trash_delete_all{
+  width: calc(100vw - 16px);
+  height: 64px;
+  margin: 8px 0 8px 8px;
+}}
+@media (orientation: landscape) {#trash_delete_all{
+  display: inline-block;
+  width: 64px;
+  height: calc(100vh - 16px);
+  margin: 8px 8px 8px 0;
+  vertical-align: top;
+}}

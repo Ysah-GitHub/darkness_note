@@ -1,0 +1,17 @@
+#menu{
+  background-color: rgb(45, 45, 45);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+@media (orientation: portrait) {#menu{
+  width: calc(100vw - 16px);
+  height: 64px;
+  margin: 8px 0 8px 8px;
+  text-align: center;
+}}
+@media (orientation: landscape) {#menu{
+  display: inline-block;
+  width: 64px;
+  height: calc(100vh - 16px);
+  margin: 8px 8px 8px 0;
+  vertical-align: top;
+}}
