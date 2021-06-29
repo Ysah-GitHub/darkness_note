@@ -5,7 +5,8 @@ function translation(){
     "\n\n\nDonnées utilisées par l'application :\n\n- Version de l'application\n- Type d'appareil ( PC, Téléphone, Tablette )\n- Langue du navigateur\n- Notes créées par l'utilisateur" +
     "\n\n\nCode :\n\nLe code source de l'application est libre d'utilisation, de redistribution et de modification à la seule condition que ce dernier soit utilisé dans des projets eux-mêmes libres d'utilisation, de redistribution et de modification. Le code n'a pas besoin d'être crédité, mais nous apprécierons si vous décidez de le faire quand même. <3",
     app_description: "Logiciel Libre pour la prise de notes",
-    back: "Retour",
+    app_donate: "BTC :\n12DU5Hi4KLQzosQx9NJQS1reyqeX1AqBxY" +
+    "\n\nERC20 :\n0x47ce90715022529bddd6ecca9ffea03d50c6327d",
     commitment: "Engagement",
     contact: "Contact",
     delete: "Supprimer",

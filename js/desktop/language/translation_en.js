@@ -5,7 +5,8 @@ function translation(){
     "\n\n\nData used by the application :\n\n- Version of the application\n- Device type ( PC, Phone, Tablet )\n- Browser language\n- Notes created by the user" +
     "\n\n\nCode :\n\nThe source code of the application is free for use, redistribution and modification on the sole condition that it is used in projects that are themselves free for use, redistribution and modification. The code does not need to be credited, but we will appreciate if you decide to do it anyway. <3",
     app_description: "Free software for note taking",
-    back: "Back",
+    app_donate: "BTC :\n12DU5Hi4KLQzosQx9NJQS1reyqeX1AqBxY" +
+    "\n\nERC20 :\n0x47ce90715022529bddd6ecca9ffea03d50c6327d",
     commitment: "Commitment",
     contact: "Contact",
     delete: "Delete",

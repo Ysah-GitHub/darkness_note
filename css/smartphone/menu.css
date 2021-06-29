@@ -11,7 +11,7 @@
 @media (orientation: landscape) {#menu{
   display: inline-block;
   width: 64px;
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   margin: 8px 8px 8px 0;
   vertical-align: top;
 }}

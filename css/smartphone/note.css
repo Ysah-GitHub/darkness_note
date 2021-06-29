@@ -1,11 +1,11 @@
 @media (orientation: portrait) {#note_list{
-  height: calc(100vh - 16px - 64px - 64px - 16px);
+  height: calc(var(--vh) - 16px - 64px - 64px - 16px);
   overflow: auto;
 }}
 @media (orientation: landscape) {#note_list{
   display: inline-block;
   width: calc(100vw - 16px - 64px - 64px - 16px);
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   margin: 8px;
   vertical-align: top;
   overflow: auto;
@@ -50,12 +50,6 @@
   font-family: "press_start_2p";
   font-size: 16px;
   transition: background-color 0.1s linear;
-}
-.note_title:hover, .note_title:focus{
-  background-color: rgb(30, 30, 30);
-}
-.note_title.readonly:hover, .note_title.readonly:focus{
-  background-color: initial;
 }
 
 .note_main{
@@ -114,7 +108,7 @@
   height: 59px;
   border-top: none;
 }
-.note_settings_name:hover{
+.note_settings_name:active{
   cursor: pointer;
   padding: 16px 16px 16px 32px;
   background-color: rgb(30, 30, 30);
@@ -122,7 +116,7 @@
 
 #note_fullscreen{
   width: calc(100vw - 16px);
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   margin: 8px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
@@ -133,14 +127,14 @@
 }
 
 @media (orientation: portrait) {#note_settings{
-  height: calc(100vh - 16px - 64px - 64px - 16px);
+  height: calc(var(--vh) - 16px - 64px);
   padding: 0 8px;
   overflow: auto;
 }}
 @media (orientation: landscape) {#note_settings{
   display: inline-block;
-  width: calc(100vw - 16px - 64px - 64px - 16px);
-  height: calc(100vh - 16px);
+  width: calc(100vw - 16px - 64px - 8px);
+  height: calc(var(--vh) - 16px);
   margin: 8px;
   vertical-align: top;
   overflow: auto;

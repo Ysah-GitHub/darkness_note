@@ -1,6 +1,4 @@
-window.onload = function(){
-  app_file_load(app_file_list_css(), app_file_list_js());
-}
+app_file_load(app_file_list_css(), app_file_list_js());
 
 function app_file_load(file_list_css, file_list_js){
   if (file_list_css.length > 0) {
@@ -21,12 +19,12 @@ function app_file_load(file_list_css, file_list_js){
     document.body.append(tmp_file);
   }
   else {
-    app_service_worker();
     app_load();
   }
 }
 
 function app_load(){
+  app_service_worker();
   app_lang();
   app_description();
   app_manifest();
@@ -56,5 +54,5 @@ function app_manifest(){
 function app_service_worker(){
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("service_worker.js");
-  };
+  }
 }

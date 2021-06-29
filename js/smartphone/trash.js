@@ -8,7 +8,6 @@ function trash_load(){
   }
   else {
     app.trash = [];
-    trash_save();
   }
 }
 
@@ -18,7 +17,8 @@ function trash_note_remove(note){
 
   note.id = 0;
   app.note.unshift(note);
-  trash_refresh_id();
+
+  trash_refresh_id_with_interface();
   trash_save();
   note_refresh_id();
   note_save();
@@ -27,13 +27,12 @@ function trash_note_remove(note){
 function trash_note_delete(note){
   app.trash.splice(note.id, 1);
   document.getElementById(note.id).remove();
-  trash_refresh_id();
+  trash_refresh_id_with_interface();
   trash_save();
 }
 
 function trash_note_delete_all(){
   if (confirm(translation().delete_all_note_confirm)) {
-    let tmp_child_number = document.getElementById("trash_list").children.length - app.trash.length;
     for (let i = 0; i < app.trash.length; i++) {
       document.getElementById(i).remove();
     }
@@ -42,12 +41,10 @@ function trash_note_delete_all(){
   }
 }
 
-function trash_refresh_id(){
-  let tmp_child_number = document.getElementById("trash_list").children.length - app.trash.length;
-
+function trash_refresh_id_with_interface(){
   for (let i = 0; i < app.trash.length; i++) {
     app.trash[i].id = i;
-    document.getElementById("trash_list").children[tmp_child_number + i].id = i;
+    document.getElementById("trash_list").children[i].id = i;
   }
 }
 

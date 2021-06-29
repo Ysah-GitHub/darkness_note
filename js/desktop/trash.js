@@ -8,7 +8,6 @@ function trash_load(){
   }
   else {
     app.trash = [];
-    trash_save();
   }
 }
 
@@ -16,23 +15,24 @@ function trash_note_remove(note){
   app.trash.splice(note.id, 1);
   document.getElementById(note.id).remove();
 
-  note.id = app.note.length;
-  app.note.push(note);
-  trash_refresh_id();
+  note.id = 0;
+  app.note.unshift(note);
+
+  trash_refresh_id_with_interface();
   trash_save();
+  note_refresh_id();
   note_save();
 }
 
 function trash_note_delete(note){
   app.trash.splice(note.id, 1);
   document.getElementById(note.id).remove();
-  trash_refresh_id();
+  trash_refresh_id_with_interface();
   trash_save();
 }
 
 function trash_note_delete_all(){
   if (confirm(translation().delete_all_note_confirm)) {
-    let tmp_child_number = document.getElementById("trash_list").children.length - app.trash.length;
     for (let i = 0; i < app.trash.length; i++) {
       document.getElementById(i).remove();
     }
@@ -41,12 +41,13 @@ function trash_note_delete_all(){
   }
 }
 
-function trash_refresh_id(){
-  let tmp_child_number = document.getElementById("trash_list").children.length - app.trash.length;
+function trash_refresh_id_with_interface(){
+  let tmp_trash_list = document.getElementById("trash_list");
+  let tmp_position = tmp_trash_list.children.length - app.trash.length;
 
   for (let i = 0; i < app.trash.length; i++) {
     app.trash[i].id = i;
-    document.getElementById("trash_list").children[tmp_child_number + i].id = i;
+    document.getElementById("trash_list").children[tmp_position + i].id = i;
   }
 }
 
@@ -61,7 +62,7 @@ function trash_refresh_number(){
   else {
     document.getElementById("trash_number").className = "red";
   }
-  document.getElementById("trash_number").textContent = "[" + tmp_trash_number + "]";
+  document.getElementById("trash_number").value = "[" + tmp_trash_number + "]";
 }
 
 function trash_interface_list_create(){
@@ -88,7 +89,6 @@ function trash_interface_list_create(){
 
   let tmp_trash_icon = document.createElement("span");
   tmp_trash_icon.className = "icon trash_return";
-  tmp_trash_icon.title = translation().back;
   tmp_trash_icon.onclick = trash_interface_list_remove;
   tmp_trash_icon.append(icon_folder_back(256, 256));
   tmp_trash.append(tmp_trash_icon);
@@ -124,7 +124,6 @@ function trash_interface_note(note){
 
   let tmp_title = document.createElement("input");
   tmp_title.className = "note_title";
-  tmp_title.title = translation().title;
   tmp_title.type = "text";
   tmp_title.setAttribute("readonly", "");
   tmp_title.value = note.title;
@@ -144,7 +143,6 @@ function trash_interface_note(note){
 
   let tmp_text = document.createElement("textarea");
   tmp_text.className = "note_text scrollbar_custom";
-  tmp_text.title = translation().note;
   tmp_text.setAttribute("readonly", "");
   tmp_text.value = note.text;
   tmp_main.append(tmp_text);

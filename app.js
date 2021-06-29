@@ -1,5 +1,5 @@
 var app = {
-  version: "1.2.0",
+  version: "1.2.1",
   device: app_device(),
   language: app_language_default()
 };
@@ -49,6 +49,7 @@ function app_file_list_js(){
     smartphone: [
       "js/smartphone/language/translation_" + app.language + ".js",
       "js/smartphone/icon.js",
+      "js/smartphone/main.js",
       "js/smartphone/note.js",
       "js/smartphone/trash.js"
     ]

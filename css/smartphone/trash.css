@@ -11,7 +11,7 @@
 @media (orientation: landscape) {#trash{
   display: inline-block;
   width: 64px;
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   vertical-align: top;
 }}
 
@@ -20,7 +20,7 @@
   width: calc(100% - 64px - 4px);
 }}
 @media (orientation: landscape) {#trash_header{
-  height: calc(100vh - 16px - 64px - 4px);
+  height: calc(var(--vh) - 16px - 64px - 4px);
 }}
 
 #trash_number{
@@ -42,7 +42,7 @@
 @media (orientation: landscape) {#trash_number{
   width: 64px;
   height: 32px;
-  margin-top: calc(100vh - 16px - 64px - 4px - 64px - 32px);
+  margin-top: calc(var(--vh) - 16px - 64px - 4px - 64px - 32px);
 }}
 #trash_number.orange{
   color: rgb(130, 90, 65);
@@ -63,18 +63,18 @@
 @media (orientation: landscape) {#trash_back{
   display: inline-block;
   width: 64px;
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   vertical-align: top;
 }}
 
 @media (orientation: portrait) {#trash_list{
-  height: calc(100vh - 16px - 64px - 64px - 16px);
+  height: calc(var(--vh) - 16px - 64px - 64px - 16px);
   overflow: auto;
 }}
 @media (orientation: landscape) {#trash_list{
   display: inline-block;
   width: calc(100vw - 16px - 64px - 64px - 16px);
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   margin: 8px;
   vertical-align: top;
   overflow: auto;
@@ -92,7 +92,7 @@
 @media (orientation: landscape) {#trash_delete_all{
   display: inline-block;
   width: 64px;
-  height: calc(100vh - 16px);
+  height: calc(var(--vh) - 16px);
   margin: 8px 8px 8px 0;
   vertical-align: top;
 }}
