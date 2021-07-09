@@ -19,6 +19,9 @@
 .icon.rotate_180 > canvas{
   transform: rotate(180deg);
 }
+.icon.white > canvas{
+  filter: brightness(3);
+}
 .icon:hover > canvas{
   filter: brightness(3);
 }

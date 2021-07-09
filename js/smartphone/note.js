@@ -136,7 +136,7 @@ function note_import_txt(note){
         note.text = tmp_reader.result;
         tmp_note_interface.getElementsByClassName("note_title")[0].value = note.title;
         tmp_note_interface.getElementsByClassName("note_text")[0].value = note.text;
-        tmp_note_interface.getElementsByClassName("icon settings_note")[0].click();
+        tmp_note_interface.getElementsByClassName("icon settings")[0].click();
         note_save();
       };
     }
@@ -233,8 +233,8 @@ function note_interface_trash(){
   tmp_trash.id = "trash";
 
   let tmp_settings_icon = document.createElement("span");
-  tmp_settings_icon.className = "icon settings dark_background";
-  tmp_settings_icon.onclick = function(){note_interface_menu_settings()};
+  tmp_settings_icon.className = "icon main_settings dark_background";
+  tmp_settings_icon.onclick = settings;
   tmp_settings_icon.append(icon_settings(64, 64));
   tmp_trash.append(tmp_settings_icon);
 
@@ -275,79 +275,6 @@ function note_interface_menu(){
   document.getElementById("note_list").after(tmp_menu);
 }
 
-function note_interface_menu_settings(){
-  let tmp_trash = document.getElementById("trash");
-  let tmp_icon_settings = tmp_trash.getElementsByClassName("icon settings")[0];
-
-  if (document.getElementById("note_settings")) {
-    document.getElementById("note_settings").remove();
-    document.getElementById("trash_header").removeAttribute("style");
-    document.getElementById("note_list").removeAttribute("style");
-    document.getElementById("menu").removeAttribute("style");
-    tmp_icon_settings.children[0].replaceWith(icon_settings(64, 64));
-  }
-  else {
-    document.getElementById("trash_header").style.display = "none";
-    document.getElementById("note_list").style.display = "none";
-    document.getElementById("menu").style.display = "none";
-    tmp_icon_settings.children[0].replaceWith(icon_folder_back(64, 64));
-
-    let tmp_settings = document.createElement("div");
-    tmp_settings.id = "note_settings";
-
-    let tmp_settings_name = document.createElement("input");
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.type = "text";
-    tmp_settings_name.setAttribute("readonly", "");
-    tmp_settings_name.value = translation().note_export_json;
-    tmp_settings_name.onclick = note_export_json;
-    tmp_settings.append(tmp_settings_name);
-
-    tmp_settings_name = document.createElement("input");
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.type = "text";
-    tmp_settings_name.setAttribute("readonly", "");
-    tmp_settings_name.value = translation().note_import_json;
-    tmp_settings_name.onclick = note_import_json;
-    tmp_settings.append(tmp_settings_name);
-
-    tmp_settings_name = document.createElement("input");
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.type = "text";
-    tmp_settings_name.setAttribute("readonly", "");
-    tmp_settings_name.value = translation().commitment;
-    tmp_settings_name.onclick = function(){
-      note_fullscreen_readonly(translation().commitment, translation().app_commitment);
-    };
-    tmp_settings.append(tmp_settings_name);
-
-    tmp_settings_name = document.createElement("a");
-    tmp_settings_name.href = "mailto:simon.richez@laposte.net";
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.textContent = translation().contact;
-    tmp_settings.append(tmp_settings_name);
-
-    tmp_settings_name = document.createElement("a");
-    tmp_settings_name.href = "https://github.com/Ysah-GitHub/darkness_note";
-    tmp_settings_name.target = "_blank";
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.textContent = translation().source_code;
-    tmp_settings.append(tmp_settings_name);
-
-    tmp_settings_name = document.createElement("input");
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.type = "text";
-    tmp_settings_name.setAttribute("readonly", "");
-    tmp_settings_name.value = translation().donate;
-    tmp_settings_name.onclick = function(){
-      note_fullscreen_readonly(translation().donate, translation().app_donate);
-    };
-    tmp_settings.append(tmp_settings_name);
-
-    document.getElementById("trash").after(tmp_settings);
-  }
-}
-
 function note_interface_new(note){
   let tmp_note = document.createElement("li");
   tmp_note.id = note.id;
@@ -357,9 +284,9 @@ function note_interface_new(note){
   tmp_header.className = "note_header";
 
   let tmp_icon_settings = document.createElement("span");
-  tmp_icon_settings.className = "icon settings_note dark_background";
+  tmp_icon_settings.className = "icon settings dark_background";
   tmp_icon_settings.onclick = function(){
-    note_interface_settings(this.parentElement.parentElement);
+    settings_note(this.parentElement.parentElement);
   };
   tmp_icon_settings.append(icon_settings_note(64, 64));
   tmp_header.append(tmp_icon_settings);
@@ -403,78 +330,6 @@ function note_interface_new(note){
   return tmp_note;
 }
 
-function note_interface_settings(note_interface){
-  let tmp_icon_settings = note_interface.getElementsByClassName("icon settings_note")[0];
-
-  if (note_interface.className == "note settings") {
-    note_interface.classList.remove("settings");
-    tmp_icon_settings.children[0].replaceWith(icon_settings_note(64, 64));
-    note_interface.getElementsByClassName("note_text")[0].style.display = "block";
-    note_interface.getElementsByClassName("note_settings")[0].remove();
-  }
-  else {
-    note_interface.classList.add("settings");
-    tmp_icon_settings.children[0].replaceWith(icon_folder_back(64, 64));
-    note_interface.getElementsByClassName("note_text")[0].style.display = "none";
-
-    let tmp_settings = document.createElement("div");
-    tmp_settings.className = "note_settings";
-
-    let tmp_settings_header = document.createElement("div");
-    tmp_settings_header.className = "note_settings_header";
-
-    let tmp_icon_double_left = document.createElement("span");
-    tmp_icon_double_left.className = "icon rotate_270";
-    tmp_icon_double_left.onclick = function(){note_move_first(note_interface)};
-    tmp_icon_double_left.append(icon_double_arrow_move(64, 64));
-    tmp_settings_header.append(tmp_icon_double_left);
-
-    let tmp_icon_left = document.createElement("span");
-    tmp_icon_left.className = "icon rotate_270";
-    tmp_icon_left.onclick = function(){note_move_prev(note_interface)};
-    tmp_icon_left.append(icon_arrow_move(64, 64));
-    tmp_settings_header.append(tmp_icon_left);
-
-    let tmp_icon_right = document.createElement("span");
-    tmp_icon_right.className = "icon rotate_90";
-    tmp_icon_right.onclick = function(){note_move_next(note_interface)};
-    tmp_icon_right.append(icon_arrow_move(64, 64));
-    tmp_settings_header.append(tmp_icon_right);
-
-    let tmp_icon_double_right = document.createElement("span");
-    tmp_icon_double_right.className = "icon rotate_90";
-    tmp_icon_double_right.onclick = function(){note_move_last(note_interface)};
-    tmp_icon_double_right.append(icon_double_arrow_move(64, 64));
-    tmp_settings_header.append(tmp_icon_double_right);
-
-    let tmp_icon_fullscreen = document.createElement("span");
-    tmp_icon_fullscreen.className = "icon";
-    tmp_icon_fullscreen.onclick = function(){note_fullscreen(app.note[note_interface.id])};
-    tmp_icon_fullscreen.append(icon_fullscreen(64, 64));
-    tmp_settings_header.append(tmp_icon_fullscreen);
-
-    tmp_settings.append(tmp_settings_header);
-
-    let tmp_settings_name = document.createElement("input");
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.type = "text";
-    tmp_settings_name.setAttribute("readonly", "");
-    tmp_settings_name.value = translation().note_export_txt;
-    tmp_settings_name.onclick = function(){note_export_txt(app.note[note_interface.id])};
-    tmp_settings.append(tmp_settings_name);
-
-    tmp_settings_name = document.createElement("input");
-    tmp_settings_name.className = "note_settings_name";
-    tmp_settings_name.type = "text";
-    tmp_settings_name.setAttribute("readonly", "");
-    tmp_settings_name.value = translation().note_import_txt;
-    tmp_settings_name.onclick = function(){note_import_txt(app.note[note_interface.id])};
-    tmp_settings.append(tmp_settings_name);
-
-    note_interface.getElementsByClassName("note_main")[0].append(tmp_settings);
-  }
-}
-
 function note_fullscreen(note){
   document.getElementById("trash").style.display = "none";
   document.getElementById("note_list").style.display = "none";
@@ -493,7 +348,7 @@ function note_fullscreen(note){
     tmp_note.getElementsByClassName("note_title")[0].value = note.title;
     tmp_note.getElementsByClassName("note_text")[0].value = note.text;
     note_fullscreen_back();
-    tmp_note.getElementsByClassName("icon settings_note")[0].click();
+    tmp_note.getElementsByClassName("icon settings")[0].click();
   };
   tmp_icon_back.append(icon_folder_back(64, 64));
   tmp_header.append(tmp_icon_back);
@@ -526,7 +381,7 @@ function note_fullscreen(note){
 
 function note_fullscreen_readonly(title, text){
   document.getElementById("trash").style.display = "none";
-  document.getElementById("note_settings").style.display = "none";
+  document.getElementById("settings").style.display = "none";
   document.getElementById("menu").style.display = "none";
 
   let tmp_note_fullscreen = document.createElement("div");
@@ -573,6 +428,5 @@ function note_fullscreen_back(){
 function note_fullscreen_readonly_back(){
   document.getElementById("note_fullscreen").remove();
   document.getElementById("trash").removeAttribute("style");
-  document.getElementById("note_settings").removeAttribute("style");
-  document.getElementById("menu").removeAttribute("style");
+  document.getElementById("settings").removeAttribute("style");
 }

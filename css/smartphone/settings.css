@@ -1,0 +1,101 @@
+#settings{
+  background-color: rgb(50, 50, 50);
+}
+@media (orientation: portrait) {#settings{
+  height: calc(var(--vh) - 16px - 64px);
+  overflow: auto;
+}}
+@media (orientation: landscape) {#settings{
+  display: inline-block;
+  width: calc(100vw - 8px - 16px - 64px);
+  height: calc(var(--vh) - 16px);
+  margin: 8px;
+  vertical-align: top;
+  overflow: auto;
+}}
+
+.settings_note{
+  height: calc(320px - 128px);
+  overflow: auto;
+  background-color: rgb(50, 50, 50);
+}
+
+.settings_note_header{
+  height: 63px;
+  border-bottom: 1px solid rgb(40, 40, 40);
+}
+.settings_note_header > *{
+  width: 63px;
+  border-right: 1px solid rgb(40, 40, 40);
+}
+.settings_note_header > *:last-child{
+  width: 64px;
+  padding: 0 calc(50% - 160px);
+  border: none;
+}
+
+.settings_section{
+  padding: 16px 0;
+  border-top: 1px solid rgb(65, 65, 65);
+}
+.settings_section.first{
+  border: none;
+}
+
+.settings_section_title{
+  margin: 16px 0;
+  padding: 0 0 0 16px;
+  box-sizing: border-box;
+  line-height: 12px;
+  color: rgb(100, 100, 100);
+  font-family: "press_start_2p";
+  font-size: 10px;
+  user-select: none;
+}
+
+.settings_section_element{
+  display: inline-flex;
+  width: 100%;
+  padding: 8px 0 8px 24px;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: rgb(50, 50, 50);
+  transition: background-color 0.1s linear;
+}
+.settings_section_element:active{
+  background-color: rgb(45, 45, 45)
+}
+.settings_section_element.desc{
+  padding: 16px 0 16px 24px;
+}
+
+.settings_section_element_text{
+  display: inline-block;
+  width: calc(100% - 96px);
+}
+
+.settings_section_element_title{
+  width: 100%;
+  line-height: 15px;
+  color: rgb(255, 255, 255);
+  font-family: "press_start_2p";
+  font-size: 13px;
+  user-select: none;
+}
+
+.settings_section_element_description{
+  width: 100%;
+  margin-top: 8px;
+  line-height: 15px;
+  color: rgb(100, 100, 100);
+  font-family: "press_start_2p";
+  font-size: 10px;
+  user-select: none;
+}
+
+.settings_section_element_icon{
+  display: inline-block;
+  width: 96px;
+  text-align: center;
+  font-size: 0;
+}

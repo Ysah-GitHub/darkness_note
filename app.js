@@ -1,5 +1,5 @@
 var app = {
-  version: "1.2.1",
+  version: "1.2.2",
   device: app_device(),
   language: app_language_default()
 };
@@ -23,14 +23,15 @@ function app_file_list_css(){
       "css/desktop/main.css",
       "css/desktop/icon.css",
       "css/desktop/note.css",
-      "css/desktop/trash.css"
+      "css/desktop/trash.css",
+      "css/desktop/settings.css"
     ],
     smartphone: [
       "css/smartphone/main.css",
       "css/smartphone/icon.css",
       "css/smartphone/note.css",
       "css/smartphone/trash.css",
-      "css/smartphone/menu.css"
+      "css/smartphone/settings.css"
     ]
   };
 
@@ -44,14 +45,16 @@ function app_file_list_js(){
       "js/desktop/language/translation_" + app.language + ".js",
       "js/desktop/icon.js",
       "js/desktop/note.js",
-      "js/desktop/trash.js"
+      "js/desktop/trash.js",
+      "js/desktop/settings.js"
     ],
     smartphone: [
       "js/smartphone/language/translation_" + app.language + ".js",
       "js/smartphone/icon.js",
       "js/smartphone/main.js",
       "js/smartphone/note.js",
-      "js/smartphone/trash.js"
+      "js/smartphone/trash.js",
+      "js/smartphone/settings.js"
     ]
   };
 

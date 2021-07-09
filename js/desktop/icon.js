@@ -62,6 +62,10 @@ function icon_double_arrow_move(width, height){
   return icon_constructor(width, height, "rgb(65, 65, 65)", icon_double_arrow_move_draw);
 }
 
+function icon_link(width, height){
+  return icon_constructor(width, height, "rgb(65, 65, 65)", icon_link_draw);
+}
+
 function icon_close_draw(element, color, width, height){
   let tmp_draw = icon_draw_start(element, color, width, height);
   icon_fillRect(tmp_draw, width, height, [
@@ -207,4 +211,23 @@ function icon_double_arrow_move_draw(element, color, width, height){
     [38, 38, 4, 4],
     [34, 42, 4, 4],
   ]);
+}
+
+function icon_link_draw(element, color, width, height){
+  let tmp_draw = icon_draw_start(element, color, width, height);
+  icon_fillRect(tmp_draw, width, height, [
+    [4, 4, 24, 4],
+    [40, 4, 20, 4],
+    [4, 8, 4, 48],
+    [56, 8, 4, 16],
+    [56, 36, 4, 20],
+    [4, 56, 56, 4]
+  ]);
+
+  tmp_draw.strokeStyle = color;
+  tmp_draw.lineWidth = (4 / 64) * width;
+  tmp_draw.beginPath();
+  tmp_draw.moveTo(width * 0.5, height * 0.5);
+  tmp_draw.lineTo(width - ((8 / 64) * width), (8 / 64) * height);
+  tmp_draw.stroke();
 }

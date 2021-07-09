@@ -19,14 +19,17 @@
 .icon.rotate_270 > canvas{
   transform: rotate(270deg);
 }
+.icon.white > canvas{
+  filter: brightness(3);
+}
 .icon:active > canvas{
   filter: brightness(3);
 }
 
-@media (orientation: portrait) {.icon.settings{
+@media (orientation: portrait) {.icon.main_settings{
   border-right: 4px solid rgb(40, 40, 40);
 }}
-@media (orientation: landscape) {.icon.settings{
+@media (orientation: landscape) {.icon.main_settings{
   border-bottom: 4px solid rgb(40, 40, 40);
 }}
 

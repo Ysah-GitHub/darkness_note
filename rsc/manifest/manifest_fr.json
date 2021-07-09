@@ -6,7 +6,7 @@
   "background_color": "rgb(45, 45, 45)",
   "theme_color": "rgb(35, 35, 35)",
   "orientation": "any",
-  "display": "fullscreen",
+  "display": "standalone",
   "icons": [
     {
       "src": "../svg/main.svg",
