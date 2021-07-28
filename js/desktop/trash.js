@@ -1,14 +1,81 @@
 function trash_save(){
-  localStorage.setItem("trash", JSON.stringify(app.trash));
+  let tmp_request = app_db_open();
+
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("trash", "readwrite");
+    tmp_transaction.objectStore("trash").count().onsuccess = function(){
+      let tmp_note_length = this.result;
+      if (tmp_note_length > 0) {
+        trash_db_replace_delete(tmp_transaction, tmp_note_length, 0);
+      }
+      else {
+        trash_db_replace_add(tmp_transaction);
+      }
+    };
+  };
+}
+
+function trash_db_replace_delete(tmp_transaction, note_length, delete_number){
+  let tmp_transaction_delete = tmp_transaction.objectStore("trash").delete(delete_number);
+  delete_number = delete_number + 1;
+  tmp_transaction_delete.onsuccess = function(){
+    if (delete_number < note_length) {
+      trash_db_replace_delete(tmp_transaction, note_length, delete_number);
+    }
+    else {
+      trash_db_replace_add(tmp_transaction);
+    }
+  };
+}
+
+function trash_db_replace_add(tmp_transaction){
+  for (let i = 0; i < app.trash.length; i++) {
+    tmp_transaction.objectStore("trash").add({
+      id: app.trash[i].id,
+      title: app.trash[i].title,
+      text: app.trash[i].text
+    });
+  }
 }
 
 function trash_load(){
-  if (localStorage.getItem("trash")) {
-    app.trash = JSON.parse(localStorage.getItem("trash"));
-  }
-  else {
-    app.trash = [];
-  }
+  let tmp_request = app_db_open();
+  app.trash = [];
+
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("trash", "readonly");
+    tmp_transaction.objectStore("trash").count().onsuccess = function(){
+      if (this.result > 0) {
+        trash_load_db(tmp_transaction, this.result, 0);
+      }
+      else {
+        if (localStorage.getItem("trash")) { // temp
+          app.trash = JSON.parse(localStorage.getItem("trash"));
+          localStorage.removeItem("trash");
+          trash_save();
+        }
+        app_load(app.load_stage + 1);
+      }
+    };
+  };
+}
+
+function trash_load_db(tmp_transaction, note_length, load_number){
+  let tmp_transaction_get = tmp_transaction.objectStore("trash").get(load_number);
+  tmp_transaction_get.onsuccess = function(){
+    app.trash.push({
+      id: tmp_transaction_get.result.id,
+      title: tmp_transaction_get.result.title,
+      text: tmp_transaction_get.result.text
+    });
+    load_number = load_number + 1;
+    if (load_number < note_length) {
+      trash_load_db(tmp_transaction, note_length, load_number);
+    }
+    else {
+      app_load(app.load_stage + 1);
+    }
+  };
 }
 
 function trash_note_remove(note){
@@ -32,7 +99,7 @@ function trash_note_delete(note){
 }
 
 function trash_note_delete_all(){
-  if (confirm(translation().delete_all_note_confirm)) {
+  if (confirm(app.translate().trash.delete_all_note)) {
     for (let i = 0; i < app.trash.length; i++) {
       document.getElementById(i).remove();
     }
@@ -42,72 +109,42 @@ function trash_note_delete_all(){
 }
 
 function trash_refresh_id_with_interface(){
-  let tmp_trash_list = document.getElementById("trash_list");
-  let tmp_position = tmp_trash_list.children.length - app.trash.length;
-
   for (let i = 0; i < app.trash.length; i++) {
     app.trash[i].id = i;
-    document.getElementById("trash_list").children[tmp_position + i].id = i;
+    document.getElementById("trash_list").children[i].id = i;
   }
 }
 
-function trash_refresh_number(){
-  let tmp_trash_number = app.trash.length;
-  if (tmp_trash_number < 30) {
-    document.getElementById("trash_number").className = "";
-  }
-  else if (tmp_trash_number >= 30 && tmp_trash_number < 50) {
-    document.getElementById("trash_number").className = "orange";
-  }
-  else {
-    document.getElementById("trash_number").className = "red";
-  }
-  document.getElementById("trash_number").value = "[" + tmp_trash_number + "]";
-}
-
-function trash_interface_list_create(){
+function trash_list(){
   document.getElementById("note_list").remove();
+  document.getElementById("menu_settings").style.display = "none";
+  document.getElementById("menu_note_add").style.display = "none";
+  document.getElementById("menu_note_trash").style.display = "none";
 
   let tmp_trash_list = document.createElement("ol");
   tmp_trash_list.id = "trash_list";
 
-  let tmp_trash = document.createElement("li");
-  tmp_trash.id = "trash";
-  tmp_trash.className = "note";
-
-  let tmp_header = document.createElement("div");
-  tmp_header.className = "note_header";
-
-  let tmp_delete_all_icon = document.createElement("span");
-  tmp_delete_all_icon.className = "icon red_background trash_delete_all";
-  tmp_delete_all_icon.title = translation().delete_all_note;
-  tmp_delete_all_icon.onclick = trash_note_delete_all;
-  tmp_delete_all_icon.append(icon_trash(64, 64));
-  tmp_header.append(tmp_delete_all_icon);
-
-  tmp_trash.append(tmp_header);
-
-  let tmp_trash_icon = document.createElement("span");
-  tmp_trash_icon.className = "icon trash_return";
-  tmp_trash_icon.onclick = trash_interface_list_remove;
-  tmp_trash_icon.append(icon_folder_back(256, 256));
-  tmp_trash.append(tmp_trash_icon);
-
-  tmp_trash_list.append(tmp_trash);
-
   for (let i = 0; i < app.trash.length; i++) {
-    tmp_trash_list.append(trash_interface_note(app.trash[i]));
+    tmp_trash_list.append(trash_list_add(app.trash[i]));
   }
 
-  document.body.prepend(tmp_trash_list);
+  document.getElementsByTagName("main")[0].append(tmp_trash_list);
+  document.getElementById("menu").append(menu_trash_delete_all());
+  document.getElementById("menu").append(menu_trash_back());
 }
 
-function trash_interface_list_remove(){
+function trash_list_remove(){
   document.getElementById("trash_list").remove();
-  note_interface_list();
+  document.getElementById("menu_trash_delete_all").remove();
+  document.getElementById("menu_trash_back").remove();
+  document.getElementById("menu_settings").removeAttribute("style");
+  document.getElementById("menu_note_add").removeAttribute("style");
+  document.getElementById("menu_note_trash").removeAttribute("style");
+  document.getElementsByTagName("main")[0].append(note_list());
+  menu_note_trash_refresh_number();
 }
 
-function trash_interface_note(note){
+function trash_list_add(note){
   let tmp_note = document.createElement("li");
   tmp_note.id = note.id;
   tmp_note.className = "note";
@@ -117,13 +154,13 @@ function trash_interface_note(note){
 
   let tmp_return = document.createElement("span");
   tmp_return.className = "icon dark_background";
-  tmp_return.title = translation().restore;
+  tmp_return.title = app.translate().trash.restore;
   tmp_return.onclick = function(){trash_note_remove(app.trash[this.parentElement.parentElement.id])};
   tmp_return.append(icon_return(64, 64));
   tmp_header.append(tmp_return);
 
   let tmp_title = document.createElement("input");
-  tmp_title.className = "note_title";
+  tmp_title.className = "note_title readonly";
   tmp_title.type = "text";
   tmp_title.setAttribute("readonly", "");
   tmp_title.value = note.title;
@@ -131,7 +168,6 @@ function trash_interface_note(note){
 
   let tmp_delete_icon = document.createElement("span");
   tmp_delete_icon.className = "icon red_background";
-  tmp_delete_icon.title = translation().delete;
   tmp_delete_icon.onclick = function(){trash_note_delete(app.trash[this.parentElement.parentElement.id])};
   tmp_delete_icon.append(icon_trash(64, 64));
   tmp_header.append(tmp_delete_icon);

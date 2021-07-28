@@ -54,16 +54,24 @@ function icon_fullscreen(width, height){
   return icon_constructor(width, height, "rgb(65, 65, 65)", icon_fullscreen_draw);
 }
 
+function icon_fullscreen_light(width, height){
+  return icon_constructor(width, height, "rgb(200, 200, 200)", icon_fullscreen_draw);
+}
+
 function icon_arrow_move(width, height){
   return icon_constructor(width, height, "rgb(65, 65, 65)", icon_arrow_move_draw);
+}
+
+function icon_arrow_move_light(width, height){
+  return icon_constructor(width, height, "rgb(200, 200, 200)", icon_arrow_move_draw);
 }
 
 function icon_double_arrow_move(width, height){
   return icon_constructor(width, height, "rgb(65, 65, 65)", icon_double_arrow_move_draw);
 }
 
-function icon_link(width, height){
-  return icon_constructor(width, height, "rgb(65, 65, 65)", icon_link_draw);
+function icon_link_light(width, height){
+  return icon_constructor(width, height, "rgb(200, 200, 200)", icon_link_draw);
 }
 
 function icon_close_draw(element, color, width, height){
@@ -209,7 +217,7 @@ function icon_double_arrow_move_draw(element, color, width, height){
     [46, 30, 4, 4],
     [42, 34, 4, 4],
     [38, 38, 4, 4],
-    [34, 42, 4, 4]
+    [34, 42, 4, 4],
   ]);
 }
 

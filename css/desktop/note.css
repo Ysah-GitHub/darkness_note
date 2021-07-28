@@ -3,7 +3,6 @@
   width: 320px;
   height: 320px;
   margin: 32px 0 0 32px;
-  vertical-align: top;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
 }
 
@@ -20,8 +19,7 @@
   box-sizing: border-box;
   vertical-align: top;
   color: rgb(245, 245, 245);
-  font-family: "press_start_2p";
-  font-size: 16px;
+  font-size: 15px;
   transition: background-color 0.1s linear;
 }
 .note_title:hover, .note_title:focus{
@@ -44,56 +42,13 @@
   line-height: 28px;
   box-sizing: border-box;
   color: rgb(235, 235, 235);
-  font-family: "press_start_2p";
-  font-size: 14px;
+  font-size: 13px;
   overflow: auto;
   cursor: auto;
 }
 
-.note_settings{
-  height: calc(320px - 64px);
-  overflow: auto;
-}
-
-.note_settings_header{
-  height: 64px;
-}
-.note_settings_header > *{
-  width: 63px;
-  border-right: 1px solid rgb(40, 40, 40);
-}
-.note_settings_header > *:last-of-type{
-  width: 64px;
-  border-right: none;
-}
-
-.note_settings_name{
-  display: block;
-  width: 100%;
-  height: 64px;
-  padding: 16px;
-  line-height: 32px;
-  box-sizing: border-box;
-  color: rgb(235, 235, 235);
-  font-family: "press_start_2p";
-  font-size: 12px;
-  background-color: rgb(55, 55, 55);
-  border-top: 5px solid rgb(50, 50, 50);
-  user-select: none;
-  transition: padding 0.15s linear, background-color 0.1s linear;
-}
-.note_settings_name:first-child{
-  height: 59px;
-  border-top: none;
-}
-.note_settings_name:hover{
-  cursor: pointer;
-  padding: 16px 16px 16px 32px;
-  background-color: rgb(30, 30, 30);
-}
-
 #note_fullscreen{
-  width: calc(100vw - 64px);
+  width: calc(100% - 64px);
   height: calc(100vh - 64px);
   margin: 32px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);

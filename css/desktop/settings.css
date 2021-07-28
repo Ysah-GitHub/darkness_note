@@ -1,7 +1,6 @@
 #settings{
-  height: calc(320px - 64px);
-  overflow: auto;
-  background-color: rgb(50, 50, 50);
+  width: calc(100% - 16px);
+  margin-left: 16px;
 }
 
 .settings_note{
@@ -28,7 +27,7 @@
   padding: 16px 0;
   border-top: 1px solid rgb(65, 65, 65);
 }
-.settings_section.first{
+.settings_section:first-child{
   border: none;
 }
 
@@ -38,7 +37,6 @@
   box-sizing: border-box;
   line-height: 12px;
   color: rgb(100, 100, 100);
-  font-family: "press_start_2p";
   font-size: 10px;
   user-select: none;
 }
@@ -46,18 +44,17 @@
 .settings_section_element{
   display: inline-flex;
   width: 100%;
-  padding: 8px 0 8px 24px;
+  padding: 16px 0 16px 24px;
   box-sizing: border-box;
   align-items: center;
-  background-color: rgb(50, 50, 50);
   transition: background-color 0.1s linear;
 }
 .settings_section_element:hover{
   cursor: pointer;
   background-color: rgb(45, 45, 45)
 }
-.settings_section_element.desc{
-  padding: 16px 0 16px 24px;
+#settings .settings_section_element:hover{
+  background-color: rgb(35, 35, 35)
 }
 
 .settings_section_element_text{
@@ -69,7 +66,6 @@
   width: 100%;
   line-height: 15px;
   color: rgb(255, 255, 255);
-  font-family: "press_start_2p";
   font-size: 13px;
   user-select: none;
 }
@@ -79,14 +75,36 @@
   margin-top: 8px;
   line-height: 15px;
   color: rgb(100, 100, 100);
-  font-family: "press_start_2p";
   font-size: 10px;
   user-select: none;
 }
 
 .settings_section_element_icon{
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   width: 64px;
-  text-align: center;
+  min-height: 48px;
   font-size: 0;
+}
+#settings .settings_section_element_icon{
+  width: 128px;
+  margin-right: 24px;
+}
+
+.settings_section_element_select{
+  margin-right: 16px;
+  user-select: none;
+}
+.settings_section_element_select > select{
+  min-width: 128px;
+  height: 48px;
+  padding: 0 8px;
+  color: rgb(200, 200, 200);
+  text-align-last: center;
+  background-color: rgb(40, 40, 40);
+  transition: background-color 0.1s linear;
+}
+.settings_section_element:hover > .settings_section_element_select > select{
+  background-color: rgb(45, 45, 45);
 }

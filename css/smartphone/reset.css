@@ -1,0 +1,41 @@
+body, h1, ol, p{
+  margin: 0;
+}
+
+input, ol{
+  padding: 0;
+}
+
+h1{
+  font-weight: normal;
+}
+
+ol{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+input{
+  background: none;
+  border: none;
+  outline: none;
+}
+
+textarea{
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+select{
+  background: none;
+  border: none;
+  outline: none;
+}
+option{
+  background: inherit;
+}

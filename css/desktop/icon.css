@@ -19,32 +19,6 @@
 .icon.rotate_180 > canvas{
   transform: rotate(180deg);
 }
-.icon.white > canvas{
-  filter: brightness(3);
-}
 .icon:hover > canvas{
   filter: brightness(3);
-}
-
-.icon.add{
-  padding: 0 32px 32px 32px;
-  overflow: hidden;
-}
-.icon.add > canvas{
-  margin-top: -32px;
-}
-
-.icon.trash_return{
-  padding: 0 32px;
-}
-
-.icon.trash_delete_all{
-  width: 100%;
-  text-align: center;
-}
-
-.icon.note_fullscreen{
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }

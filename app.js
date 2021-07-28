@@ -1,62 +1,82 @@
 var app = {
-  version: "1.2.2",
-  device: app_device(),
-  language: app_language_default()
+  version: "1.3.0",
+  db_version: 1,
+  device: /Mobi/.test(navigator.userAgent) ? "smartphone" : "desktop"
 };
-
-function app_device(){
-  return /Mobi/.test(navigator.userAgent) ? "smartphone" : "desktop";
-}
-
-function app_language_default(){
-  let tmp_language = navigator.language.substr(0,2);
-  let tmp_language_available = ["en", "fr"];
-  return tmp_language_available.includes(tmp_language) ? tmp_language : "en";
-}
 
 function app_file_list_css(){
   let tmp_file_list = {
-    main: [
-      "css/reset.css",
-    ],
     desktop: [
+      "css/desktop/reset.css",
       "css/desktop/main.css",
       "css/desktop/icon.css",
       "css/desktop/note.css",
-      "css/desktop/trash.css",
+      "css/desktop/menu.css",
       "css/desktop/settings.css"
     ],
     smartphone: [
+      "css/smartphone/reset.css",
       "css/smartphone/main.css",
       "css/smartphone/icon.css",
       "css/smartphone/note.css",
-      "css/smartphone/trash.css",
+      "css/smartphone/menu.css",
       "css/smartphone/settings.css"
     ]
   };
 
-  return tmp_file_list.main.concat(tmp_file_list[app.device]);
+  return tmp_file_list[app.device];
 }
 
 function app_file_list_js(){
   let tmp_file_list = {
-    main: [],
     desktop: [
-      "js/desktop/language/translation_" + app.language + ".js",
+      "js/desktop/main.js",
       "js/desktop/icon.js",
       "js/desktop/note.js",
       "js/desktop/trash.js",
-      "js/desktop/settings.js"
+      "js/desktop/menu.js",
+      "js/desktop/settings.js",
+      "js/desktop/translation.js",
+      "js/desktop/language/translation_" + app.language + ".js"
     ],
     smartphone: [
-      "js/smartphone/language/translation_" + app.language + ".js",
-      "js/smartphone/icon.js",
       "js/smartphone/main.js",
+      "js/smartphone/icon.js",
       "js/smartphone/note.js",
       "js/smartphone/trash.js",
-      "js/smartphone/settings.js"
+      "js/smartphone/menu.js",
+      "js/smartphone/settings.js",
+      "js/smartphone/translation.js",
+      "js/smartphone/language/translation_" + app.language + ".js"
     ]
   };
 
-  return tmp_file_list.main.concat(tmp_file_list[app.device]);
+  return tmp_file_list[app.device];
+}
+
+function app_db_open(){
+  let tmp_request = indexedDB.open("app", app.db_version);
+  return tmp_request;
+}
+
+function app_db_open_update(){
+  let tmp_request = indexedDB.open("app", app.db_version);
+
+  tmp_request.onupgradeneeded = function(){
+    tmp_db = tmp_request.result;
+    if (!tmp_db.objectStoreNames.contains("language")){
+        tmp_db.createObjectStore("language", {keyPath: "key"});
+    }
+    if (!tmp_db.objectStoreNames.contains("settings")){
+        tmp_db.createObjectStore("settings", {keyPath: "key"});
+    }
+    if (!tmp_db.objectStoreNames.contains("note")){
+        tmp_db.createObjectStore("note", {keyPath: "id"});
+    }
+    if (!tmp_db.objectStoreNames.contains("trash")){
+        tmp_db.createObjectStore("trash", {keyPath: "id"});
+    }
+  };
+
+  return tmp_request;
 }
