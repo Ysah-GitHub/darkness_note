@@ -61,7 +61,7 @@ function settings(){
 
   let tmp_settings = document.createElement("div");
   tmp_settings.id = "settings";
-  tmp_settings.className = "scrollbar_custom";
+  tmp_settings.className = "scrollbar";
 
   tmp_settings.append(settings_section_note_style());
   tmp_settings.append(settings_section_note_management());
@@ -69,11 +69,13 @@ function settings(){
   tmp_settings.append(settings_section_other());
 
   document.getElementsByTagName("main")[0].append(tmp_settings);
+  document.getElementById("menu").append(menu_title_sub(app.translate().main.settings));
   document.getElementById("menu").append(menu_settings_back());
 }
 
 function settings_back(){
   document.getElementById("settings").remove();
+  document.getElementById("menu_title_sub").remove();
   document.getElementById("menu_settings_back").remove();
   document.getElementById("menu_settings").removeAttribute("style");
   document.getElementById("menu_note_add").removeAttribute("style");
@@ -91,6 +93,25 @@ function settings_section(title){
   tmp_section.append(tmp_section_title);
 
   return tmp_section;
+}
+
+function settings_section_element_select(){
+  let tmp_settings = document.createElement("div");
+  tmp_settings.className = "settings_section_element";
+  tmp_settings.setAttribute("tabindex", "0");
+  tmp_settings.onclick = function(){
+    if (tmp_settings.getElementsByClassName("select")[0].classList.value.includes("visible")) {
+      tmp_settings.getElementsByClassName("select")[0].classList.remove("visible")
+    }
+    else {
+      tmp_settings.getElementsByClassName("select")[0].classList.add("visible");
+    }
+  };
+  tmp_settings.onblur = function(){
+    tmp_settings.getElementsByClassName("select")[0].classList.remove("visible");
+  };
+
+  return tmp_settings;
 }
 
 function settings_text(text, description){
@@ -124,23 +145,42 @@ function settings_icon(func){
   return tmp_settings_icon;
 }
 
-function settings_select(settings, value_text, func){
-  let tmp_settings_select = document.createElement("div");
-  tmp_settings_select.className = "settings_section_element_select";
+function settings_custom_select(settings, option_list, func){
+  let tmp_select = document.createElement("div");
+  tmp_select.className = "select";
 
-  let tmp_select = document.createElement("select");
-  tmp_select.onchange = func;
+  let tmp_option_selected = document.createElement("p");
+  tmp_option_selected.className = "option_selected";
+  tmp_option_selected.dataset.value = settings;
+  tmp_select.append(tmp_option_selected);
 
-  for (let i = 0; i < value_text.length; i++) {
-    let tmp_option = document.createElement("option");
-    if (settings == value_text[i][0]) tmp_option.setAttribute("selected", "");
-    tmp_option.value = value_text[i][0];
-    tmp_option.textContent = value_text[i][1];
-    tmp_select.append(tmp_option);
+  let tmp_select_icon = document.createElement("span");
+  tmp_select_icon.className = "select_icon";
+  tmp_select_icon.append(icon_select(12, 12));
+  tmp_select.append(tmp_select_icon);
+
+  let tmp_option_list = document.createElement("div");
+  tmp_option_list.className = "option_list";
+
+  for (let i = 0; i < option_list.length; i++) {
+    let tmp_option = document.createElement("p");
+    tmp_option.className = "option";
+    tmp_option.dataset.value = option_list[i][0];
+    tmp_option.textContent = option_list[i][1];
+    tmp_option.onclick = function(){
+      if (tmp_option_selected.dataset.value != option_list[i][0]) {
+        tmp_option_selected.dataset.value = option_list[i][0];
+        tmp_option_selected.textContent = option_list[i][1];
+        func();
+      }
+    };
+    if (option_list[i][0] == settings) {
+      tmp_option_selected.textContent = option_list[i][1];
+    }
+    tmp_option_list.append(tmp_option);
   }
-
-  tmp_settings_select.append(tmp_select);
-  return tmp_settings_select;
+  tmp_select.append(tmp_option_list);
+  return tmp_select;
 }
 
 function settings_section_note_style(){
@@ -151,8 +191,7 @@ function settings_section_note_style(){
 }
 
 function settings_section_note_style_title_size(){
-  let tmp_settings = document.createElement("div");
-  tmp_settings.className = "settings_section_element";
+  let tmp_settings = settings_section_element_select();
 
   tmp_settings.append(settings_text(
     app.translate().settings.note_title_size,
@@ -160,7 +199,7 @@ function settings_section_note_style_title_size(){
   ));
   tmp_settings.getElementsByClassName("settings_section_element_description")[0].style.fontSize = app.settings.note_title_size;
 
-  tmp_settings.append(settings_select(app.settings.note_title_size,
+  tmp_settings.append(settings_custom_select(app.settings.note_title_size,
     [
       ["19px", app.translate().settings.extra_large],
       ["17px", app.translate().settings.large],
@@ -169,8 +208,8 @@ function settings_section_note_style_title_size(){
       ["11px", app.translate().settings.extra_small]
     ],
     function(){
-      settings_save("note_title_size", this.value);
-      app.settings.note_title_size = this.value;
+      app.settings.note_title_size = tmp_settings.getElementsByClassName("option_selected")[0].dataset.value;
+      settings_save("note_title_size", app.settings.note_title_size);
       tmp_settings.getElementsByClassName("settings_section_element_description")[0].style.fontSize = app.settings.note_title_size;
     }
   ));
@@ -178,8 +217,7 @@ function settings_section_note_style_title_size(){
 }
 
 function settings_section_note_style_title_text(){
-  let tmp_settings = document.createElement("div");
-  tmp_settings.className = "settings_section_element";
+  let tmp_settings = settings_section_element_select();
 
   tmp_settings.append(settings_text(
     app.translate().settings.note_text_size,
@@ -187,7 +225,7 @@ function settings_section_note_style_title_text(){
   ));
   tmp_settings.getElementsByClassName("settings_section_element_description")[0].style.fontSize = app.settings.note_text_size;
 
-  tmp_settings.append(settings_select(app.settings.note_text_size,
+  tmp_settings.append(settings_custom_select(app.settings.note_text_size,
     [
       ["19px", app.translate().settings.extra_large],
       ["17px", app.translate().settings.large],
@@ -196,8 +234,8 @@ function settings_section_note_style_title_text(){
       ["11px", app.translate().settings.extra_small]
     ],
     function(){
-      settings_save("note_text_size", this.value);
-      app.settings.note_text_size = this.value;
+      app.settings.note_text_size = tmp_settings.getElementsByClassName("option_selected")[0].dataset.value;
+      settings_save("note_text_size", app.settings.note_text_size);
       tmp_settings.getElementsByClassName("settings_section_element_description")[0].style.fontSize = app.settings.note_text_size;
     }
   ));
@@ -256,22 +294,21 @@ function settings_section_note_management_export_all(){
 }
 
 function settings_section_note_management_auto_clean(){
-  let tmp_settings = document.createElement("div");
-  tmp_settings.className = "settings_section_element";
+  let tmp_settings = settings_section_element_select();
 
   tmp_settings.append(settings_text(
     app.translate().settings.note_auto_clean,
     app.translate().settings.note_auto_clean_desc
   ));
 
-  tmp_settings.append(settings_select(app.settings.note_auto_clean,
+  tmp_settings.append(settings_custom_select(app.settings.note_auto_clean,
     [
       ["enable", app.translate().settings.enable],
       ["disable", app.translate().settings.disable]
     ],
     function(){
-      settings_save("note_auto_clean", this.value);
-      app.settings.note_auto_clean = this.value;
+      app.settings.note_auto_clean = tmp_settings.getElementsByClassName("option_selected")[0].dataset.value;
+      settings_save("note_auto_clean", app.settings.note_auto_clean);
     }
   ));
   return tmp_settings;
@@ -322,23 +359,23 @@ function settings_section_other(){
 }
 
 function settings_section_other_language(){
-  let tmp_settings = document.createElement("div");
-  tmp_settings.className = "settings_section_element";
+  let tmp_settings = settings_section_element_select();
 
   tmp_settings.append(settings_text(app.translate().settings.language));
 
-  tmp_settings.append(settings_select(app.language,
+  tmp_settings.append(settings_custom_select(app.language,
     [
       ["en", "en"],
       ["fr", "fr"]
     ],
     function(){
       if (navigator.onLine) {
-        language_update_settings(this.value);
+        language_update_settings(tmp_settings.getElementsByClassName("option_selected")[0].dataset.value);
       }
       else {
-        alert(app.translate().settings.alert_navigator_offline);
-        this.value = app.language;
+        alert(app.translate().error.error_navigator_offline);
+        tmp_settings.getElementsByClassName("option_selected")[0].dataset.value = app.language;
+        tmp_settings.getElementsByClassName("option_selected")[0].textContent = app.language;
       }
     }
   ));
@@ -389,7 +426,7 @@ function settings_note(note_interface){
     note_interface.getElementsByClassName("note_main")[0].append(settings_note_header(note_interface));
 
     let tmp_settings = document.createElement("div");
-    tmp_settings.className = "settings_note scrollbar_custom";
+    tmp_settings.className = "settings_note scrollbar";
 
     tmp_settings.append(settings_note_section_note_management(note_interface));
 

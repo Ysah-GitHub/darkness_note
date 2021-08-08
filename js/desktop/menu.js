@@ -1,7 +1,6 @@
 function menu(){
   let tmp_menu = document.createElement("div");
   tmp_menu.id = "menu";
-  tmp_menu.className = "scrollbar_custom";
 
   tmp_menu.append(menu_title());
   tmp_menu.append(menu_settings());
@@ -14,7 +13,6 @@ function menu(){
 function menu_title(){
   let tmp_title_container = document.createElement("div");
   tmp_title_container.id = "menu_title";
-  tmp_title_container.className = "menu_border_bottom";
 
   let tmp_title = document.createElement("h1");
   tmp_title.textContent = "Darkness Note";
@@ -30,7 +28,6 @@ function menu_title(){
 function menu_title_sub(title){
   let tmp_title_container = document.createElement("div");
   tmp_title_container.id = "menu_title_sub";
-  tmp_title_container.className = "menu_border_bottom";
 
   let tmp_title = document.createElement("p");
   tmp_title.textContent = title;
@@ -42,7 +39,6 @@ function menu_title_sub(title){
 function menu_settings(){
   let tmp_settings = document.createElement("div");
   tmp_settings.id = "menu_settings";
-  tmp_settings.className = "menu_border_bottom";
 
   let tmp_settings_icon = document.createElement("span");
   tmp_settings_icon.className = "icon settings";
@@ -57,9 +53,6 @@ function menu_settings(){
 function menu_settings_back(){
   let tmp_settings_back = document.createElement("div");
   tmp_settings_back.id = "menu_settings_back";
-  tmp_settings_back.className = "menu_border_bottom";
-
-  tmp_settings_back.append(menu_title_sub(app.translate().main.settings));
 
   let tmp_settings_back_icon = document.createElement("span");
   tmp_settings_back_icon.className = "menu icon";
@@ -73,7 +66,6 @@ function menu_settings_back(){
 function menu_note_add(){
   let tmp_note_add = document.createElement("div");
   tmp_note_add.id = "menu_note_add";
-  tmp_note_add.className = "menu_border_bottom";
   tmp_note_add.onclick = note_add;
 
   let tmp_add_icon = document.createElement("span");
@@ -125,7 +117,6 @@ function menu_note_trash_refresh_number(){
 function menu_trash_delete_all(){
   let tmp_trash_delete_all = document.createElement("div");
   tmp_trash_delete_all.id = "menu_trash_delete_all";
-  tmp_trash_delete_all.className = "menu_border_bottom";
   tmp_trash_delete_all.onclick = trash_note_delete_all;
 
   let tmp_trash_delete_all_icon = document.createElement("span");
@@ -140,7 +131,6 @@ function menu_trash_delete_all(){
 function menu_trash_back(){
   let tmp_trash_back = document.createElement("div");
   tmp_trash_back.id = "menu_trash_back";
-  tmp_trash_back.className = "menu_border_bottom";
   tmp_trash_back.onclick = trash_list_remove;
 
   let tmp_trash_back_icon = document.createElement("span");

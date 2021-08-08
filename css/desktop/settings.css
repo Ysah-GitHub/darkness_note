@@ -59,7 +59,6 @@
 
 .settings_section_element_text{
   display: inline-block;
-  width: calc(100% - 64px);
 }
 
 .settings_section_element_title{
@@ -85,6 +84,7 @@
   align-items: center;
   width: 64px;
   min-height: 48px;
+  margin-left: auto;
   font-size: 0;
 }
 #settings .settings_section_element_icon{
@@ -92,19 +92,68 @@
   margin-right: 24px;
 }
 
-.settings_section_element_select{
-  margin-right: 16px;
-  user-select: none;
-}
-.settings_section_element_select > select{
+#settings .select{
+  position: relative;
+  display: inline-block;
   min-width: 128px;
   height: 48px;
-  padding: 0 8px;
+  margin-left: auto;
+  margin-right: 16px;
+  text-align: center;
+  overflow: hidden;
+}
+#settings .select.visible{
+  overflow: visible;
+}
+#settings .select:hover{
+  cursor: pointer;
+}
+
+#settings .option_selected{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  line-height: 48px;
+  padding: 0 24px 0 12px;
+  box-sizing: border-box;
   color: rgb(200, 200, 200);
-  text-align-last: center;
+  font-size: 13px;
   background-color: rgb(40, 40, 40);
   transition: background-color 0.1s linear;
+  user-select: none;
 }
-.settings_section_element:hover > .settings_section_element_select > select{
+.settings_section_element:hover .option_selected{
+  background-color: rgb(45, 45, 45)!important;
+}
+
+#settings .select_icon{
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+  margin-right: 4px;
+}
+#settings .select_icon > canvas{
+  height: 12px;
+}
+
+#settings .option_list{
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  border: 1px solid rgb(100, 100, 100);
+}
+
+#settings .option{
+  height: 100%;
+  line-height: 48px;
+  padding: 0 24px 0 12px;
+  color: rgb(200, 200, 200);
+  font-size: 13px;
   background-color: rgb(45, 45, 45);
+  user-select: none;
+}
+#settings .option:hover{
+  background-color: rgb(35, 35, 35);
 }

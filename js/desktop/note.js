@@ -357,7 +357,7 @@ function note_list_add(note){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
+  tmp_text.className = "note_text scrollbar";
   tmp_text.style.fontSize = app.settings.note_text_size;
   tmp_text.placeholder = app.translate().main.note + "...";
   tmp_text.value = note.text;
@@ -410,7 +410,7 @@ function note_fullscreen(note){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
+  tmp_text.className = "note_text scrollbar";
   tmp_text.style.fontSize = app.settings.note_text_size;
   tmp_text.placeholder = app.translate().main.note + "...";
   tmp_text.value = note.text;
@@ -452,7 +452,7 @@ function note_fullscreen_readonly(title, text){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
+  tmp_text.className = "note_text scrollbar";
   tmp_text.value = text;
   tmp_main.append(tmp_text);
 

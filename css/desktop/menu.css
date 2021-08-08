@@ -5,10 +5,14 @@
   height: 100vh;
   background-color: rgb(50, 50, 50);
   box-shadow: 0px 0px 10px 0px rgb(0 0 0 / 50%);
-  overflow: auto;
+  overflow: hidden;
 }
 
-#menu_title{
+#menu > *{
+  border-bottom: 2px solid rgb(35, 35, 35);
+}
+
+#menu_title, #menu_title_sub{
   text-align: center;
   user-select: none;
 }
@@ -26,10 +30,6 @@
   font-size: 12px;
 }
 
-#menu_title_sub{
-  text-align: center;
-  user-select: none;
-}
 #menu_title_sub > p{
   line-height: 64px;
   font-size: 13px;
@@ -48,6 +48,7 @@
   z-index: 0;
   margin-top: auto;
   border-top: 2px solid rgb(35, 35, 35);
+  border-bottom: none;
 }
 
 #menu_note_trash_number{
@@ -75,10 +76,6 @@
 }
 #menu_trash_delete_all > span{
   width: 100%;
-}
-
-.menu_border_bottom{
-  border-bottom: 2px solid rgb(35, 35, 35);
 }
 
 .menu.icon{

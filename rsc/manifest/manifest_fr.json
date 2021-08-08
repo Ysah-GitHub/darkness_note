@@ -1,7 +1,7 @@
 {
   "name": "Darkness Note",
   "short_name": "Darkness Note",
-  "description": "Application web de prise de notes open source",
+  "description": "Application web de prise de notes ",
   "start_url": "../../index.html",
   "background_color": "rgb(45, 45, 45)",
   "theme_color": "rgb(35, 35, 35)",
@@ -9,11 +9,6 @@
   "display": "standalone",
   "icons": [
     {
-      "src": "../svg/main.svg",
-      "sizes": "512x512",
-      "type": "image/svg",
-      "purpose": "any"
-    }, {
       "src": "../png/main.png",
       "sizes": "512x512",
       "type": "image/png",

@@ -74,6 +74,10 @@ function icon_link_light(width, height){
   return icon_constructor(width, height, "rgb(200, 200, 200)", icon_link_draw);
 }
 
+function icon_select(width, height){
+  return icon_constructor(width, height, "rgb(200, 200, 200)", icon_select_draw);
+}
+
 function icon_close_draw(element, color, width, height){
   let tmp_draw = icon_draw_start(element, color, width, height);
   icon_fillRect(tmp_draw, width, height, [
@@ -237,5 +241,20 @@ function icon_link_draw(element, color, width, height){
   tmp_draw.beginPath();
   tmp_draw.moveTo(width * 0.5, height * 0.5);
   tmp_draw.lineTo(width - ((8 / 64) * width), (8 / 64) * height);
+  tmp_draw.stroke();
+}
+
+function icon_select_draw(element, color, width, height){
+  let tmp_draw = icon_draw_start(element, color, width, height);
+
+  tmp_draw.strokeStyle = color;
+  tmp_draw.lineWidth = (4 / 64) * width;
+  tmp_draw.beginPath();
+  tmp_draw.moveTo((21 / 64) * width, (26 / 64) * height);
+  tmp_draw.lineTo((31 / 64) * width, (16 / 64) * height);
+  tmp_draw.lineTo((41 / 64) * width, (26 / 64) * height);
+  tmp_draw.moveTo((21 / 64) * width, (36 / 64) * height);
+  tmp_draw.lineTo((31 / 64) * width, (46 / 64) * height);
+  tmp_draw.lineTo((41 / 64) * width, (36 / 64) * height);
   tmp_draw.stroke();
 }

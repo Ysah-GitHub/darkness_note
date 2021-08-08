@@ -1,31 +1,8 @@
 var app = {
-  version: "1.3.0",
+  version: "1.3.1",
   db_version: 1,
-  device: /Mobi/.test(navigator.userAgent) ? "smartphone" : "desktop"
+  device: /Mobi/.test(navigator.userAgent) ? "mobile" : "desktop"
 };
-
-function app_file_list_css(){
-  let tmp_file_list = {
-    desktop: [
-      "css/desktop/reset.css",
-      "css/desktop/main.css",
-      "css/desktop/icon.css",
-      "css/desktop/note.css",
-      "css/desktop/menu.css",
-      "css/desktop/settings.css"
-    ],
-    smartphone: [
-      "css/smartphone/reset.css",
-      "css/smartphone/main.css",
-      "css/smartphone/icon.css",
-      "css/smartphone/note.css",
-      "css/smartphone/menu.css",
-      "css/smartphone/settings.css"
-    ]
-  };
-
-  return tmp_file_list[app.device];
-}
 
 function app_file_list_js(){
   let tmp_file_list = {
@@ -39,15 +16,34 @@ function app_file_list_js(){
       "js/desktop/translation.js",
       "js/desktop/language/translation_" + app.language + ".js"
     ],
-    smartphone: [
-      "js/smartphone/main.js",
-      "js/smartphone/icon.js",
-      "js/smartphone/note.js",
-      "js/smartphone/trash.js",
-      "js/smartphone/menu.js",
-      "js/smartphone/settings.js",
-      "js/smartphone/translation.js",
-      "js/smartphone/language/translation_" + app.language + ".js"
+    mobile: [
+      "js/mobile/main.js",
+      "js/mobile/icon.js",
+      "js/mobile/note.js",
+      "js/mobile/trash.js",
+      "js/mobile/menu.js",
+      "js/mobile/settings.js",
+      "js/mobile/translation.js",
+      "js/mobile/language/translation_" + app.language + ".js"
+    ]
+  };
+
+  return tmp_file_list[app.device];
+}
+
+function app_file_list_css(){
+  let tmp_file_list = {
+    desktop: [
+      "css/desktop/main.css",
+      "css/desktop/note.css",
+      "css/desktop/menu.css",
+      "css/desktop/settings.css"
+    ],
+    mobile: [
+      "css/mobile/main.css",
+      "css/mobile/note.css",
+      "css/mobile/menu.css",
+      "css/mobile/settings.css"
     ]
   };
 

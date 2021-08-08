@@ -1,7 +1,0 @@
-<svg width="512" height="512" xmlns="http://www.w3.org/2000/svg" fill="rgb(255, 255, 255)">
-	<rect x="0" y="0" height="512" width="512" fill="rgb(45, 45, 45)"/>
-	<rect x="64" y="64" width="384" height="384" style="fill: rgb(45, 45, 45); stroke: rgb(255, 255, 255); stroke-width: 32"/>
-	<rect x="128" y="192" height="32" width="256"/>
-	<rect x="128" y="256" height="32" width="256"/>
-	<rect x="128" y="320" height="32" width="192"/>
-</svg>

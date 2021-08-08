@@ -178,7 +178,7 @@ function trash_list_add(note){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
+  tmp_text.className = "note_text scrollbar";
   tmp_text.setAttribute("readonly", "");
   tmp_text.value = note.text;
   tmp_main.append(tmp_text);

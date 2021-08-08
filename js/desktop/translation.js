@@ -46,6 +46,7 @@ function language_update_settings(language){
   language_file(language, function(){
     if (document.getElementById("settings")) {
       document.getElementById("settings").remove();
+      document.getElementById("menu_title_sub").remove();
       document.getElementById("menu_settings_back").remove();
       settings();
     }

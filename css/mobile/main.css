@@ -60,8 +60,34 @@ h1, p, input, textarea, select{
   font-family: "press_start_2p";
 }
 
+.icon{
+  display: inline-block;
+  font-size: 0;
+  transition: background-color 0.1s linear;
+}
+.icon > canvas{
+  transition: filter 0.1s linear;
+}
+.icon:active > canvas{
+  filter: brightness(3);
+}
+
+.icon.dark_background:active{
+  background-color: rgb(30, 30, 30);
+}
+.icon.red_background:active{
+  background-color: rgba(255, 75, 75, 0.6);
+}
+
+.icon.rotate_90 > canvas{
+  transform: rotate(90deg);
+}
+.icon.rotate_270 > canvas{
+  transform: rotate(270deg);
+}
+
 @font-face{
   font-family: "press_start_2p";
-  src: url("../../rsc/font/press_start_2p.ttf");
+  src: url("../../rsc/font/press_start_2p.woff2");
   font-display: swap;
 }

@@ -7,11 +7,10 @@ function service_worker_cache(){
     "index.html",
     "app.js",
     "app_load.js",
-    "rsc/manifest/manifest_" + app.language + ".json",
-    "rsc/font/press_start_2p.ttf",
-    "rsc/svg/main.svg",
     "rsc/png/main.png",
-    "rsc/png/main_maskable.png"
+    "rsc/png/main_maskable.png",
+    "rsc/png/main_apple_touch.png",
+    "rsc/font/press_start_2p.woff2"
   ];
 
   tmp_sw_cache = tmp_sw_cache.concat(app_file_list_css());

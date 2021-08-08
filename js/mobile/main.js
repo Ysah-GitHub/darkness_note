@@ -1,9 +1,12 @@
 window.addEventListener("resize", app_vh);
+
 function app_ready(){
   app_vh();
   app_header();
   app_main();
   app_footer();
+
+  app_load(app.load_stage + 1);
 }
 
 function app_header(){
