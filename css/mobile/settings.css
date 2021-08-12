@@ -116,5 +116,6 @@
   user-select: none;
 }
 #settings .option.selected{
-  background-color: rgb(40, 125, 225);
+  color: rgb(255, 255, 255);
+  background-color: rgb(40, 120, 215);
 }

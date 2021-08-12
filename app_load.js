@@ -5,7 +5,7 @@ function app_load(load_stage){
   switch (load_stage) {
     case 1: app_language(); break;
     case 2: app_file_load_js(app_file_list_js()); break;
-    case 3: settings_load(); translation_update(); app_lang(); app_description(); app_manifest(); break;
+    case 3: settings_load(); app_translation_update(); app_lang(); app_description(); app_manifest(); break;
     case 4: note_load(); break;
     case 5: trash_load(); break;
     case 6: app_ready(); break;
@@ -75,9 +75,7 @@ function app_language(){
 }
 
 function app_lang(){
-  if (app.language != "en") {
-    document.documentElement.lang = app.language;
-  }
+  document.documentElement.lang = app.language;
 }
 
 function app_description(){

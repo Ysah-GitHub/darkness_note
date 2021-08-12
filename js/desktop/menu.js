@@ -18,10 +18,6 @@ function menu_title(){
   tmp_title.textContent = "Darkness Note";
   tmp_title_container.append(tmp_title);
 
-  let tmp_version = document.createElement("p");
-  tmp_version.textContent = app.version;
-  tmp_title_container.append(tmp_version);
-
   return tmp_title_container;
 }
 

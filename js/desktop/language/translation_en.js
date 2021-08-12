@@ -42,6 +42,8 @@ function translation_en(){
       note_title_size: "Title size",
       note_title_size_exemple: "Here is the size of a title",
       other: "Other",
+      reset: "Reset",
+      reset_description: "Reset settings",
       small: "Small",
       source_code: "Source Code"
     },

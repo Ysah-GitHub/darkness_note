@@ -35,6 +35,8 @@ function translation_fr(){
       note_text_size: "Taille du texte",
       note_title_size: "Taille des titres",
       other: "Autre",
+      reset: "Réinitialiser",
+      reset_description: "Réinitialiser les paramètres",
       small: "Petit",
       source_code: "Code source"
     },

@@ -63,7 +63,6 @@ function settings(){
 
   let tmp_settings = document.createElement("div");
   tmp_settings.id = "settings";
-  tmp_settings.className = "scrollbar_custom";
 
   tmp_settings.append(settings_section_note_style());
   tmp_settings.append(settings_section_note_management());
@@ -85,6 +84,32 @@ function settings_back(){
   document.getElementById("menu_note_add").removeAttribute("style");
   document.getElementById("menu_note_trash").removeAttribute("style");
   document.getElementsByTagName("main")[0].append(note_list());
+}
+
+function settings_language_update(language){
+  app_language_new_file(language, function(){
+    if (document.getElementById("settings")) {
+      document.getElementById("settings").remove();
+      document.getElementById("menu_settings_back").remove();
+      document.getElementById("menu_title").remove();
+      settings();
+    }
+  });
+}
+
+function setting_reset(){
+  let tmp_request = app_db_open();
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("settings", "readwrite");
+    tmp_transaction.objectStore("settings").clear();
+  };
+  
+  app.settings = settings_default();
+
+  document.getElementById("settings").remove();
+  document.getElementById("menu_settings_back").remove();
+  document.getElementById("menu_title").remove();
+  settings();
 }
 
 function settings_section(title){
@@ -109,6 +134,10 @@ function settings_section_element_select(){
     }
     else {
       tmp_settings.getElementsByClassName("select")[0].classList.add("visible");
+      document.getElementsByTagName("main")[0].onscroll = function(){
+        tmp_settings.getElementsByClassName("select")[0].classList.remove("visible");
+        document.getElementsByTagName("main")[0].onscroll = null;
+      };
     }
   };
   tmp_settings.onblur = function(){
@@ -127,9 +156,8 @@ function settings_text(text, description){
   tmp_settings_title.textContent = text;
   tmp_settings_text.append(tmp_settings_title);
 
-  if (description) {
+  if (description != null) {
     let tmp_settings_description = document.createElement("p");
-    tmp_settings_description.id = "note_text_size_exemple";
     tmp_settings_description.className = "settings_section_element_description";
     tmp_settings_description.textContent = description;
     tmp_settings_text.append(tmp_settings_description);
@@ -149,7 +177,7 @@ function settings_icon(func){
   return tmp_settings_icon;
 }
 
-function settings_custom_select(settings, option_list, func){
+function settings_custom_select(settings_section, settings, option_list, func){
   let tmp_select = document.createElement("div");
   tmp_select.className = "select";
 
@@ -168,6 +196,7 @@ function settings_custom_select(settings, option_list, func){
     tmp_option.textContent = option_list[i][1];
     tmp_option.onclick = function(){
       if (tmp_option_list.getElementsByClassName("selected")[0].dataset.value != option_list[i][0]) {
+        settings_section.getElementsByClassName("settings_section_element_description")[0].textContent = option_list[i][1];
         tmp_option_list.getElementsByClassName("selected")[0].classList.remove("selected");
         tmp_option.classList.add("selected");
         func();
@@ -175,6 +204,7 @@ function settings_custom_select(settings, option_list, func){
     };
     if (option_list[i][0] == settings) {
       tmp_option.classList.add("selected");
+      settings_section.getElementsByClassName("settings_section_element_description")[0].textContent = option_list[i][1];
     }
     tmp_option_list.append(tmp_option);
   }
@@ -192,10 +222,10 @@ function settings_section_note_style(){
 function settings_section_note_style_title_size(){
   let tmp_settings = settings_section_element_select();
 
-  tmp_settings.append(settings_text(app.translate().settings.note_title_size));
+  tmp_settings.append(settings_text(app.translate().settings.note_title_size, ""));
   tmp_settings.getElementsByClassName("settings_section_element_title")[0].style.fontSize = app.settings.note_title_size;
 
-  tmp_settings.append(settings_custom_select(app.settings.note_title_size,
+  tmp_settings.append(settings_custom_select(tmp_settings, app.settings.note_title_size,
     [
       ["19px", app.translate().settings.extra_large],
       ["17px", app.translate().settings.large],
@@ -215,10 +245,10 @@ function settings_section_note_style_title_size(){
 function settings_section_note_style_title_text(){
   let tmp_settings = settings_section_element_select();
 
-  tmp_settings.append(settings_text(app.translate().settings.note_text_size));
+  tmp_settings.append(settings_text(app.translate().settings.note_text_size, ""));
   tmp_settings.getElementsByClassName("settings_section_element_title")[0].style.fontSize = app.settings.note_text_size;
 
-  tmp_settings.append(settings_custom_select(app.settings.note_text_size,
+  tmp_settings.append(settings_custom_select(tmp_settings, app.settings.note_text_size,
     [
       ["19px", app.translate().settings.extra_large],
       ["17px", app.translate().settings.large],
@@ -228,7 +258,7 @@ function settings_section_note_style_title_text(){
     ],
     function(){
       app.settings.note_text_size = tmp_settings.getElementsByClassName("option selected")[0].dataset.value;
-      settings_save("note_text_size", app.settings.note_text_siz);
+      settings_save("note_text_size", app.settings.note_text_size);
       tmp_settings.getElementsByClassName("settings_section_element_title")[0].style.fontSize = app.settings.note_text_size;
     }
   ));
@@ -289,9 +319,9 @@ function settings_section_note_management_export_all(){
 function settings_section_note_management_auto_clean(){
   let tmp_settings = settings_section_element_select();
 
-  tmp_settings.append(settings_text(app.translate().settings.note_auto_clean));
+  tmp_settings.append(settings_text(app.translate().settings.note_auto_clean, ""));
 
-  tmp_settings.append(settings_custom_select(app.settings.note_auto_clean,
+  tmp_settings.append(settings_custom_select(tmp_settings, app.settings.note_auto_clean,
     [
       ["enable", app.translate().settings.enable],
       ["disable", app.translate().settings.disable]
@@ -345,22 +375,23 @@ function settings_section_other(){
   tmp_section.append(settings_section_other_language());
   tmp_section.append(settings_section_other_donate());
   tmp_section.append(settings_section_other_about());
+  tmp_section.append(settings_section_other_reset());
   return tmp_section;
 }
 
 function settings_section_other_language(){
   let tmp_settings = settings_section_element_select();
 
-  tmp_settings.append(settings_text(app.translate().settings.language));
+  tmp_settings.append(settings_text(app.translate().settings.language, ""));
 
-  tmp_settings.append(settings_custom_select(app.language,
+  tmp_settings.append(settings_custom_select(tmp_settings, app.language,
     [
       ["en", "en"],
       ["fr", "fr"]
     ],
     function(){
       if (navigator.onLine) {
-        language_update_settings(tmp_settings.getElementsByClassName("option selected")[0].dataset.value);
+        settings_language_update(tmp_settings.getElementsByClassName("option selected")[0].dataset.value);
       }
       else {
         alert(app.translate().error.error_navigator_offline);
@@ -397,9 +428,22 @@ function settings_section_other_about(){
     note_fullscreen_readonly(app.translate().settings.about, app.translate().app.app_about);
   };
 
-  tmp_settings.append(settings_text(app.translate().settings.about));
+  tmp_settings.append(settings_text(app.translate().settings.about, "Darkness Note - " + app.version));
 
   tmp_settings.append(settings_icon(function(){return icon_fullscreen_light(48, 48)}));
+  return tmp_settings;
+}
+
+function settings_section_other_reset(){
+  let tmp_settings = document.createElement("div");
+  tmp_settings.className = "settings_section_element";
+  tmp_settings.onclick = function(){
+    if (confirm(app.translate().settings.reset_description)) setting_reset();
+  };
+
+  tmp_settings.append(settings_text(app.translate().settings.reset, app.translate().settings.reset_description));
+
+  tmp_settings.append(settings_icon(function(){return icon_arrow_move_light(48, 48)}));
   return tmp_settings;
 }
 
@@ -421,7 +465,7 @@ function settings_note(note_interface){
     note_interface.getElementsByClassName("note_main")[0].append(settings_note_header(note_interface));
 
     let tmp_settings = document.createElement("div");
-    tmp_settings.className = "settings_note scrollbar_custom";
+    tmp_settings.className = "settings_note";
 
     tmp_settings.append(settings_note_section_note_management(note_interface));
 

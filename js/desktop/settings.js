@@ -83,6 +83,32 @@ function settings_back(){
   document.getElementsByTagName("main")[0].append(note_list());
 }
 
+function settings_language_update(language){
+  app_language_new_file(language, function(){
+    if (document.getElementById("settings")) {
+      document.getElementById("settings").remove();
+      document.getElementById("menu_title_sub").remove();
+      document.getElementById("menu_settings_back").remove();
+      settings();
+    }
+  });
+}
+
+function setting_reset(){
+  let tmp_request = app_db_open();
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("settings", "readwrite");
+    tmp_transaction.objectStore("settings").clear();
+  };
+
+  app.settings = settings_default();
+
+  document.getElementById("settings").remove();
+  document.getElementById("menu_title_sub").remove();
+  document.getElementById("menu_settings_back").remove();
+  settings();
+}
+
 function settings_section(title){
   let tmp_section = document.createElement("div");
   tmp_section.className = "settings_section";
@@ -123,7 +149,7 @@ function settings_text(text, description){
   tmp_settings_title.textContent = text;
   tmp_settings_text.append(tmp_settings_title);
 
-  if (description) {
+  if (description != null) {
     let tmp_settings_description = document.createElement("p");
     tmp_settings_description.id = "note_text_size_exemple";
     tmp_settings_description.className = "settings_section_element_description";
@@ -171,10 +197,13 @@ function settings_custom_select(settings, option_list, func){
       if (tmp_option_selected.dataset.value != option_list[i][0]) {
         tmp_option_selected.dataset.value = option_list[i][0];
         tmp_option_selected.textContent = option_list[i][1];
+        tmp_option_list.getElementsByClassName("selected")[0].classList.remove("selected");
+        tmp_option.classList.add("selected");
         func();
       }
     };
     if (option_list[i][0] == settings) {
+      tmp_option.classList.add("selected");
       tmp_option_selected.textContent = option_list[i][1];
     }
     tmp_option_list.append(tmp_option);
@@ -355,6 +384,7 @@ function settings_section_other(){
   tmp_section.append(settings_section_other_language());
   tmp_section.append(settings_section_other_donate());
   tmp_section.append(settings_section_other_about());
+  tmp_section.append(settings_section_other_reset());
   return tmp_section;
 }
 
@@ -370,7 +400,7 @@ function settings_section_other_language(){
     ],
     function(){
       if (navigator.onLine) {
-        language_update_settings(tmp_settings.getElementsByClassName("option_selected")[0].dataset.value);
+        settings_language_update(tmp_settings.getElementsByClassName("option_selected")[0].dataset.value);
       }
       else {
         alert(app.translate().error.error_navigator_offline);
@@ -402,9 +432,22 @@ function settings_section_other_about(){
     note_fullscreen_readonly(app.translate().settings.about, app.translate().app.app_about);
   };
 
-  tmp_settings.append(settings_text(app.translate().settings.about));
+  tmp_settings.append(settings_text(app.translate().settings.about, "Darkness Note - " + app.version));
 
   tmp_settings.append(settings_icon(function(){return icon_fullscreen_light(48, 48)}));
+  return tmp_settings;
+}
+
+function settings_section_other_reset(){
+  let tmp_settings = document.createElement("div");
+  tmp_settings.className = "settings_section_element";
+  tmp_settings.onclick = function(){
+    if (confirm(app.translate().settings.reset_description)) setting_reset();
+  };
+
+  tmp_settings.append(settings_text(app.translate().settings.reset, app.translate().settings.reset_description));
+
+  tmp_settings.append(settings_icon(function(){return icon_arrow_move_light(48, 48)}));
   return tmp_settings;
 }
 

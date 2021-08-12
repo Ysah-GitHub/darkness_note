@@ -40,7 +40,7 @@ function note_db_replace_add(tmp_transaction){
 
 function note_load(){
   let tmp_request = app_db_open();
-  app.note = [];
+  app.note = [{id: 0, title: null, text: null}];
 
   tmp_request.onsuccess = function(){
     let tmp_transaction = tmp_request.result.transaction("note", "readonly");
@@ -127,8 +127,8 @@ function note_remove_all(){
 function note_auto_clean(){
   for (let i = 0; i < app.note.length; i++) {
     if (
-      app.note[i].title == null || app.note[i].title == "" &&
-      app.note[i].text == null || app.note[i].text == ""
+      (app.note[i].title == null || app.note[i].title == "") &&
+      (app.note[i].text == null || app.note[i].text == "")
     ) {
       app.note.splice(i, 1);
       i = i - 1;

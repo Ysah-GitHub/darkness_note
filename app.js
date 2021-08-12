@@ -1,5 +1,5 @@
 var app = {
-  version: "1.3.1",
+  version: "1.3.2",
   db_version: 1,
   device: /Mobi/.test(navigator.userAgent) ? "mobile" : "desktop"
 };
@@ -13,7 +13,6 @@ function app_file_list_js(){
       "js/desktop/trash.js",
       "js/desktop/menu.js",
       "js/desktop/settings.js",
-      "js/desktop/translation.js",
       "js/desktop/language/translation_" + app.language + ".js"
     ],
     mobile: [
@@ -23,7 +22,6 @@ function app_file_list_js(){
       "js/mobile/trash.js",
       "js/mobile/menu.js",
       "js/mobile/settings.js",
-      "js/mobile/translation.js",
       "js/mobile/language/translation_" + app.language + ".js"
     ]
   };

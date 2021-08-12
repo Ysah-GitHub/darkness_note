@@ -153,7 +153,16 @@
   font-size: 13px;
   background-color: rgb(45, 45, 45);
   user-select: none;
+  transition: 0.1s;
 }
 #settings .option:hover{
+  color: rgb(255, 255, 255);
   background-color: rgb(35, 35, 35);
+}
+#settings .option.selected{
+  color: rgb(255, 255, 255);
+  background-color: rgb(40, 120, 215);
+}
+#settings .option.selected:hover{
+  background-color: rgb(40, 120, 215);
 }
