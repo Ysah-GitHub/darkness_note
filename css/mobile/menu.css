@@ -93,21 +93,21 @@
 }
 
 @media (orientation: portrait) {
-  #menu_title{
+  #menu_title_sub{
     display: inline-block;
     width: calc(100% - 68px);
     vertical-align: top;
     text-align: center;
     user-select: none;
   }
-  #menu_title > p{
+  #menu_title_sub > p{
     line-height: 64px;
     color: rgb(100, 100, 100);
     font-size: 13px;
   }
 }
 @media (orientation: landscape) {
-  #menu_title{
+  #menu_title_sub{
     display: none;
   }
 }

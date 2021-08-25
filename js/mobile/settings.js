@@ -39,6 +39,21 @@ function settings_default(){
   };
 }
 
+function setting_reset(){
+  let tmp_request = app_db_open();
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("settings", "readwrite");
+    tmp_transaction.objectStore("settings").clear();
+  };
+
+  app.settings = settings_default();
+
+  document.getElementById("settings").remove();
+  document.getElementById("menu_title_sub").remove();
+  document.getElementById("menu_settings_back").remove();
+  settings();
+}
+
 function settings_save(name, value){
   let tmp_request = app_db_open();
 
@@ -68,15 +83,17 @@ function settings(){
   tmp_settings.append(settings_section_note_management());
   tmp_settings.append(settings_section_links());
   tmp_settings.append(settings_section_other());
+  tmp_settings.append(settings_section_service_worker());
 
   document.getElementsByTagName("header")[0].append(menu_settings_back());
-  document.getElementsByTagName("header")[0].append(menu_title(app.translate().main.settings));
+  document.getElementsByTagName("header")[0].append(menu_title_sub(app.translate().main.settings));
   document.getElementsByTagName("main")[0].append(tmp_settings);
+  app_url_update("settings");
 }
 
 function settings_back(){
   document.getElementById("settings").remove();
-  document.getElementById("menu_title").remove();
+  document.getElementById("menu_title_sub").remove();
   document.getElementById("menu_settings_back").remove();
   document.getElementsByTagName("main")[0].classList.remove("half_full");
   document.getElementsByTagName("footer")[0].removeAttribute("style");
@@ -84,6 +101,7 @@ function settings_back(){
   document.getElementById("menu_note_add").removeAttribute("style");
   document.getElementById("menu_note_trash").removeAttribute("style");
   document.getElementsByTagName("main")[0].append(note_list());
+  app_url_update();
 }
 
 function settings_language_update(language){
@@ -91,25 +109,10 @@ function settings_language_update(language){
     if (document.getElementById("settings")) {
       document.getElementById("settings").remove();
       document.getElementById("menu_settings_back").remove();
-      document.getElementById("menu_title").remove();
+      document.getElementById("menu_title_sub").remove();
       settings();
     }
   });
-}
-
-function setting_reset(){
-  let tmp_request = app_db_open();
-  tmp_request.onsuccess = function(){
-    let tmp_transaction = tmp_request.result.transaction("settings", "readwrite");
-    tmp_transaction.objectStore("settings").clear();
-  };
-  
-  app.settings = settings_default();
-
-  document.getElementById("settings").remove();
-  document.getElementById("menu_settings_back").remove();
-  document.getElementById("menu_title").remove();
-  settings();
 }
 
 function settings_section(title){
@@ -129,19 +132,19 @@ function settings_section_element_select(){
   tmp_settings.className = "settings_section_element";
   tmp_settings.setAttribute("tabindex", "0");
   tmp_settings.onclick = function(){
-    if (tmp_settings.getElementsByClassName("select")[0].classList.value.includes("visible")) {
-      tmp_settings.getElementsByClassName("select")[0].classList.remove("visible")
+    if (tmp_settings.getElementsByClassName("settings_section_element_select")[0].classList.value.includes("visible")) {
+      tmp_settings.getElementsByClassName("settings_section_element_select")[0].classList.remove("visible")
     }
     else {
-      tmp_settings.getElementsByClassName("select")[0].classList.add("visible");
+      tmp_settings.getElementsByClassName("settings_section_element_select")[0].classList.add("visible");
       document.getElementsByTagName("main")[0].onscroll = function(){
-        tmp_settings.getElementsByClassName("select")[0].classList.remove("visible");
+        tmp_settings.getElementsByClassName("settings_section_element_select")[0].classList.remove("visible");
         document.getElementsByTagName("main")[0].onscroll = null;
       };
     }
   };
   tmp_settings.onblur = function(){
-    tmp_settings.getElementsByClassName("select")[0].classList.remove("visible");
+    tmp_settings.getElementsByClassName("settings_section_element_select")[0].classList.remove("visible");
   };
 
   return tmp_settings;
@@ -177,9 +180,9 @@ function settings_icon(func){
   return tmp_settings_icon;
 }
 
-function settings_custom_select(settings_section, settings, option_list, func){
+function settings_select(settings_section, settings, option_list, func){
   let tmp_select = document.createElement("div");
-  tmp_select.className = "select";
+  tmp_select.className = "settings_section_element_select";
 
   let tmp_select_icon = document.createElement("span");
   tmp_select_icon.className = "select_icon";
@@ -225,7 +228,7 @@ function settings_section_note_style_title_size(){
   tmp_settings.append(settings_text(app.translate().settings.note_title_size, ""));
   tmp_settings.getElementsByClassName("settings_section_element_title")[0].style.fontSize = app.settings.note_title_size;
 
-  tmp_settings.append(settings_custom_select(tmp_settings, app.settings.note_title_size,
+  tmp_settings.append(settings_select(tmp_settings, app.settings.note_title_size,
     [
       ["19px", app.translate().settings.extra_large],
       ["17px", app.translate().settings.large],
@@ -248,7 +251,7 @@ function settings_section_note_style_title_text(){
   tmp_settings.append(settings_text(app.translate().settings.note_text_size, ""));
   tmp_settings.getElementsByClassName("settings_section_element_title")[0].style.fontSize = app.settings.note_text_size;
 
-  tmp_settings.append(settings_custom_select(tmp_settings, app.settings.note_text_size,
+  tmp_settings.append(settings_select(tmp_settings, app.settings.note_text_size,
     [
       ["19px", app.translate().settings.extra_large],
       ["17px", app.translate().settings.large],
@@ -321,7 +324,7 @@ function settings_section_note_management_auto_clean(){
 
   tmp_settings.append(settings_text(app.translate().settings.note_auto_clean, ""));
 
-  tmp_settings.append(settings_custom_select(tmp_settings, app.settings.note_auto_clean,
+  tmp_settings.append(settings_select(tmp_settings, app.settings.note_auto_clean,
     [
       ["enable", app.translate().settings.enable],
       ["disable", app.translate().settings.disable]
@@ -384,7 +387,7 @@ function settings_section_other_language(){
 
   tmp_settings.append(settings_text(app.translate().settings.language, ""));
 
-  tmp_settings.append(settings_custom_select(tmp_settings, app.language,
+  tmp_settings.append(settings_select(tmp_settings, app.language,
     [
       ["en", "en"],
       ["fr", "fr"]
@@ -396,12 +399,8 @@ function settings_section_other_language(){
       else {
         alert(app.translate().error.error_navigator_offline);
         tmp_settings.getElementsByClassName("selected")[0].classList.remove("selected");
-        let option_list = tmp_settings.getElementsByClassName("option_list")[0]
-        for (let i = 0; i < option_list.childElementCount; i++) {
-          if (option_list.children[i].dataset.value == app.language) {
-            option_list.children[i].classList.add("selected");
-          }
-        }
+        tmp_settings.getElementsByClassName("option_list")[0].querySelectorAll("[data-value=" + app.language + "]")[0].classList.add("selected");
+        tmp_settings.getElementsByClassName("settings_section_element_description")[0].textContent = app.language;
       }
     }
   ));
@@ -412,7 +411,7 @@ function settings_section_other_donate(){
   let tmp_settings = document.createElement("div");
   tmp_settings.className = "settings_section_element";
   tmp_settings.onclick = function(){
-    note_fullscreen_readonly(app.translate().settings.donate, app.translate().app.app_donate);
+    settings_note_fullscreen(app.translate().settings.donate, app.translate().app.app_donate);
   };
 
   tmp_settings.append(settings_text(app.translate().settings.donate));
@@ -425,7 +424,7 @@ function settings_section_other_about(){
   let tmp_settings = document.createElement("div");
   tmp_settings.className = "settings_section_element";
   tmp_settings.onclick = function(){
-    note_fullscreen_readonly(app.translate().settings.about, app.translate().app.app_about);
+    settings_note_fullscreen(app.translate().settings.about, app.translate().app.app_about);
   };
 
   tmp_settings.append(settings_text(app.translate().settings.about, "Darkness Note - " + app.version));
@@ -436,12 +435,33 @@ function settings_section_other_about(){
 
 function settings_section_other_reset(){
   let tmp_settings = document.createElement("div");
-  tmp_settings.className = "settings_section_element";
+  tmp_settings.className = "settings_section_element red";
   tmp_settings.onclick = function(){
     if (confirm(app.translate().settings.reset_description)) setting_reset();
   };
 
   tmp_settings.append(settings_text(app.translate().settings.reset, app.translate().settings.reset_description));
+
+  tmp_settings.append(settings_icon(function(){return icon_arrow_move_light(48, 48)}));
+  return tmp_settings;
+}
+
+function settings_section_service_worker(){
+  let tmp_section = settings_section(app.translate().settings.cache_offline);
+  tmp_section.append(settings_section_service_worker_delete());
+  return tmp_section;
+}
+
+function settings_section_service_worker_delete(){
+  let tmp_settings = document.createElement("div");
+  tmp_settings.className = "settings_section_element red";
+  tmp_settings.onclick = function(){
+    if (confirm(app.translate().settings.cache_delete_description)) {
+      app_service_worker_delete();
+    }
+  };
+
+  tmp_settings.append(settings_text(app.translate().settings.delete, app.translate().settings.cache_delete_description));
 
   tmp_settings.append(settings_icon(function(){return icon_arrow_move_light(48, 48)}));
   return tmp_settings;
@@ -527,4 +547,54 @@ function settings_note_section_note_management(note_interface){
   tmp_settings.append(settings_icon(function(){return icon_arrow_move_light(48, 48)}));
   tmp_section.append(tmp_settings);
   return tmp_section;
+}
+
+function settings_note_fullscreen(title, text){
+  document.getElementsByTagName("header")[0].style.display = "none";
+  document.getElementsByTagName("main")[0].classList.add("full");
+  document.getElementsByTagName("main")[0].classList.remove("half_full");
+  document.getElementById("settings").style.display = "none";
+
+  let tmp_note_fullscreen = document.createElement("div");
+  tmp_note_fullscreen.id = "note_fullscreen";
+
+  let tmp_header = document.createElement("div");
+  tmp_header.className = "note_header";
+
+  let tmp_icon_back = document.createElement("span");
+  tmp_icon_back.className = "icon dark_background";
+  tmp_icon_back.onclick = settings_note_fullscreen_back;
+  tmp_icon_back.append(icon_folder_back(64, 64));
+  tmp_header.append(tmp_icon_back);
+
+  let tmp_title = document.createElement("input");
+  tmp_title.className = "note_title readonly";
+  tmp_title.type = "text";
+  tmp_title.setAttribute("readonly", "");
+  tmp_title.value = title;
+  tmp_header.append(tmp_title);
+
+  tmp_note_fullscreen.append(tmp_header);
+
+  let tmp_main = document.createElement("div");
+  tmp_main.className = "note_main";
+
+  let tmp_text = document.createElement("textarea");
+  tmp_text.className = "note_text";
+  tmp_text.value = text;
+  tmp_main.append(tmp_text);
+
+  tmp_note_fullscreen.append(tmp_main);
+
+  document.getElementById("settings").after(tmp_note_fullscreen);
+  app_url_update("settings_note_fullscreen");
+}
+
+function settings_note_fullscreen_back(){
+  document.getElementById("note_fullscreen").remove();
+  document.getElementById("settings").removeAttribute("style");
+  document.getElementsByTagName("main")[0].classList.remove("full");
+  document.getElementsByTagName("main")[0].classList.add("half_full");
+  document.getElementsByTagName("header")[0].removeAttribute("style");
+  app_url_update("settings");
 }

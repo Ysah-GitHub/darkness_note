@@ -49,11 +49,6 @@ function trash_load(){
         trash_load_db(tmp_transaction, this.result, 0);
       }
       else {
-        if (localStorage.getItem("trash")) { // temp
-          app.trash = JSON.parse(localStorage.getItem("trash"));
-          localStorage.removeItem("trash");
-          trash_save();
-        }
         app_load(app.load_stage + 1);
       }
     };
@@ -129,19 +124,23 @@ function trash_list(){
   }
 
   document.getElementsByTagName("main")[0].append(tmp_trash_list);
-  document.getElementById("menu").append(menu_trash_delete_all());
+  document.getElementById("menu").append(menu_title_sub(app.translate().main.trash));
   document.getElementById("menu").append(menu_trash_back());
+  document.getElementById("menu").append(menu_trash_delete_all());
+  app_url_update("trash");
 }
 
-function trash_list_remove(){
+function trash_list_back(){
   document.getElementById("trash_list").remove();
-  document.getElementById("menu_trash_delete_all").remove();
+  document.getElementById("menu_title_sub").remove();
   document.getElementById("menu_trash_back").remove();
+  document.getElementById("menu_trash_delete_all").remove();
   document.getElementById("menu_settings").removeAttribute("style");
   document.getElementById("menu_note_add").removeAttribute("style");
   document.getElementById("menu_note_trash").removeAttribute("style");
   document.getElementsByTagName("main")[0].append(note_list());
   menu_note_trash_refresh_number();
+  app_url_update();
 }
 
 function trash_list_add(note){
@@ -178,7 +177,7 @@ function trash_list_add(note){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar";
+  tmp_text.className = "note_text";
   tmp_text.setAttribute("readonly", "");
   tmp_text.value = note.text;
   tmp_main.append(tmp_text);

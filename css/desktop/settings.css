@@ -1,6 +1,140 @@
-#settings{
-  width: calc(100% - 16px);
+.settings_section{
   margin-left: 16px;
+  padding: 16px 0;
+  border-top: 1px solid rgb(65, 65, 65);
+}
+.settings_section:first-child{
+  border: none;
+}
+.note .settings_section{
+  margin-left: 0;
+}
+
+.settings_section_title{
+  margin: 16px 0;
+  padding: 0 0 0 16px;
+  color: rgb(100, 100, 100);
+  font-size: 10px;
+  user-select: none;
+}
+
+.settings_section_element{
+  display: inline-flex;
+  width: 100%;
+  padding: 16px 0 16px 24px;
+  box-sizing: border-box;
+  align-items: center;
+  transition: background-color 0.1s linear;
+}
+.settings_section_element:hover{
+  cursor: pointer;
+  background-color: rgb(35, 35, 35);
+}
+
+.settings_section_element_title{
+  color: rgb(220, 220, 220);
+  line-height: 18px;
+  font-size: 13px;
+  user-select: none;
+}
+
+.settings_section_element_description{
+  margin-top: 10px;
+  color: rgb(100, 100, 100);
+  line-height: 15px;
+  font-size: 10px;
+  user-select: none;
+}
+.settings_section_element.red .settings_section_element_description{
+  color: rgb(255, 125, 125);
+}
+
+.settings_section_element_icon{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 128px;
+  min-height: 48px;
+  margin: 0 24px 0 auto;
+  font-size: 0;
+}
+.note .settings_section_element_icon{
+  width: 64px;
+  margin: 0 0 0 auto;
+}
+
+.settings_section_element_select{
+  position: relative;
+  min-width: 128px;
+  height: 48px;
+  margin-left: auto;
+  margin-right: 16px;
+  text-align: center;
+  overflow: hidden;
+}
+.settings_section_element_select.visible{
+  overflow: visible;
+}
+.settings_section_element_select:hover{
+  cursor: pointer;
+}
+
+.settings_section_element_select .option_selected{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  line-height: 48px;
+  padding: 0 24px 0 12px;
+  box-sizing: border-box;
+  color: rgb(200, 200, 200);
+  font-size: 13px;
+  background-color: rgb(40, 40, 40);
+  transition: background-color 0.1s linear;
+  user-select: none;
+}
+.settings_section_element:hover .option_selected{
+  background-color: rgb(45, 45, 45)!important;
+}
+
+.settings_section_element_select .select_icon{
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  height: 48px;
+  align-items: center;
+  margin-right: 4px;
+}
+.settings_section_element_select .select_icon > canvas{
+  height: 12px;
+}
+
+.settings_section_element_select .option_list{
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  border: 1px solid rgb(100, 100, 100);
+}
+
+.settings_section_element_select .option{
+  height: 100%;
+  line-height: 48px;
+  padding: 0 24px 0 12px;
+  color: rgb(200, 200, 200);
+  font-size: 13px;
+  background-color: rgb(45, 45, 45);
+  user-select: none;
+  transition: 0.1s;
+}
+.settings_section_element_select .option:hover{
+  color: rgb(255, 255, 255);
+  background-color: rgb(35, 35, 35);
+}
+.settings_section_element_select .option.selected{
+  color: rgb(255, 255, 255);
+  background-color: rgb(40, 120, 215);
+}
+.settings_section_element_select .option.selected:hover{
+  background-color: rgb(40, 120, 215);
 }
 
 .settings_note{
@@ -21,148 +155,4 @@
   width: 64px;
   padding: 0 calc(50% - 160px);
   border: none;
-}
-
-.settings_section{
-  padding: 16px 0;
-  border-top: 1px solid rgb(65, 65, 65);
-}
-.settings_section:first-child{
-  border: none;
-}
-
-.settings_section_title{
-  margin: 16px 0;
-  padding: 0 0 0 16px;
-  box-sizing: border-box;
-  line-height: 12px;
-  color: rgb(100, 100, 100);
-  font-size: 10px;
-  user-select: none;
-}
-
-.settings_section_element{
-  display: inline-flex;
-  width: 100%;
-  padding: 16px 0 16px 24px;
-  box-sizing: border-box;
-  align-items: center;
-  transition: background-color 0.1s linear;
-}
-.settings_section_element:hover{
-  cursor: pointer;
-  background-color: rgb(45, 45, 45)
-}
-#settings .settings_section_element:hover{
-  background-color: rgb(35, 35, 35)
-}
-
-.settings_section_element_text{
-  display: inline-block;
-}
-
-.settings_section_element_title{
-  width: 100%;
-  line-height: 15px;
-  color: rgb(255, 255, 255);
-  font-size: 13px;
-  user-select: none;
-}
-
-.settings_section_element_description{
-  width: 100%;
-  margin-top: 8px;
-  line-height: 15px;
-  color: rgb(100, 100, 100);
-  font-size: 10px;
-  user-select: none;
-}
-
-.settings_section_element_icon{
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  min-height: 48px;
-  margin-left: auto;
-  font-size: 0;
-}
-#settings .settings_section_element_icon{
-  width: 128px;
-  margin-right: 24px;
-}
-
-#settings .select{
-  position: relative;
-  display: inline-block;
-  min-width: 128px;
-  height: 48px;
-  margin-left: auto;
-  margin-right: 16px;
-  text-align: center;
-  overflow: hidden;
-}
-#settings .select.visible{
-  overflow: visible;
-}
-#settings .select:hover{
-  cursor: pointer;
-}
-
-#settings .option_selected{
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  line-height: 48px;
-  padding: 0 24px 0 12px;
-  box-sizing: border-box;
-  color: rgb(200, 200, 200);
-  font-size: 13px;
-  background-color: rgb(40, 40, 40);
-  transition: background-color 0.1s linear;
-  user-select: none;
-}
-.settings_section_element:hover .option_selected{
-  background-color: rgb(45, 45, 45)!important;
-}
-
-#settings .select_icon{
-  position: absolute;
-  right: 0;
-  display: inline-flex;
-  height: 48px;
-  align-items: center;
-  margin-right: 4px;
-}
-#settings .select_icon > canvas{
-  height: 12px;
-}
-
-#settings .option_list{
-  z-index: 2;
-  position: relative;
-  width: 100%;
-  border: 1px solid rgb(100, 100, 100);
-}
-
-#settings .option{
-  height: 100%;
-  line-height: 48px;
-  padding: 0 24px 0 12px;
-  color: rgb(200, 200, 200);
-  font-size: 13px;
-  background-color: rgb(45, 45, 45);
-  user-select: none;
-  transition: 0.1s;
-}
-#settings .option:hover{
-  color: rgb(255, 255, 255);
-  background-color: rgb(35, 35, 35);
-}
-#settings .option.selected{
-  color: rgb(255, 255, 255);
-  background-color: rgb(40, 120, 215);
-}
-#settings .option.selected:hover{
-  background-color: rgb(40, 120, 215);
 }

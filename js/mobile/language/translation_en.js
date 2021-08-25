@@ -11,7 +11,10 @@ function translation_en(){
     },
     settings: {
       about: "About",
+      cache_delete_description: "Delete files in cache",
+      cache_offline: "Cache - OffLine",
       contact: "Contact",
+      delete: "Delete",
       disable: "Disable",
       donate: "Donate",
       enable: "Enable",

@@ -1,6 +1,6 @@
 var app = {
-  version: "1.3.2",
-  db_version: 1,
+  version: "1.4.0",
+  db_version: 2,
   device: /Mobi/.test(navigator.userAgent) ? "mobile" : "desktop"
 };
 
@@ -58,9 +58,6 @@ function app_db_open_update(){
 
   tmp_request.onupgradeneeded = function(){
     tmp_db = tmp_request.result;
-    if (!tmp_db.objectStoreNames.contains("language")){
-        tmp_db.createObjectStore("language", {keyPath: "key"});
-    }
     if (!tmp_db.objectStoreNames.contains("settings")){
         tmp_db.createObjectStore("settings", {keyPath: "key"});
     }

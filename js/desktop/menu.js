@@ -127,7 +127,7 @@ function menu_trash_delete_all(){
 function menu_trash_back(){
   let tmp_trash_back = document.createElement("div");
   tmp_trash_back.id = "menu_trash_back";
-  tmp_trash_back.onclick = trash_list_remove;
+  tmp_trash_back.onclick = trash_list_back;
 
   let tmp_trash_back_icon = document.createElement("span");
   tmp_trash_back_icon.className = "menu icon";

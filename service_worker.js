@@ -26,8 +26,8 @@ self.addEventListener("install", function(event){
 
       tmp_request.onsuccess = function(){
         let tmp_db = tmp_request.result;
-        let tmp_transaction = tmp_db.transaction("language", "readwrite");
-        let tmp_transaction_get = tmp_transaction.objectStore("language").get("app");
+        let tmp_transaction = tmp_db.transaction("settings", "readwrite");
+        let tmp_transaction_get = tmp_transaction.objectStore("settings").get("language");
 
         tmp_transaction_get.onsuccess = function(){
           if (tmp_transaction_get.result != null) {
@@ -39,13 +39,6 @@ self.addEventListener("install", function(event){
             app.language = tmp_language_available.includes(tmp_language) ? tmp_language : "en";
           }
           cache.addAll(service_worker_cache());
-          tmp_transaction_get = tmp_transaction.objectStore("language").get("cache");
-          tmp_transaction_get.onsuccess = function(){
-            if (tmp_transaction_get.result != null) {
-              tmp_transaction.objectStore("language").delete("cache");
-            }
-            tmp_transaction.objectStore("language").add({key: "cache", language: app.language});
-          };
         };
       };
     })

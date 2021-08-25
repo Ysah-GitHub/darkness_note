@@ -40,7 +40,7 @@ function note_db_replace_add(tmp_transaction){
 
 function note_load(){
   let tmp_request = app_db_open();
-  app.note = [{id: 0, title: null, text: null}];
+  app.note = [];
 
   tmp_request.onsuccess = function(){
     let tmp_transaction = tmp_request.result.transaction("note", "readonly");
@@ -49,11 +49,7 @@ function note_load(){
         note_load_db(tmp_transaction, this.result, 0);
       }
       else {
-        if (localStorage.getItem("note")) { // temp
-          app.note = JSON.parse(localStorage.getItem("note"));
-          localStorage.removeItem("note");
-          note_save();
-        }
+        app.note.push({id: 0, title: null, text: null});
         app_load(app.load_stage + 1);
       }
     };
@@ -357,7 +353,7 @@ function note_list_add(note){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
+  tmp_text.className = "note_text";
   tmp_text.style.fontSize = app.settings.note_text_size;
   tmp_text.placeholder = app.translate().main.note + "...";
   tmp_text.value = note.text;
@@ -384,7 +380,7 @@ function note_fullscreen(note){
   tmp_header.className = "note_header";
 
   let tmp_icon_back = document.createElement("span");
-  tmp_icon_back.className = "icon dark_background";
+  tmp_icon_back.className = "icon note_fullscreen_back dark_background";
   tmp_icon_back.onclick = function(){
     let tmp_note = document.getElementById(note.id);
     tmp_note.getElementsByClassName("note_title")[0].value = note.title;
@@ -411,7 +407,7 @@ function note_fullscreen(note){
   tmp_main.className = "note_main";
 
   let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
+  tmp_text.className = "note_text";
   tmp_text.style.fontSize = app.settings.note_text_size;
   tmp_text.placeholder = app.translate().main.note + "...";
   tmp_text.value = note.text;
@@ -421,46 +417,7 @@ function note_fullscreen(note){
   tmp_note_fullscreen.append(tmp_main);
 
   document.getElementById("note_list").after(tmp_note_fullscreen);
-}
-
-function note_fullscreen_readonly(title, text){
-  document.getElementsByTagName("header")[0].style.display = "none";
-  document.getElementsByTagName("main")[0].classList.add("full");
-  document.getElementsByTagName("main")[0].classList.remove("half_full");
-  document.getElementById("settings").style.display = "none";
-
-  let tmp_note_fullscreen = document.createElement("div");
-  tmp_note_fullscreen.id = "note_fullscreen";
-
-  let tmp_header = document.createElement("div");
-  tmp_header.className = "note_header";
-
-  let tmp_icon_back = document.createElement("span");
-  tmp_icon_back.className = "icon dark_background";
-  tmp_icon_back.onclick = note_fullscreen_readonly_back;
-  tmp_icon_back.append(icon_folder_back(64, 64));
-  tmp_header.append(tmp_icon_back);
-
-  let tmp_title = document.createElement("input");
-  tmp_title.className = "note_title readonly";
-  tmp_title.type = "text";
-  tmp_title.setAttribute("readonly", "");
-  tmp_title.value = title;
-  tmp_header.append(tmp_title);
-
-  tmp_note_fullscreen.append(tmp_header);
-
-  let tmp_main = document.createElement("div");
-  tmp_main.className = "note_main";
-
-  let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text scrollbar_custom";
-  tmp_text.value = text;
-  tmp_main.append(tmp_text);
-
-  tmp_note_fullscreen.append(tmp_main);
-
-  document.getElementById("settings").after(tmp_note_fullscreen);
+  app_url_update("note_fullscreen");
 }
 
 function note_fullscreen_back(){
@@ -469,12 +426,5 @@ function note_fullscreen_back(){
   document.getElementsByTagName("main")[0].classList.remove("full");
   document.getElementsByTagName("header")[0].removeAttribute("style");
   document.getElementsByTagName("footer")[0].removeAttribute("style");
-}
-
-function note_fullscreen_readonly_back(){
-  document.getElementById("note_fullscreen").remove();
-  document.getElementById("settings").removeAttribute("style");
-  document.getElementsByTagName("main")[0].classList.remove("full");
-  document.getElementsByTagName("main")[0].classList.add("half_full");
-  document.getElementsByTagName("header")[0].removeAttribute("style");
+  app_url_update();
 }

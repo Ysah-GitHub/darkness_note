@@ -1,3 +1,14 @@
+function menu_title_sub(title){
+  let tmp_title_container = document.createElement("div");
+  tmp_title_container.id = "menu_title_sub";
+
+  let tmp_title = document.createElement("p");
+  tmp_title.textContent = title;
+  tmp_title_container.append(tmp_title);
+
+  return tmp_title_container;
+}
+
 function menu_settings(){
   let tmp_settings = document.createElement("div");
   tmp_settings.id = "menu_settings";
@@ -61,7 +72,7 @@ function menu_note_trash(){
 function menu_trash_back(){
   let tmp_trash_back = document.createElement("div");
   tmp_trash_back.id = "menu_trash_back";
-  tmp_trash_back.onclick = trash_list_remove;
+  tmp_trash_back.onclick = trash_list_back;
 
   let tmp_trash_back_icon = document.createElement("span");
   tmp_trash_back_icon.className = "icon";
@@ -110,15 +121,4 @@ function menu_note_add(){
   tmp_note_add.append(tmp_add_icon);
 
   return tmp_note_add;
-}
-
-function menu_title(title){
-  let tmp_title_container = document.createElement("div");
-  tmp_title_container.id = "menu_title";
-
-  let tmp_title = document.createElement("p");
-  tmp_title.textContent = title;
-  tmp_title_container.append(tmp_title);
-
-  return tmp_title_container;
 }

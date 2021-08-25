@@ -10,22 +10,21 @@ main{
 main.full{
   width: 100vw;
 }
-
-h1, p, input, textarea, select{
-  font-family: "press_start_2p";
-}
-
-.scrollbar::-webkit-scrollbar{
+main::-webkit-scrollbar{
   width: 15px;
 }
-.scrollbar::-webkit-scrollbar-thumb{
+main::-webkit-scrollbar-thumb{
   border-radius: 8px;
   border: 4px solid transparent;
   background-clip: content-box;
   background-color: rgb(35, 35, 35);
 }
-.scrollbar::-webkit-scrollbar-thumb:hover{
+main::-webkit-scrollbar-thumb:hover{
   background-color: rgb(30, 30, 30);
+}
+
+h1, p, input, textarea, select{
+  font-family: "press_start_2p";
 }
 
 .icon{
