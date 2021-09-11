@@ -27,7 +27,7 @@ function menu_settings_back(){
   tmp_settings_back.id = "menu_settings_back";
 
   let tmp_settings_back_icon = document.createElement("span");
-  tmp_settings_back_icon.className = "menu icon";
+  tmp_settings_back_icon.className = "icon";
   tmp_settings_back_icon.onclick = settings_back;
   tmp_settings_back_icon.append(icon_folder_back(64, 64));
   tmp_settings_back.append(tmp_settings_back_icon);
@@ -35,17 +35,17 @@ function menu_settings_back(){
   return tmp_settings_back;
 }
 
-function menu_note_trash(){
-  let tmp_settings = document.createElement("div");
-  tmp_settings.id = "menu_settings";
+function menu_note_add(){
+  let tmp_note_add = document.createElement("div");
+  tmp_note_add.id = "menu_note_add";
+  tmp_note_add.onclick = note_add;
 
-  let tmp_settings_icon = document.createElement("span");
-  tmp_settings_icon.className = "icon settings";
-  tmp_settings_icon.onclick = settings;
-  tmp_settings_icon.append(icon_settings(64, 64));
-  tmp_settings.append(tmp_settings_icon);
+  let tmp_add_icon = document.createElement("span");
+  tmp_add_icon.className = "icon";
+  tmp_add_icon.append(icon_add(96, 96));
+  tmp_note_add.append(tmp_add_icon);
 
-  return tmp_settings;
+  return tmp_note_add;
 }
 
 function menu_note_trash(){
@@ -108,17 +108,4 @@ function menu_note_trash_refresh_number(){
     tmp_trash_number_interface.className = "red";
   }
   tmp_trash_number_interface.textContent = "[" + tmp_trash_number + "]";
-}
-
-function menu_note_add(){
-  let tmp_note_add = document.createElement("div");
-  tmp_note_add.id = "menu_note_add";
-  tmp_note_add.onclick = note_add;
-
-  let tmp_add_icon = document.createElement("span");
-  tmp_add_icon.className = "icon";
-  tmp_add_icon.append(icon_add(96, 96));
-  tmp_note_add.append(tmp_add_icon);
-
-  return tmp_note_add;
 }

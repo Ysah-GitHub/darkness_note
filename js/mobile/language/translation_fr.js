@@ -1,18 +1,7 @@
 function translation_fr(){
   return {
     main: {
-      note: "Note",
-      settings: "Paramètres",
-      title: "Titre",
-      trash: "Corbeille"
-    },
-    trash: {
-      delete_all_note: "Supprimer toutes les notes de la corbeille"
-    },
-    settings: {
       about: "À propos",
-      cache_delete_description: "Supprimer les fichiers en cache",
-      cache_offline: "Cache - Hors-Ligne",
       contact: "Contact",
       delete: "Supprimer",
       disable: "Désactivé",
@@ -24,24 +13,37 @@ function translation_fr(){
       large: "Grand",
       links: "Liens",
       medium: "Moyen",
-      note_auto_clean: "Suppression des notes vides",
-      note_export: "Exporter la note",
-      note_export_description: "Exportation de la note dans un fichier .txt",
-      note_export_all: "Exporter toutes les notes",
-      note_export_all_description: "Exportation de toutes les notes dans un fichier .json",
-      note_import: "Importer une note",
-      note_import_description: "Importation d'une note depuis un fichier .txt",
-      note_import_all: "Importer des notes",
-      note_import_all_description: "Importation de plusieurs notes depuis un fichier .json",
-      note_management: "Gestion des notes",
-      note_style: "Style des notes",
-      note_text_size: "Taille du texte",
-      note_title_size: "Taille des titres",
+      note: "Note",
       other: "Autre",
       reset: "Réinitialiser",
-      reset_description: "Réinitialiser les paramètres",
+      settings: "Paramètres",
       small: "Petit",
-      source_code: "Code source"
+      source_code: "Code source",
+      title: "Titre",
+      trash: "Corbeille"
+    },
+    trash: {
+      trash_delete_all: "Supprimer toutes les notes de la corbeille"
+    },
+    settings: {
+      settings_cache_delete_description: "Supprimer les fichiers en cache",
+      settings_cache_offline: "Cache - Hors-Ligne",
+      settings_note_auto_clean: "Suppression des notes vides",
+      settings_note_delete_all: "Supprimer toutes les notes",
+      settings_note_delete_all_description: "Déplacement de toutes les notes vers la corbeille",
+      settings_note_export: "Exporter la note",
+      settings_note_export_description: "Exportation de la note dans un fichier .txt",
+      settings_note_export_all: "Exporter toutes les notes",
+      settings_note_export_all_description: "Exportation de toutes les notes dans un fichier .json",
+      settings_note_import: "Importer une note",
+      settings_note_import_description: "Importation d'une note depuis un fichier .txt",
+      settings_note_import_all: "Importer des notes",
+      settings_note_import_all_description: "Importation de plusieurs notes depuis un fichier .json",
+      settings_note_management: "Gestion des notes",
+      settings_note_style: "Style des notes",
+      settings_reset_description: "Réinitialiser les paramètres",
+      settings_note_text_size: "Taille du texte",
+      settings_note_title_size: "Taille des titres",
     },
     error: {
       error_character_length_100000: "Erreur: Le nombre de caractères est supérieur à 100000 \no_O",

@@ -25,6 +25,12 @@
 .settings_section_element:active{
   background-color: rgb(35, 35, 35)
 }
+.settings_section_element.validate{
+  background-color: rgba(115, 255, 115, 0.3);
+}
+.settings_section_element.cancel{
+  background-color: rgba(255, 115, 115, 0.3);
+}
 
 .settings_section_element_text{
   width: calc(100% - 96px);
@@ -45,7 +51,7 @@
   user-select: none;
 }
 .settings_section_element.red .settings_section_element_description{
-  color: rgb(255, 125, 125);
+  color: rgb(255, 115, 115);
 }
 
 .settings_section_element_icon{

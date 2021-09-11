@@ -107,7 +107,6 @@ function note_remove(note){
 
 function note_remove_all(){
   for (let i = 0; i < app.note.length; i++) {
-    document.getElementById(i).remove();
     if (app.note[i].title != null || app.note[i].text != null) {
       app.trash.push(app.note[i]);
       app.trash[app.trash.length - 1].id = app.trash.length - 1;
@@ -117,7 +116,7 @@ function note_remove_all(){
   app.note = [];
   note_save();
   trash_save();
-  trash_refresh_number();
+  menu_note_trash_refresh_number();
 }
 
 function note_auto_clean(){
@@ -193,7 +192,7 @@ function note_import(){
           });
           note_refresh_id();
           note_save();
-          document.getElementById("menu_settings_back").click();
+          document.getElementById("menu_settings_back").children[0].click();
       }
     };
   };
@@ -226,7 +225,7 @@ function note_import_all(){
             note_refresh_id();
           }
           note_save();
-          document.getElementById("menu_settings_back").click();
+          document.getElementById("menu_settings_back").children[0].click();
       }
     };
   };

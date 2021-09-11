@@ -94,7 +94,7 @@ function trash_note_delete(note){
 }
 
 function trash_note_delete_all(){
-  if (confirm(app.translate().trash.delete_all_note)) {
+  if (confirm(app.translate().trash.trash_delete_all)) {
     for (let i = 0; i < app.trash.length; i++) {
       document.getElementById(i).remove();
     }
@@ -123,18 +123,18 @@ function trash_list(){
     tmp_trash_list.append(trash_list_add(app.trash[i]));
   }
 
+  document.getElementsByTagName("main")[0].append(tmp_trash_list);
   document.getElementsByTagName("header")[0].append(menu_trash_back());
   document.getElementsByTagName("header")[0].append(menu_title_sub(app.translate().main.trash));
-  document.getElementsByTagName("main")[0].append(tmp_trash_list);
   document.getElementsByTagName("footer")[0].append(menu_trash_delete_all());
   app_url_update("trash");
 }
 
 function trash_list_back(){
   document.getElementById("trash_list").remove();
-  document.getElementById("menu_trash_delete_all").remove();
   document.getElementById("menu_title_sub").remove();
   document.getElementById("menu_trash_back").remove();
+  document.getElementById("menu_trash_delete_all").remove();
   document.getElementById("menu_settings").removeAttribute("style");
   document.getElementById("menu_note_add").removeAttribute("style");
   document.getElementById("menu_note_trash").removeAttribute("style");
@@ -153,7 +153,6 @@ function trash_list_add(note){
 
   let tmp_return = document.createElement("span");
   tmp_return.className = "icon dark_background";
-  tmp_return.title = app.translate().trash.restore;
   tmp_return.onclick = function(){trash_note_remove(app.trash[this.parentElement.parentElement.id])};
   tmp_return.append(icon_return(64, 64));
   tmp_header.append(tmp_return);

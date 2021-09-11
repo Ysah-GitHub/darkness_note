@@ -94,7 +94,7 @@ function trash_note_delete(note){
 }
 
 function trash_note_delete_all(){
-  if (confirm(app.translate().trash.delete_all_note)) {
+  if (confirm(app.translate().trash.trash_delete_all)) {
     for (let i = 0; i < app.trash.length; i++) {
       document.getElementById(i).remove();
     }
@@ -153,7 +153,6 @@ function trash_list_add(note){
 
   let tmp_return = document.createElement("span");
   tmp_return.className = "icon dark_background";
-  tmp_return.title = app.translate().trash.restore;
   tmp_return.onclick = function(){trash_note_remove(app.trash[this.parentElement.parentElement.id])};
   tmp_return.append(icon_return(64, 64));
   tmp_header.append(tmp_return);

@@ -1,18 +1,7 @@
 function translation_en(){
   return {
     main: {
-      note: "Note",
-      settings: "Settings",
-      title: "Title",
-      trash: "Trash"
-    },
-    trash: {
-      delete_all_note: "Delete all notes from the trash"
-    },
-    settings: {
       about: "About",
-      cache_delete_description: "Delete files in cache",
-      cache_offline: "Cache - OffLine",
       contact: "Contact",
       delete: "Delete",
       disable: "Disable",
@@ -24,24 +13,37 @@ function translation_en(){
       large: "Large",
       links: "Links",
       medium: "Medium",
-      note_auto_clean: "Deleting empty notes",
-      note_export: "Export the note",
-      note_export_description: "Exporting the note in a .txt file",
-      note_export_all: "Export all notes",
-      note_export_all_description: "Exporting all notes in a .json file",
-      note_import: "Import a note",
-      note_import_description: "Importing a note from a .txt file",
-      note_import_all: "Import notes",
-      note_import_all_description: "Importing multiple notes from a .json file",
-      note_management: "Note management",
-      note_style: "Note Style",
-      note_text_size: "Text size",
-      note_title_size: "Title size",
+      note: "Note",
       other: "Other",
       reset: "Reset",
-      reset_description: "Reset settings",
+      settings: "Settings",
       small: "Small",
-      source_code: "Source Code"
+      source_code: "Source Code",
+      title: "Title",
+      trash: "Trash"
+    },
+    trash: {
+      trash_delete_all: "Delete all notes from the trash"
+    },
+    settings: {
+      settings_cache_delete_description: "Delete files in cache",
+      settings_cache_offline: "Cache - OffLine",
+      settings_note_auto_clean: "Deleting empty notes",
+      settings_note_delete_all: "Delete all notes",
+      settings_note_delete_all_description: "Move all notes to the trash",
+      settings_note_export: "Export the note",
+      settings_note_export_description: "Exporting the note in a .txt file",
+      settings_note_export_all: "Export all notes",
+      settings_note_export_all_description: "Exporting all notes in a .json file",
+      settings_note_import: "Import a note",
+      settings_note_import_description: "Importing a note from a .txt file",
+      settings_note_import_all: "Import notes",
+      settings_note_import_all_description: "Importing multiple notes from a .json file",
+      settings_note_management: "Note management",
+      settings_note_style: "Note Style",
+      settings_reset_description: "Reset settings",
+      settings_note_text_size: "Text size",
+      settings_note_title_size: "Title size",
     },
     error: {
       error_character_length_100000: "Error: The number of characters is greater than 100000 \no_O",
