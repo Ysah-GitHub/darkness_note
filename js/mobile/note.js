@@ -1,43 +1,3 @@
-function note_save(){
-  let tmp_request = app_db_open();
-
-  tmp_request.onsuccess = function(){
-    let tmp_transaction = tmp_request.result.transaction("note", "readwrite");
-    tmp_transaction.objectStore("note").count().onsuccess = function(){
-      let tmp_note_length = this.result;
-      if (tmp_note_length > 0) {
-        note_db_replace_delete(tmp_transaction, tmp_note_length, 0);
-      }
-      else {
-        note_db_replace_add(tmp_transaction);
-      }
-    };
-  };
-}
-
-function note_db_replace_delete(tmp_transaction, note_length, delete_number){
-  let tmp_transaction_delete = tmp_transaction.objectStore("note").delete(delete_number);
-  delete_number = delete_number + 1;
-  tmp_transaction_delete.onsuccess = function(){
-    if (delete_number < note_length) {
-      note_db_replace_delete(tmp_transaction, note_length, delete_number);
-    }
-    else {
-      note_db_replace_add(tmp_transaction);
-    }
-  };
-}
-
-function note_db_replace_add(tmp_transaction){
-  for (let i = 0; i < app.note.length; i++) {
-    tmp_transaction.objectStore("note").add({
-      id: app.note[i].id,
-      title: app.note[i].title,
-      text: app.note[i].text
-    });
-  }
-}
-
 function note_load(){
   let tmp_request = app_db_open();
   app.note = [];
@@ -51,6 +11,23 @@ function note_load(){
       else {
         app.note.push({id: 0, title: null, text: null});
         app_load(app.load_stage + 1);
+      }
+    };
+  };
+}
+
+function note_save(){
+  let tmp_request = app_db_open();
+
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("note", "readwrite");
+    tmp_transaction.objectStore("note").count().onsuccess = function(){
+      let tmp_note_length = this.result;
+      if (tmp_note_length > 0) {
+        note_db_replace_delete(tmp_transaction, tmp_note_length, 0);
+      }
+      else {
+        note_db_replace_add(tmp_transaction);
       }
     };
   };
@@ -79,6 +56,29 @@ function note_load_db(tmp_transaction, note_length, load_number){
   };
 }
 
+function note_db_replace_add(tmp_transaction){
+  for (let i = 0; i < app.note.length; i++) {
+    tmp_transaction.objectStore("note").add({
+      id: app.note[i].id,
+      title: app.note[i].title,
+      text: app.note[i].text
+    });
+  }
+}
+
+function note_db_replace_delete(tmp_transaction, note_length, delete_number){
+  let tmp_transaction_delete = tmp_transaction.objectStore("note").delete(delete_number);
+  delete_number = delete_number + 1;
+  tmp_transaction_delete.onsuccess = function(){
+    if (delete_number < note_length) {
+      note_db_replace_delete(tmp_transaction, note_length, delete_number);
+    }
+    else {
+      note_db_replace_add(tmp_transaction);
+    }
+  };
+}
+
 function note_add(){
   app.note.unshift({
     id: 0,
@@ -95,8 +95,9 @@ function note_remove(note){
   document.getElementById(note.id).remove();
 
   if (note.title != null || note.text != null) {
-    note.id = app.trash.length;
-    app.trash.push(note);
+    note.id = 0;
+    app.trash.unshift(note);
+    trash_refresh_id();
     menu_note_trash_refresh_number();
   }
 
@@ -106,15 +107,18 @@ function note_remove(note){
 }
 
 function note_remove_all(){
+  app.note.reverse();
+
   for (let i = 0; i < app.note.length; i++) {
     if (app.note[i].title != null || app.note[i].text != null) {
-      app.trash.push(app.note[i]);
-      app.trash[app.trash.length - 1].id = app.trash.length - 1;
+      app.trash.unshift(app.note[i]);
     }
   }
 
   app.note = [];
   note_save();
+
+  trash_refresh_id();
   trash_save();
   menu_note_trash_refresh_number();
 }

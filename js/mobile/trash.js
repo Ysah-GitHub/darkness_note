@@ -1,43 +1,3 @@
-function trash_save(){
-  let tmp_request = app_db_open();
-
-  tmp_request.onsuccess = function(){
-    let tmp_transaction = tmp_request.result.transaction("trash", "readwrite");
-    tmp_transaction.objectStore("trash").count().onsuccess = function(){
-      let tmp_note_length = this.result;
-      if (tmp_note_length > 0) {
-        trash_db_replace_delete(tmp_transaction, tmp_note_length, 0);
-      }
-      else {
-        trash_db_replace_add(tmp_transaction);
-      }
-    };
-  };
-}
-
-function trash_db_replace_delete(tmp_transaction, note_length, delete_number){
-  let tmp_transaction_delete = tmp_transaction.objectStore("trash").delete(delete_number);
-  delete_number = delete_number + 1;
-  tmp_transaction_delete.onsuccess = function(){
-    if (delete_number < note_length) {
-      trash_db_replace_delete(tmp_transaction, note_length, delete_number);
-    }
-    else {
-      trash_db_replace_add(tmp_transaction);
-    }
-  };
-}
-
-function trash_db_replace_add(tmp_transaction){
-  for (let i = 0; i < app.trash.length; i++) {
-    tmp_transaction.objectStore("trash").add({
-      id: app.trash[i].id,
-      title: app.trash[i].title,
-      text: app.trash[i].text
-    });
-  }
-}
-
 function trash_load(){
   let tmp_request = app_db_open();
   app.trash = [];
@@ -50,6 +10,23 @@ function trash_load(){
       }
       else {
         app_load(app.load_stage + 1);
+      }
+    };
+  };
+}
+
+function trash_save(){
+  let tmp_request = app_db_open();
+
+  tmp_request.onsuccess = function(){
+    let tmp_transaction = tmp_request.result.transaction("trash", "readwrite");
+    tmp_transaction.objectStore("trash").count().onsuccess = function(){
+      let tmp_note_length = this.result;
+      if (tmp_note_length > 0) {
+        trash_db_replace_delete(tmp_transaction, tmp_note_length, 0);
+      }
+      else {
+        trash_db_replace_add(tmp_transaction);
       }
     };
   };
@@ -69,6 +46,29 @@ function trash_load_db(tmp_transaction, note_length, load_number){
     }
     else {
       app_load(app.load_stage + 1);
+    }
+  };
+}
+
+function trash_db_replace_add(tmp_transaction){
+  for (let i = 0; i < app.trash.length; i++) {
+    tmp_transaction.objectStore("trash").add({
+      id: app.trash[i].id,
+      title: app.trash[i].title,
+      text: app.trash[i].text
+    });
+  }
+}
+
+function trash_db_replace_delete(tmp_transaction, note_length, delete_number){
+  let tmp_transaction_delete = tmp_transaction.objectStore("trash").delete(delete_number);
+  delete_number = delete_number + 1;
+  tmp_transaction_delete.onsuccess = function(){
+    if (delete_number < note_length) {
+      trash_db_replace_delete(tmp_transaction, note_length, delete_number);
+    }
+    else {
+      trash_db_replace_add(tmp_transaction);
     }
   };
 }
@@ -100,6 +100,12 @@ function trash_note_delete_all(){
     }
     app.trash = [];
     trash_save();
+  }
+}
+
+function trash_refresh_id(){
+  for (let i = 0; i < app.trash.length; i++) {
+    app.trash[i].id = i;
   }
 }
 
