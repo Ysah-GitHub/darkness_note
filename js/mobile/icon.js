@@ -78,6 +78,10 @@ function icon_select(width, height){
   return icon_constructor(width, height, "rgb(200, 200, 200)", icon_select_draw);
 }
 
+function icon_chevron(width, height){
+  return icon_constructor(width, height, "rgb(65, 65, 65)", icon_chevron_draw);
+}
+
 function icon_close_draw(element, color, width, height){
   let tmp_draw = icon_draw_start(element, color, width, height);
   icon_fillRect(tmp_draw, width, height, [
@@ -256,5 +260,17 @@ function icon_select_draw(element, color, width, height){
   tmp_draw.moveTo((21 / 64) * width, (36 / 64) * height);
   tmp_draw.lineTo((31 / 64) * width, (46 / 64) * height);
   tmp_draw.lineTo((41 / 64) * width, (36 / 64) * height);
+  tmp_draw.stroke();
+}
+
+function icon_chevron_draw(element, color, width, height){
+  let tmp_draw = icon_draw_start(element, color, width, height);
+
+  tmp_draw.strokeStyle = color;
+  tmp_draw.lineWidth = (10 / 64) * width;
+  tmp_draw.beginPath();
+  tmp_draw.moveTo((8 / 64) * width, (20 / 64) * height);
+  tmp_draw.lineTo((32 / 64) * width, (44 / 64) * height);
+  tmp_draw.lineTo((56 / 64) * width, (20 / 64) * height);
   tmp_draw.stroke();
 }

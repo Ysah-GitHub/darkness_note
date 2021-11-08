@@ -143,15 +143,66 @@
   background-color: rgb(40, 120, 215);
 }
 
+.settings_note_more{
+  margin-top: 84px;
+}
+.settings_note_more:hover{
+  cursor: pointer;
+}
+.settings_note_more:hover > p{
+  color: rgb(255, 255, 255);
+}
+.settings_note_more.active{
+  border-bottom: 1px solid rgb(65, 65, 65);
+}
+.settings_note_more > p{
+  display: inline-block;
+  width: calc(100% - 38px);
+  padding: 16px;
+  color: rgb(100, 100, 100);
+  font-size: 10px;
+  box-sizing: border-box;
+  user-select: none;
+  transition: color 0.1s linear;
+}
+.settings_note_more canvas{
+  transition: transform 0.2s linear, filter 0.1s linear;
+}
+.settings_note_more.active canvas{
+  transform: rotate(180deg);
+}
+.settings_note_more:hover canvas{
+  filter: brightness(3);
+}
+
 .settings_note{
-  height: calc(320px - 128px);
+  height: calc(320px - 106px);
   overflow: auto;
   background-color: rgb(50, 50, 50);
+}
+.settings_note.hidden{
+  display: none;
+}
+.settings_note::-webkit-scrollbar{
+  width: 15px;
+}
+.settings_note::-webkit-scrollbar-thumb{
+  border-radius: 8px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+  background-color: rgb(35, 35, 35);
+}
+.settings_note::-webkit-scrollbar-thumb:hover{
+  background-color: rgb(30, 30, 30);
 }
 
 .settings_note_header{
   height: 63px;
   border-bottom: 1px solid rgb(40, 40, 40);
+  transition: margin-top 0.1s linear;
+}
+.settings_note_header.hidden{
+  margin-top: -212px;
 }
 .settings_note_header > *{
   width: 63px;
@@ -159,6 +210,27 @@
 }
 .settings_note_header > *:last-child{
   width: 64px;
-  padding: 0 calc(50% - 160px);
   border: none;
+}
+
+.settings_note_header_secondary{
+  height: 63px;
+  border-bottom: 1px solid rgb(40, 40, 40);
+}
+.settings_note_header_secondary > *{
+  display: inline-block;
+  width: calc(50% - 1px);
+  border-right: 1px solid rgb(40, 40, 40);
+  line-height: 64px;
+  text-align: center;
+  color: rgb(65, 65, 65);
+  font-size: 13px;
+  user-select: none;
+  transition: color 0.1s linear;
+}
+.settings_note_header_secondary > *:hover{
+  cursor: pointer;
+}
+.settings_note_header_secondary > *.active{
+  color: rgb(200, 200, 200);
 }

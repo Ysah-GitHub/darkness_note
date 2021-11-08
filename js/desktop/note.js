@@ -9,7 +9,7 @@ function note_load(){
         note_load_db(tmp_transaction, this.result, 0);
       }
       else {
-        app.note.push({id: 0, title: null, text: null});
+        app.note.push({id: 0, title: null, text: null, blur: false});
         app_load(app.load_stage + 1);
       }
     };
@@ -39,7 +39,8 @@ function note_load_db(tmp_transaction, note_length, load_number){
     app.note.push({
       id: tmp_transaction_get.result.id,
       title: tmp_transaction_get.result.title,
-      text: tmp_transaction_get.result.text
+      text: tmp_transaction_get.result.text,
+      blur: tmp_transaction_get.result.blur,
     });
     load_number = load_number + 1;
     if (load_number < note_length) {
@@ -61,7 +62,8 @@ function note_db_replace_add(tmp_transaction){
     tmp_transaction.objectStore("note").add({
       id: app.note[i].id,
       title: app.note[i].title,
-      text: app.note[i].text
+      text: app.note[i].text,
+      blur: app.note[i].blur
     });
   }
 }
@@ -83,7 +85,8 @@ function note_add(){
   app.note.unshift({
     id: 0,
     title: null,
-    text: null
+    text: null,
+    blur: false
   });
 
   document.getElementById("note_list").prepend(note_list_add(app.note[0]));
@@ -357,9 +360,12 @@ function note_list_add(note){
 
   let tmp_text = document.createElement("textarea");
   tmp_text.className = "note_text";
+  if (note.blur) tmp_text.classList.add("blur");
   tmp_text.style.fontSize = app.settings.note_text_size;
   tmp_text.placeholder = app.translate().main.note + "...";
   tmp_text.value = note.text;
+  tmp_text.onfocus = function(){if (note.blur) tmp_text.classList.remove("blur")};
+  tmp_text.onblur = function(){if (note.blur) tmp_text.classList.add("blur")};
   tmp_text.oninput = function(){
     app.note[this.parentElement.parentElement.id].text = this.value;
     note_save();

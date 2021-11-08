@@ -2,6 +2,7 @@ function translation_en(){
   return {
     main: {
       about: "About",
+      blur: "Blur",
       contact: "Contact",
       delete: "Delete",
       disable: "Disable",
@@ -28,6 +29,7 @@ function translation_en(){
     settings: {
       settings_cache_delete_description: "Delete files in cache",
       settings_cache_offline: "Cache - OffLine",
+      settings_more_settings: "More Settings...",
       settings_note_auto_clean: "Deleting empty notes",
       settings_note_auto_clean_desc: "Automatic deletion of notes without titles and text each time the application is started",
       settings_note_delete_all: "Delete all notes",

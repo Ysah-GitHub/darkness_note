@@ -78,6 +78,10 @@ function icon_select(width, height){
   return icon_constructor(width, height, "rgb(200, 200, 200)", icon_select_draw);
 }
 
+function icon_chevron(width, height){
+  return icon_constructor(width, height, "rgb(65, 65, 65)", icon_select_draw);
+}
+
 function icon_close_draw(element, color, width, height){
   let tmp_draw = icon_draw_start(element, color, width, height);
   icon_fillRect(tmp_draw, width, height, [

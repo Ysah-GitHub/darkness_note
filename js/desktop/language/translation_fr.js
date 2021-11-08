@@ -2,6 +2,7 @@ function translation_fr(){
   return {
     main: {
       about: "À propos",
+      blur: "Flou",
       contact: "Contact",
       delete: "Supprimer",
       disable: "Désactivé",
@@ -28,6 +29,7 @@ function translation_fr(){
     settings: {
       settings_cache_delete_description: "Supprimer les fichiers en cache",
       settings_cache_offline: "Cache - Hors-Ligne",
+      settings_more_settings: "Plus de Paramètres...",
       settings_note_auto_clean: "Suppression des notes vides",
       settings_note_auto_clean_desc: "Suppression automatique des notes sans titre et sans texte à chaque démarrage de l'application",
       settings_note_delete_all: "Supprimer toutes les notes",

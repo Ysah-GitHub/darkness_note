@@ -33,6 +33,7 @@
   position: relative;
   height: calc(100% - 64px);
   background-color: rgb(50, 50, 50);
+  overflow: hidden;
 }
 
 .note_text{
@@ -45,6 +46,9 @@
   font-size: 13px;
   overflow: auto;
   cursor: auto;
+}
+.note_text.blur{
+  filter: blur(5px);
 }
 .note_text::-webkit-scrollbar{
   width: 15px;

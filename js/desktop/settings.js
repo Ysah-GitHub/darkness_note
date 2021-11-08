@@ -522,7 +522,9 @@ function settings_note(note_interface){
     tmp_icon_settings.children[0].replaceWith(icon_settings_note(64, 64));
     note_interface.getElementsByClassName("note_text")[0].style.display = "block";
     note_interface.getElementsByClassName("settings_note")[0].remove();
+    note_interface.getElementsByClassName("settings_note_more")[0].remove();
     note_interface.getElementsByClassName("settings_note_header")[0].remove();
+    note_interface.getElementsByClassName("settings_note_header_secondary")[0].remove();
   }
   else {
     note_interface.classList.add("settings");
@@ -530,9 +532,36 @@ function settings_note(note_interface){
     note_interface.getElementsByClassName("note_text")[0].style.display = "none";
 
     note_interface.getElementsByClassName("note_main")[0].append(settings_note_header(note_interface));
+    note_interface.getElementsByClassName("note_main")[0].append(settings_note_header_secondary(note_interface));
+
+    let tmp_more_settings = document.createElement("div");
+    tmp_more_settings.className = "settings_note_more";
+    tmp_more_settings.onclick = function(){
+      if (tmp_more_settings.classList.value.includes("active")) {
+        tmp_more_settings.classList.remove("active");
+        note_interface.getElementsByClassName("settings_note_header")[0].classList.remove("hidden");
+        note_interface.getElementsByClassName("settings_note")[0].classList.add("hidden");
+      }
+      else {
+        tmp_more_settings.classList.add("active");
+        note_interface.getElementsByClassName("settings_note_header")[0].classList.add("hidden");
+        note_interface.getElementsByClassName("settings_note")[0].classList.remove("hidden");
+      }
+    };
+
+    let tmp_more_settings_text = document.createElement("p");
+    tmp_more_settings_text.textContent = app.translate().settings.settings_more_settings;
+    tmp_more_settings.append(tmp_more_settings_text);
+
+    let tmp_more_settings_icon = document.createElement("span");
+    tmp_more_settings_icon.className = "select_icon";
+    tmp_more_settings_icon.append(icon_chevron(12, 12));
+    tmp_more_settings.append(tmp_more_settings_icon);
+
+    note_interface.getElementsByClassName("note_main")[0].append(tmp_more_settings);
 
     let tmp_settings = document.createElement("div");
-    tmp_settings.className = "settings_note";
+    tmp_settings.className = "settings_note hidden";
 
     tmp_settings.append(settings_note_section_note_management(note_interface));
 
@@ -577,6 +606,36 @@ function settings_note_header(note_interface){
   tmp_settings_header.append(tmp_icon_double_right);
 
   return tmp_settings_header;
+}
+
+function settings_note_header_secondary(note_interface){
+  let tmp_settings_header_secondary = document.createElement("div");
+  tmp_settings_header_secondary.className = "settings_note_header_secondary";
+
+  let tmp_icon_blur = document.createElement("p");
+  tmp_icon_blur.textContent = app.translate().main.blur;
+  if (app.note[note_interface.id].blur) {
+    tmp_icon_blur.classList.add("active");
+  }
+  else {
+    tmp_icon_blur.classList.remove("active");
+  }
+  tmp_icon_blur.onclick = function(){
+    if (!app.note[note_interface.id].blur) {
+      app.note[note_interface.id].blur = true;
+      tmp_icon_blur.classList.add("active");
+      note_interface.getElementsByClassName("note_text")[0].classList.add("blur");
+    }
+    else {
+      app.note[note_interface.id].blur = false;
+      tmp_icon_blur.classList.remove("active");
+      note_interface.getElementsByClassName("note_text")[0].classList.remove("blur");
+    }
+    note_save();
+  };
+  tmp_settings_header_secondary.append(tmp_icon_blur);
+
+  return tmp_settings_header_secondary;
 }
 
 function settings_note_section_note_management(note_interface){
