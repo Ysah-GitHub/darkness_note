@@ -62,9 +62,7 @@ function translation_en(){
       "\n\n\nData usage :\n\nThe data is saved locally in the browser, no information is sent to our servers. Only you have access to it." +
       "\n\n\nCode :\n\nThe source code of the application is free for use, redistribution and modification on the sole condition that it is used in projects that are themselves free for use, redistribution and modification. The code does not need to be credited, but we will appreciate if you decide to do it anyway. <3",
       app_description: "Web application for note taking",
-      app_donate: "Darkness Note supports the Brave Rewards Creators project." +
-      "\nIf you use the Brave browser, you can make a monthly contribution or a donation directly from your wallet." +
-      "\n\n\nYou can also make a donation by sending Cryptocurrencies to the following addresses." +
+      app_donate: "You can make a donation by sending Cryptocurrencies to the following addresses." +
       "\n\n\nDASH: Xwi1N9H6eUhVmHnr3WFypqJSx29ypMtNA6" +
       "\n\nERC20: 0x47ce90715022529bddd6ecca9ffea03d50c6327d" +
       "\n\nLTC: LYti5jPN3hNbw64LwwD2wYvnTuRBqatRNV" +
