@@ -30,7 +30,7 @@ function translation_en(){
       settings_cache_delete_description: "Delete files in cache",
       settings_cache_offline: "Cache - OffLine",
       settings_more_settings: "More Settings...",
-      settings_note_auto_clean: "Deleting empty notes",
+      settings_note_auto_clean: "Automatic deletion of empty notes",
       settings_note_auto_clean_desc: "Automatic deletion of notes without titles and text each time the application is started",
       settings_note_delete_all: "Delete all notes",
       settings_note_delete_all_description: "Move all notes to the trash",
@@ -63,7 +63,8 @@ function translation_en(){
       "\n\n\nCode :\n\nThe source code of the application is free for use, redistribution and modification on the sole condition that it is used in projects that are themselves free for use, redistribution and modification. The code does not need to be credited, but we will appreciate if you decide to do it anyway. <3",
       app_description: "Web application for note taking",
       app_donate: "You can make a donation by sending Cryptocurrencies to the following addresses." +
-      "\n\n\nDASH: Xwi1N9H6eUhVmHnr3WFypqJSx29ypMtNA6" +
+      "\n\n\nXRP: rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh / 109662603" +
+      "\n\nDASH: Xwi1N9H6eUhVmHnr3WFypqJSx29ypMtNA6" +
       "\n\nERC20: 0x47ce90715022529bddd6ecca9ffea03d50c6327d" +
       "\n\nLTC: LYti5jPN3hNbw64LwwD2wYvnTuRBqatRNV" +
       "\n\nBTC: 12DU5Hi4KLQzosQx9NJQS1reyqeX1AqBxY" +

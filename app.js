@@ -1,5 +1,5 @@
 var app = {
-  version: "1.5.0.2",
+  version: "1.5.0.3",
   db_version: 2,
   device: /Mobi/.test(navigator.userAgent) ? "mobile" : "desktop"
 };

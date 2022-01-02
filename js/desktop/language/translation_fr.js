@@ -30,7 +30,7 @@ function translation_fr(){
       settings_cache_delete_description: "Supprimer les fichiers en cache",
       settings_cache_offline: "Cache - Hors-Ligne",
       settings_more_settings: "Plus de Paramètres...",
-      settings_note_auto_clean: "Suppression des notes vides",
+      settings_note_auto_clean: "Suppression automatique des notes vides",
       settings_note_auto_clean_desc: "Suppression automatique des notes sans titre et sans texte à chaque démarrage de l'application",
       settings_note_delete_all: "Supprimer toutes les notes",
       settings_note_delete_all_description: "Déplacement de toutes les notes vers la corbeille",
@@ -63,7 +63,8 @@ function translation_fr(){
       "\n\n\nCode :\n\nLe code source de l'application est libre d'utilisation, de redistribution et de modification à la seule condition que ce dernier soit utilisé dans des projets eux-mêmes libres d'utilisation, de redistribution et de modification. Le code n'a pas besoin d'être crédité, mais nous apprécierons si vous décidez de le faire quand même. <3",
       app_description: "Application web de prise de notes",
       app_donate: "Vous pouvez faire un don en envoyant des Cryptomonnaies aux adresses suivantes." +
-      "\n\n\nDASH: Xwi1N9H6eUhVmHnr3WFypqJSx29ypMtNA6" +
+      "\n\n\nXRP: rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh / 109662603" +
+      "\n\nDASH: Xwi1N9H6eUhVmHnr3WFypqJSx29ypMtNA6" +
       "\n\nERC20: 0x47ce90715022529bddd6ecca9ffea03d50c6327d" +
       "\n\nLTC: LYti5jPN3hNbw64LwwD2wYvnTuRBqatRNV" +
       "\n\nBTC: 12DU5Hi4KLQzosQx9NJQS1reyqeX1AqBxY" +
