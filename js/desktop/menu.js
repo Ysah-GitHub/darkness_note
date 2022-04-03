@@ -2,23 +2,11 @@ function menu(){
   let tmp_menu = document.createElement("div");
   tmp_menu.id = "menu";
 
-  tmp_menu.append(menu_title());
   tmp_menu.append(menu_settings());
   tmp_menu.append(menu_note_add());
   tmp_menu.append(menu_note_trash());
 
   return tmp_menu;
-}
-
-function menu_title(){
-  let tmp_title_container = document.createElement("div");
-  tmp_title_container.id = "menu_title";
-
-  let tmp_title = document.createElement("h1");
-  tmp_title.textContent = "Darkness Note";
-  tmp_title_container.append(tmp_title);
-
-  return tmp_title_container;
 }
 
 function menu_title_sub(title){

@@ -15,6 +15,31 @@ function app_load(load_stage){
   }
 }
 
+function app_file_load_css(file_list_css){
+  app.load_file_css = {load: 0, length: file_list_css.length};
+
+  let tmp_load_func = function(){
+    app.load_file_css.load = app.load_file_css.load + 1;
+    if (app.load_file_css.load == app.load_file_css.length) {
+      app_load(app.load_stage + 1);
+      delete app.load_file_css;
+    }
+  };
+
+  tmp_head = document.head.cloneNode(true);
+
+  for (let i = 0; i < file_list_css.length; i++) {
+    let tmp_file = document.createElement("link");
+    tmp_file.rel = "stylesheet";
+    tmp_file.href = file_list_css[i];
+    tmp_file.onload = tmp_load_func;
+    tmp_file.onerror = tmp_load_func;
+    tmp_head.append(tmp_file);
+  }
+
+  document.head.replaceWith(tmp_head);
+}
+
 function app_file_load_js(file_list_js){
   app.load_file_js = {load: 0, length: file_list_js.length};
 
@@ -37,31 +62,6 @@ function app_file_load_js(file_list_js){
   }
 
   document.body.replaceWith(tmp_body);
-}
-
-function app_file_load_css(file_list_css){
-  app.load_file_css = {load: 0, length: file_list_css.length};
-
-  let tmp_load_func = function(){
-    app.load_file_css.load = app.load_file_css.load + 1;
-    if (app.load_file_css.load == app.load_file_css.length) {
-      app_load(app.load_stage + 1);
-      delete app.load_file_css;
-    }
-  };
-
-  tmp_head = document.head.cloneNode(true);
-
-  for (let i = 0; i < file_list_css.length; i++) {
-    let tmp_file = document.createElement("link");
-    tmp_file.rel = "stylesheet";
-    tmp_file.href = file_list_css[i];
-    tmp_file.onload = tmp_load_func;
-    tmp_file.onerror = tmp_load_func;
-    tmp_head.getElementsByTagName("style")[0].before(tmp_file);
-  }
-
-  document.head.replaceWith(tmp_head);
 }
 
 function app_language(){

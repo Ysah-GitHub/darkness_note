@@ -1,0 +1,42 @@
+body{
+  background-color: rgb(45, 45, 45)
+}
+
+body, ol, p{
+  margin: 0;
+}
+
+input, ol{
+  padding: 0;
+}
+
+ol{
+  list-style: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+input{
+  background: none;
+  border: none;
+  outline: none;
+}
+
+textarea{
+  background: none;
+  border: none;
+  outline: none;
+  resize: none;
+}
+
+select{
+  background: none;
+  border: none;
+  outline: none;
+}
+
+option{
+  background: inherit;
+}

@@ -6,7 +6,6 @@ function translation_fr(){
       contact: "Contact",
       delete: "Supprimer",
       disable: "Désactivé",
-      donate: "Donation",
       enable: "Activé",
       extra_large: "Très Grand",
       extra_small: "Très Petit",
@@ -61,14 +60,7 @@ function translation_fr(){
       app_about: "L'équipe de développement de l'application Darkness Note s'engage à offrir une expérience respectueuse pour l'utilisateur et son appareil, sans traitement de données personnelles dans un but publicitaire, commerciale ou statistique." +
       "\n\n\nUtilisation des données :\n\nLes données sont sauvegardées localement dans le navigateur, aucune information n'est envoyée sur nos serveurs. Vous êtes est le seul à y avoir accès." +
       "\n\n\nCode :\n\nLe code source de l'application est libre d'utilisation, de redistribution et de modification à la seule condition que ce dernier soit utilisé dans des projets eux-mêmes libres d'utilisation, de redistribution et de modification. Le code n'a pas besoin d'être crédité, mais nous apprécierons si vous décidez de le faire quand même. <3",
-      app_description: "Application web de prise de notes",
-      app_donate: "Vous pouvez faire un don en envoyant des Cryptomonnaies aux adresses suivantes." +
-      "\n\n\nXRP: rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh / 109662603" +
-      "\n\nDASH: Xwi1N9H6eUhVmHnr3WFypqJSx29ypMtNA6" +
-      "\n\nERC20: 0x47ce90715022529bddd6ecca9ffea03d50c6327d" +
-      "\n\nLTC: LYti5jPN3hNbw64LwwD2wYvnTuRBqatRNV" +
-      "\n\nBTC: 12DU5Hi4KLQzosQx9NJQS1reyqeX1AqBxY" +
-      "\n\n\nNous vous remercions de contribuer à nos projets. <3"
+      app_description: "Application web de prise de notes"
     }
   };
 }

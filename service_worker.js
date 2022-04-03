@@ -7,9 +7,8 @@ function service_worker_cache(){
     "index.html",
     "app.js",
     "app_load.js",
-    "rsc/png/main.png",
-    "rsc/png/main_maskable.png",
-    "rsc/png/main_apple_touch.png",
+    "rsc/img/main.png",
+    "rsc/img/main_maskable.png",
     "rsc/font/press_start_2p.woff2"
   ];
 

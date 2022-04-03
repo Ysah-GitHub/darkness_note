@@ -412,7 +412,6 @@ function settings_section_links_source_code(){
 function settings_section_other(){
   let tmp_section = settings_section(app.translate().main.other);
   tmp_section.append(settings_section_other_language());
-  tmp_section.append(settings_section_other_donate());
   tmp_section.append(settings_section_other_about());
   tmp_section.append(settings_section_other_reset());
   return tmp_section;
@@ -441,19 +440,6 @@ function settings_section_other_language(){
       }
     }
   ));
-  return tmp_settings;
-}
-
-function settings_section_other_donate(){
-  let tmp_settings = document.createElement("div");
-  tmp_settings.className = "settings_section_element";
-  tmp_settings.onclick = function(){
-    settings_note_fullscreen(app.translate().main.donate, app.translate().app.app_donate);
-  };
-
-  tmp_settings.append(settings_text(app.translate().main.donate));
-
-  tmp_settings.append(settings_icon(function(){return icon_fullscreen_light(48, 48)}));
   return tmp_settings;
 }
 

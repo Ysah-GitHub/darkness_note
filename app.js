@@ -1,8 +1,27 @@
 var app = {
-  version: "1.5.0.3",
+  version: "1.5.1",
   db_version: 2,
   device: /Mobi/.test(navigator.userAgent) ? "mobile" : "desktop"
 };
+
+function app_file_list_css(){
+  let tmp_file_list = {
+    desktop: [
+      "css/desktop/main.css",
+      "css/desktop/note.css",
+      "css/desktop/menu.css",
+      "css/desktop/settings.css"
+    ],
+    mobile: [
+      "css/mobile/main.css",
+      "css/mobile/note.css",
+      "css/mobile/menu.css",
+      "css/mobile/settings.css"
+    ]
+  };
+
+  return tmp_file_list[app.device];
+}
 
 function app_file_list_js(){
   let tmp_file_list = {
@@ -29,28 +48,8 @@ function app_file_list_js(){
   return tmp_file_list[app.device];
 }
 
-function app_file_list_css(){
-  let tmp_file_list = {
-    desktop: [
-      "css/desktop/main.css",
-      "css/desktop/note.css",
-      "css/desktop/menu.css",
-      "css/desktop/settings.css"
-    ],
-    mobile: [
-      "css/mobile/main.css",
-      "css/mobile/note.css",
-      "css/mobile/menu.css",
-      "css/mobile/settings.css"
-    ]
-  };
-
-  return tmp_file_list[app.device];
-}
-
 function app_db_open(){
-  let tmp_request = indexedDB.open("app", app.db_version);
-  return tmp_request;
+  return indexedDB.open("app", app.db_version);
 }
 
 function app_db_open_update(){
