@@ -5,6 +5,7 @@ function service_worker_cache(){
   let tmp_sw_cache = [
     "/",
     "index.html",
+    "css/reset.css",
     "app.js",
     "app_load.js",
     "rsc/img/main.png",

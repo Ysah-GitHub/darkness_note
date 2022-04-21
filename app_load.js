@@ -162,7 +162,7 @@ function app_manifest(){
   let tmp_link = document.createElement("link");
   tmp_link.setAttribute("rel", "manifest");
   tmp_link.setAttribute("href", "rsc/manifest/manifest_" + app.language + ".json");
-  document.getElementsByTagName("title")[0].after(tmp_link);
+  document.getElementsByTagName("link")[0].before(tmp_link);
 }
 
 function app_service_worker(){
