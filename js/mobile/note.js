@@ -1,12 +1,12 @@
 function note_load(){
-  let tmp_request = app_db_open();
+  let request = app_db_open();
   app.note = [];
 
-  tmp_request.onsuccess = function(){
-    let tmp_transaction = tmp_request.result.transaction("note", "readonly");
-    tmp_transaction.objectStore("note").count().onsuccess = function(){
+  request.onsuccess = function(){
+    let transaction = request.result.transaction("note", "readonly");
+    transaction.objectStore("note").count().onsuccess = function(){
       if (this.result > 0) {
-        note_load_db(tmp_transaction, this.result, 0);
+        note_load_db(transaction, this.result, 0);
       }
       else {
         app.note.push({id: 0, title: null, text: null, blur: false});
@@ -17,34 +17,34 @@ function note_load(){
 }
 
 function note_save(){
-  let tmp_request = app_db_open();
+  let request = app_db_open();
 
-  tmp_request.onsuccess = function(){
-    let tmp_transaction = tmp_request.result.transaction("note", "readwrite");
-    tmp_transaction.objectStore("note").count().onsuccess = function(){
-      let tmp_note_length = this.result;
-      if (tmp_note_length > 0) {
-        note_db_replace_delete(tmp_transaction, tmp_note_length, 0);
+  request.onsuccess = function(){
+    let transaction = request.result.transaction("note", "readwrite");
+    transaction.objectStore("note").count().onsuccess = function(){
+      let note_length = this.result;
+      if (note_length > 0) {
+        note_db_replace_delete(transaction, note_length, 0);
       }
       else {
-        note_db_replace_add(tmp_transaction);
+        note_db_replace_add(transaction);
       }
     };
   };
 }
 
-function note_load_db(tmp_transaction, note_length, load_number){
-  let tmp_transaction_get = tmp_transaction.objectStore("note").get(load_number);
-  tmp_transaction_get.onsuccess = function(){
+function note_load_db(transaction, note_length, load_number){
+  let transaction_get = transaction.objectStore("note").get(load_number);
+  transaction_get.onsuccess = function(){
     app.note.push({
-      id: tmp_transaction_get.result.id,
-      title: tmp_transaction_get.result.title,
-      text: tmp_transaction_get.result.text,
-      blur: tmp_transaction_get.result.blur
+      id: transaction_get.result.id,
+      title: transaction_get.result.title,
+      text: transaction_get.result.text,
+      blur: transaction_get.result.blur
     });
     load_number = load_number + 1;
     if (load_number < note_length) {
-      note_load_db(tmp_transaction, note_length, load_number);
+      note_load_db(transaction, note_length, load_number);
     }
     else {
       if (app.settings.note_auto_clean == "enable") {
@@ -57,9 +57,9 @@ function note_load_db(tmp_transaction, note_length, load_number){
   };
 }
 
-function note_db_replace_add(tmp_transaction){
+function note_db_replace_add(transaction){
   for (let i = 0; i < app.note.length; i++) {
-    tmp_transaction.objectStore("note").add({
+    transaction.objectStore("note").add({
       id: app.note[i].id,
       title: app.note[i].title,
       text: app.note[i].text,
@@ -68,15 +68,15 @@ function note_db_replace_add(tmp_transaction){
   }
 }
 
-function note_db_replace_delete(tmp_transaction, note_length, delete_number){
-  let tmp_transaction_delete = tmp_transaction.objectStore("note").delete(delete_number);
+function note_db_replace_delete(transaction, note_length, delete_number){
+  let transaction_delete = transaction.objectStore("note").delete(delete_number);
   delete_number = delete_number + 1;
-  tmp_transaction_delete.onsuccess = function(){
+  transaction_delete.onsuccess = function(){
     if (delete_number < note_length) {
-      note_db_replace_delete(tmp_transaction, note_length, delete_number);
+      note_db_replace_delete(transaction, note_length, delete_number);
     }
     else {
-      note_db_replace_add(tmp_transaction);
+      note_db_replace_add(transaction);
     }
   };
 }
@@ -152,50 +152,50 @@ function note_refresh_id_with_interface(){
 }
 
 function note_export(note){
-  let tmp_link = document.createElement("a");
+  let link = document.createElement("a");
   if (note.text != null) {
-    tmp_link.href = "data:application/octet-stream," + note.text.replaceAll(" ", "%20");
+    link.href = "data:application/octet-stream," + note.text.replaceAll(" ", "%20");
   }
   else {
-    tmp_link.href = "data:application/octet-stream,";
+    link.href = "data:application/octet-stream,";
   }
   if (note.title != null) {
-    tmp_link.download = note.title + ".txt";
+    link.download = note.title + ".txt";
   }
   else {
-    tmp_link.download = app.translate().main.note.toLowerCase() + ".txt";
+    link.download = app.translate().main.note.toLowerCase() + ".txt";
   }
-  tmp_link.click();
+  link.click();
 }
 
 function note_export_all(){
-  let tmp_note_list = encodeURIComponent(JSON.stringify(app.note));
-  let tmp_link = document.createElement("a");
-  tmp_link.href = "data:application/octet-stream," + tmp_note_list;
-  tmp_link.download = app.translate().main.note.toLowerCase() + ".json";
-  tmp_link.click();
+  let note_list_export = encodeURIComponent(JSON.stringify(app.note));
+  let link = document.createElement("a");
+  link.href = "data:application/octet-stream," + note_list_export;
+  link.download = app.translate().main.note.toLowerCase() + ".json";
+  link.click();
 }
 
 function note_import(){
-  let tmp_input = document.createElement("input");
-  tmp_input.type = "file";
+  let input = document.createElement("input");
+  input.type = "file";
 
-  tmp_input.onchange = function(){
-    let tmp_file = tmp_input.files[0];
-    let tmp_reader = new FileReader();
-    tmp_reader.readAsText(tmp_file);
+  input.onchange = function(){
+    let file = input.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
 
-    tmp_reader.onload = function(){
+    reader.onload = function(){
       switch (true) {
-        case !tmp_file.name.includes(".txt"):
-          alert(app.translate().error.error_file_txt); break;
-        case tmp_reader.result.length > 100000:
-          alert(app.translate().error.error_character_length_100000); break;
+        case !file.name.includes(".txt"):
+          alert(app.translate().error.file_txt); break;
+        case reader.result.length > 100000:
+          alert(app.translate().error.character_length_100000); break;
         default:
           app.note.unshift({
             id: 0,
-            title: tmp_file.name.replace(".txt", ""),
-            text: tmp_reader.result
+            title: file.name.replace(".txt", ""),
+            text: reader.result
           });
           note_refresh_id();
           note_save();
@@ -203,31 +203,31 @@ function note_import(){
       }
     };
   };
-  tmp_input.click();
+  input.click();
 }
 
 function note_import_all(){
-  let tmp_input = document.createElement("input");
-  tmp_input.type = "file";
+  let input = document.createElement("input");
+  input.type = "file";
 
-  tmp_input.onchange = function(){
-    let tmp_file = tmp_input.files[0];
-    let tmp_reader = new FileReader();
-    tmp_reader.readAsText(tmp_file);
+  input.onchange = function(){
+    let file = input.files[0];
+    let reader = new FileReader();
+    reader.readAsText(file);
 
-    tmp_reader.onload = function(){
+    reader.onload = function(){
       switch (true) {
-        case !tmp_file.name.includes(".json"):
-          alert(app.translate().error.error_file_json); break;
-        case tmp_file > 1000000:
-          alert(app.translate().error.error_file_size_1000000); break;
+        case !file.name.includes(".json"):
+          alert(app.translate().error.file_json); break;
+        case file > 1000000:
+          alert(app.translate().error.file_size_1000000); break;
         default:
-          let tmp_note_list = JSON.parse(tmp_reader.result).reverse();
-          for (let i = 0; i < tmp_note_list.length; i++) {
+          let note_list_import = JSON.parse(reader.result).reverse();
+          for (let i = 0; i < note_list_import.length; i++) {
             app.note.unshift({
               id: 0,
-              title: tmp_note_list[i].title,
-              text: tmp_note_list[i].text
+              title: note_list_import[i].title,
+              text: note_list_import[i].text
             });
             note_refresh_id();
           }
@@ -236,16 +236,16 @@ function note_import_all(){
       }
     };
   };
-  tmp_input.click();
+  input.click();
 }
 
 function note_move_first(note_interface){
-  let tmp_note = app.note[note_interface.id];
+  let note = app.note[note_interface.id];
 
-  document.getElementById(tmp_note.id).remove();
-  app.note.splice(tmp_note.id, 1);
+  document.getElementById(note.id).remove();
+  app.note.splice(note.id, 1);
 
-  app.note.unshift(tmp_note);
+  app.note.unshift(note);
   document.getElementById("note_list").prepend(note_interface);
 
   note_refresh_id_with_interface();
@@ -253,12 +253,12 @@ function note_move_first(note_interface){
 }
 
 function note_move_last(note_interface){
-  let tmp_note = app.note[note_interface.id];
+  let note = app.note[note_interface.id];
 
-  document.getElementById(tmp_note.id).remove();
-  app.note.splice(tmp_note.id, 1);
+  document.getElementById(note.id).remove();
+  app.note.splice(note.id, 1);
 
-  app.note.push(tmp_note);
+  app.note.push(note);
   document.getElementById("note_list").append(note_interface);
 
   note_refresh_id_with_interface();
@@ -266,16 +266,16 @@ function note_move_last(note_interface){
 }
 
 function note_move_prev(note_interface){
-  let tmp_position = Number(note_interface.id) - 1;
+  let position = Number(note_interface.id) - 1;
 
-  if (tmp_position >= 1) {
-    let tmp_note = app.note[note_interface.id];
+  if (position >= 1) {
+    let note = app.note[note_interface.id];
 
-    document.getElementById(tmp_note.id).remove();
-    app.note.splice(tmp_note.id, 1);
+    document.getElementById(note.id).remove();
+    app.note.splice(note.id, 1);
 
-    app.note.splice(tmp_position, 0, tmp_note);
-    document.getElementById("note_list").children[tmp_position - 1].after(note_interface);
+    app.note.splice(position, 0, note);
+    document.getElementById("note_list").children[position - 1].after(note_interface);
 
     note_refresh_id_with_interface();
     note_save();
@@ -286,16 +286,16 @@ function note_move_prev(note_interface){
 }
 
 function note_move_next(note_interface){
-  let tmp_position = Number(note_interface.id) + 1;
+  let position = Number(note_interface.id) + 1;
 
-  if (tmp_position < app.note.length) {
-    let tmp_note = app.note[note_interface.id];
+  if (position < app.note.length) {
+    let note = app.note[note_interface.id];
 
-    document.getElementById(tmp_note.id).remove();
-    app.note.splice(tmp_note.id, 1);
+    document.getElementById(note.id).remove();
+    app.note.splice(note.id, 1);
 
-    app.note.splice(tmp_position, 0, tmp_note);
-    document.getElementById("note_list").children[tmp_position - 1].after(note_interface);
+    app.note.splice(position, 0, note);
+    document.getElementById("note_list").children[position - 1].after(note_interface);
 
     note_refresh_id_with_interface();
     note_save();
@@ -306,126 +306,126 @@ function note_move_next(note_interface){
 }
 
 function note_list(){
-  let tmp_note_list = document.createElement("ol");
-  tmp_note_list.id = "note_list";
+  let note_list_ol = document.createElement("ol");
+  note_list_ol.id = "note_list";
 
   for (let i = 0; i < app.note.length; i++) {
-    tmp_note_list.append(note_list_add(app.note[i]));
+    note_list_ol.append(note_list_add(app.note[i]));
   }
 
-  return tmp_note_list;
+  return note_list_ol;
 }
 
-function note_list_add(note){
-  let tmp_note = document.createElement("li");
-  tmp_note.id = note.id;
-  tmp_note.className = "note";
+function note_list_add(app_note){
+  let note = document.createElement("li");
+  note.id = app_note.id;
+  note.className = "note";
 
-  let tmp_header = document.createElement("div");
-  tmp_header.className = "note_header";
+  let header = document.createElement("div");
+  header.className = "note_header";
 
-  let tmp_icon_settings = document.createElement("span");
-  tmp_icon_settings.className = "icon settings dark_background";
-  tmp_icon_settings.onclick = function(){
+  let icon_settings = document.createElement("span");
+  icon_settings.className = "icon settings dark_background";
+  icon_settings.onclick = function(){
     settings_note(this.parentElement.parentElement);
   };
-  tmp_icon_settings.append(icon_settings_note(64, 64));
-  tmp_header.append(tmp_icon_settings);
+  icon_settings.append(icon_draw("settings_note", 64, 64, "rgb(85, 85, 85)"));
+  header.append(icon_settings);
 
-  let tmp_title = document.createElement("input");
-  tmp_title.className = "note_title";
-  tmp_title.type = "text";
-  tmp_title.setAttribute("maxlength", "200");
-  tmp_title.style.fontSize = app.settings.note_title_size;
-  tmp_title.placeholder = app.translate().main.title;
-  tmp_title.value = note.title;
-  tmp_title.oninput = function(){
+  let title = document.createElement("input");
+  title.className = "note_title";
+  title.type = "text";
+  title.setAttribute("maxlength", "200");
+  title.style.fontSize = app.settings.note_title_size;
+  title.placeholder = app.translate().main.title;
+  title.value = app_note.title;
+  title.oninput = function(){
     app.note[this.parentElement.parentElement.id].title = this.value;
     note_save();
   };
-  tmp_header.append(tmp_title);
+  header.append(title);
 
-  let tmp_icon_close = document.createElement("span");
-  tmp_icon_close.className = "icon red_background";
-  tmp_icon_close.onclick = function(){
+  let icon_close = document.createElement("span");
+  icon_close.className = "icon red_background";
+  icon_close.onclick = function(){
     note_remove(app.note[this.parentElement.parentElement.id]);
   };
-  tmp_icon_close.append(icon_close(64, 64));
-  tmp_header.append(tmp_icon_close);
+  icon_close.append(icon_draw("close", 64, 64, "rgb(85, 85, 85)"));
+  header.append(icon_close);
 
-  tmp_note.append(tmp_header);
+  note.append(header);
 
-  let tmp_main = document.createElement("div");
-  tmp_main.className = "note_main";
+  let main = document.createElement("div");
+  main.className = "note_main";
 
-  let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text";
-  if (note.blur) tmp_text.classList.add("blur");
-  tmp_text.style.fontSize = app.settings.note_text_size;
-  tmp_text.placeholder = app.translate().main.note + "...";
-  tmp_text.value = note.text;
-  tmp_text.onfocus = function(){if (note.blur) tmp_text.classList.remove("blur")};
-  tmp_text.onblur = function(){if (note.blur) tmp_text.classList.add("blur")};
-  tmp_text.oninput = function(){
+  let text = document.createElement("textarea");
+  text.className = "note_text";
+  if (app_note.blur) text.classList.add("blur");
+  text.style.fontSize = app.settings.note_text_size;
+  text.placeholder = app.translate().main.note + "...";
+  text.value = app_note.text;
+  text.onfocus = function(){if (app_note.blur) text.classList.remove("blur")};
+  text.onblur = function(){if (app_note.blur) text.classList.add("blur")};
+  text.oninput = function(){
     app.note[this.parentElement.parentElement.id].text = this.value;
     note_save();
   };
-  tmp_main.append(tmp_text);
+  main.append(text);
 
-  tmp_note.append(tmp_main);
-  return tmp_note;
+  note.append(main);
+  return note;
 }
 
-function note_fullscreen(note){
+function note_fullscreen(app_note){
   document.getElementsByTagName("header")[0].style.display = "none";
   document.getElementsByTagName("footer")[0].style.display = "none";
   document.getElementsByTagName("main")[0].classList.add("full");
   document.getElementById("note_list").style.display = "none";
 
-  let tmp_note_fullscreen = document.createElement("div");
-  tmp_note_fullscreen.id = "note_fullscreen";
+  let note_full = document.createElement("div");
+  note_full.id = "note_fullscreen";
 
-  let tmp_header = document.createElement("div");
-  tmp_header.className = "note_header";
+  let header = document.createElement("div");
+  header.className = "note_header";
 
-  let tmp_icon_back = document.createElement("span");
-  tmp_icon_back.className = "icon note_fullscreen_back dark_background";
-  tmp_icon_back.onclick = function(){
-    let tmp_note = document.getElementById(note.id);
-    tmp_note.getElementsByClassName("note_title")[0].value = note.title;
-    tmp_note.getElementsByClassName("note_text")[0].value = note.text;
+  let icon_back = document.createElement("span");
+  icon_back.className = "icon note_fullscreen_back dark_background";
+  icon_back.onclick = function(){
+    let note = document.getElementById(app_note.id);
+    note.getElementsByClassName("note_title")[0].value = app_note.title;
+    note.getElementsByClassName("note_text")[0].value = app_note.text;
     note_fullscreen_back();
-    tmp_note.getElementsByClassName("icon settings")[0].click();
+    note.getElementsByClassName("icon settings")[0].click();
   };
-  tmp_icon_back.append(icon_folder_back(64, 64));
-  tmp_header.append(tmp_icon_back);
+  icon_back.append(icon_draw("folder_back", 64, 64, "rgb(65, 65, 65)"));
+  header.append(icon_back);
 
-  let tmp_title = document.createElement("input");
-  tmp_title.className = "note_title";
-  tmp_title.type = "text";
-  tmp_title.setAttribute("maxlength", "200");
-  tmp_title.style.fontSize = app.settings.note_title_size;
-  tmp_title.placeholder = app.translate().main.title;
-  tmp_title.value = note.title;
-  tmp_title.oninput = function(){note.title = this.value; note_save()};
-  tmp_header.append(tmp_title);
+  let title = document.createElement("input");
+  title.className = "note_title";
+  title.type = "text";
+  title.setAttribute("maxlength", "200");
+  title.style.fontSize = app.settings.note_title_size;
+  title.placeholder = app.translate().main.title;
+  title.value = app_note.title;
+  title.oninput = function(){app_note.title = this.value; note_save()};
+  header.append(title);
 
-  tmp_note_fullscreen.append(tmp_header);
+  note_full.append(header);
 
-  let tmp_main = document.createElement("div");
-  tmp_main.className = "note_main";
+  let main = document.createElement("div");
+  main.className = "note_main";
 
-  let tmp_text = document.createElement("textarea");
-  tmp_text.className = "note_text";
-  tmp_text.style.fontSize = app.settings.note_text_size;
-  tmp_text.placeholder = app.translate().main.note + "...";
-  tmp_text.value = note.text;
-  tmp_text.oninput = function(){note.text = this.value; note_save()};
-  tmp_main.append(tmp_text);
+  let text = document.createElement("textarea");
+  text.className = "note_text";
+  text.style.fontSize = app.settings.note_text_size;
+  text.placeholder = app.translate().main.note + "...";
+  text.value = app_note.text;
+  text.oninput = function(){app_note.text = this.value; note_save()};
+  main.append(text);
 
-  tmp_note_fullscreen.append(tmp_main);
+  note_full.append(main);
 
-  document.getElementById("note_list").after(tmp_note_fullscreen);
+  document.getElementById("note_list").after(note_full);
   app_url_update("note_fullscreen");
 }
 
@@ -436,4 +436,12 @@ function note_fullscreen_back(){
   document.getElementsByTagName("header")[0].removeAttribute("style");
   document.getElementsByTagName("footer")[0].removeAttribute("style");
   app_url_update();
+}
+
+function note_duplicate(note){
+  note_clone = JSON.parse(JSON.stringify(note))
+  app.note.splice(note_clone.id, 0, note_clone);
+  document.getElementById("note_list").children[note_clone.id].after(note_list_add(note_clone));
+  note_refresh_id_with_interface();
+  note_save();
 }

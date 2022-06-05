@@ -12,13 +12,13 @@ function app_ready(){
 }
 
 function app_main(){
-  let tmp_main = document.createElement("main");
-  tmp_main.append(note_list());
-  document.body.prepend(tmp_main);
+  let main = document.createElement("main");
+  main.append(note_list());
+  document.body.prepend(main);
 }
 
 function app_aside(){
-  let tmp_aside = document.createElement("aside");
-  tmp_aside.append(menu());
-  document.getElementsByTagName("main")[0].before(tmp_aside);
+  let aside = document.createElement("aside");
+  aside.append(menu());
+  document.getElementsByTagName("main")[0].before(aside);
 }

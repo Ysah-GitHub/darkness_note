@@ -2,7 +2,7 @@ importScripts("app.js");
 var sw_name = app.version;
 
 function service_worker_cache(){
-  let tmp_sw_cache = [
+  let sw_cache = [
     "/",
     "index.html",
     "css/reset.css",
@@ -13,30 +13,30 @@ function service_worker_cache(){
     "rsc/font/press_start_2p.woff2"
   ];
 
-  tmp_sw_cache = tmp_sw_cache.concat(app_file_list_css());
-  tmp_sw_cache = tmp_sw_cache.concat(app_file_list_js());
+  sw_cache = sw_cache.concat(app_file_list_css());
+  sw_cache = sw_cache.concat(app_file_list_js());
 
-  return tmp_sw_cache;
+  return sw_cache;
 }
 
 self.addEventListener("install", function(event){
   event.waitUntil(
     caches.open(sw_name).then(function(cache){
-      let tmp_request = app_db_open_update();
+      let request = app_db_open_update();
 
-      tmp_request.onsuccess = function(){
-        let tmp_db = tmp_request.result;
-        let tmp_transaction = tmp_db.transaction("settings", "readwrite");
-        let tmp_transaction_get = tmp_transaction.objectStore("settings").get("language");
+      request.onsuccess = function(){
+        let db = request.result;
+        let transaction = db.transaction("settings", "readwrite");
+        let transaction_get = transaction.objectStore("settings").get("language");
 
-        tmp_transaction_get.onsuccess = function(){
-          if (tmp_transaction_get.result != null) {
-            app.language = tmp_transaction_get.result.language;
+        transaction_get.onsuccess = function(){
+          if (transaction_get.result != null) {
+            app.language = transaction_get.result.language;
           }
           else {
-            let tmp_language = navigator.language.substr(0,2);
-            let tmp_language_available = ["en", "fr"];
-            app.language = tmp_language_available.includes(tmp_language) ? tmp_language : "en";
+            let language = navigator.language.substr(0,2);
+            let language_available = ["en", "fr"];
+            app.language = language_available.includes(language) ? language : "en";
           }
           cache.addAll(service_worker_cache());
         };

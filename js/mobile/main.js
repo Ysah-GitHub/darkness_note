@@ -16,28 +16,27 @@ function app_ready(){
 }
 
 function app_header(){
-  let tmp_header = document.createElement("header");
+  let header = document.createElement("header");
 
-  tmp_header.append(menu_settings());
-  tmp_header.append(menu_note_trash());
-  document.body.prepend(tmp_header);
+  header.append(menu_settings());
+  header.append(menu_note_trash());
+  document.body.prepend(header);
 }
 
 function app_main(){
-  let tmp_main = document.createElement("main");
+  let main = document.createElement("main");
 
-  tmp_main.append(note_list());
-  document.getElementsByTagName("header")[0].after(tmp_main);
+  main.append(note_list());
+  document.getElementsByTagName("header")[0].after(main);
 }
 
 function app_footer(){
-  let tmp_footer = document.createElement("footer");
+  let footer = document.createElement("footer");
 
-  tmp_footer.append(menu_note_add());
-  document.getElementsByTagName("main")[0].after(tmp_footer);
+  footer.append(menu_note_add());
+  document.getElementsByTagName("main")[0].after(footer);
 }
 
 function app_vh(){
-  let tmp_document_style = document.documentElement.style;
-  tmp_document_style.setProperty("--vh", window.innerHeight + "px");
+  document.documentElement.style.setProperty("--vh", window.innerHeight + "px")
 }

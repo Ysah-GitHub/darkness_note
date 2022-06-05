@@ -38,8 +38,8 @@
 }
 
 .settings_section_element_title{
-  color: rgb(220, 220, 220);
   line-height: 18px;
+  color: rgb(220, 220, 220);
   font-size: 13px;
   user-select: none;
 }
@@ -65,18 +65,22 @@
   font-size: 0;
 }
 .note .settings_section_element_icon{
-  width: 64px;
+  width: 48px;
   margin: 0 0 0 auto;
 }
 
 .settings_section_element_select{
   position: relative;
-  min-width: 128px;
+  width: 128px;
   height: 48px;
-  margin-left: auto;
-  margin-right: 16px;
+  margin: 0 24px 0 auto;
   text-align: center;
+  font-size: 0;
   overflow: hidden;
+}
+.note .settings_section_element_select{
+  width: 48px;
+  margin: 0 0 0 auto;
 }
 .settings_section_element_select.visible{
   overflow: visible;
@@ -85,49 +89,23 @@
   cursor: pointer;
 }
 
-.settings_section_element_select .option_selected{
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  line-height: 48px;
-  padding: 0 24px 0 12px;
-  box-sizing: border-box;
-  color: rgb(200, 200, 200);
-  font-size: 13px;
-  background-color: rgb(40, 40, 40);
-  transition: background-color 0.1s linear;
-  user-select: none;
-}
-.settings_section_element:hover .option_selected{
-  background-color: rgb(45, 45, 45)!important;
-}
-
-.settings_section_element_select .select_icon{
-  position: absolute;
-  right: 0;
-  display: inline-flex;
-  height: 48px;
-  align-items: center;
-  margin-right: 4px;
-}
-.settings_section_element_select .select_icon > canvas{
-  height: 12px;
-}
-
 .settings_section_element_select .option_list{
   z-index: 2;
-  position: relative;
-  width: 100%;
+  position: absolute;
+  right: 0;
+  width: max-content;
+  max-width: 100vw;
+  margin-right: 8px;
   border: 1px solid rgb(100, 100, 100);
 }
 
 .settings_section_element_select .option{
-  height: 100%;
+  min-width: 96px;
   line-height: 48px;
-  padding: 0 24px 0 12px;
+  padding: 6px 12px;
   color: rgb(200, 200, 200);
   font-size: 13px;
-  background-color: rgb(45, 45, 45);
+  background-color: rgb(40, 40, 40);
   user-select: none;
   transition: 0.1s;
 }
@@ -139,12 +117,9 @@
   color: rgb(255, 255, 255);
   background-color: rgb(40, 120, 215);
 }
-.settings_section_element_select .option.selected:hover{
-  background-color: rgb(40, 120, 215);
-}
 
 .settings_note_more{
-  margin-top: 84px;
+  margin-top: 150px;
 }
 .settings_note_more:hover{
   cursor: pointer;
@@ -211,26 +186,4 @@
 .settings_note_header > *:last-child{
   width: 64px;
   border: none;
-}
-
-.settings_note_header_secondary{
-  height: 63px;
-  border-bottom: 1px solid rgb(40, 40, 40);
-}
-.settings_note_header_secondary > *{
-  display: inline-block;
-  width: calc(50% - 1px);
-  border-right: 1px solid rgb(40, 40, 40);
-  line-height: 64px;
-  text-align: center;
-  color: rgb(65, 65, 65);
-  font-size: 13px;
-  user-select: none;
-  transition: color 0.1s linear;
-}
-.settings_note_header_secondary > *:hover{
-  cursor: pointer;
-}
-.settings_note_header_secondary > *.active{
-  color: rgb(200, 200, 200);
 }

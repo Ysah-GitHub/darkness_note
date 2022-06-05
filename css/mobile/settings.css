@@ -63,18 +63,13 @@
 .settings_section_element_select{
   position: relative;
   display: inline-block;
+  width: 96px;
   height: 48px;
+  text-align: center;
   overflow: hidden;
 }
 .settings_section_element_select.visible{
   overflow: visible;
-}
-
-.settings_section_element_select .select_icon{
-  display: block;
-  width: 96px;
-  height: 48px;
-  text-align: center;
 }
 
 .settings_section_element_select .option_list{
@@ -102,7 +97,7 @@
 }
 
 .settings_note_more{
-  margin-top: 84px;
+  margin-top: 150px;
 }
 .settings_note_more:active > p{
   color: rgb(255, 255, 255);
@@ -155,23 +150,4 @@
   width: 64px;
   padding: 0 calc(50% - 160px);
   border: none;
-}
-
-.settings_note_header_secondary{
-  height: 63px;
-  border-bottom: 1px solid rgb(40, 40, 40);
-}
-.settings_note_header_secondary > *{
-  display: inline-block;
-  width: calc(50% - 1px);
-  border-right: 1px solid rgb(40, 40, 40);
-  line-height: 64px;
-  text-align: center;
-  color: rgb(65, 65, 65);
-  font-size: 13px;
-  user-select: none;
-  transition: color 0.1s linear;
-}
-.settings_note_header_secondary > *.active{
-  color: rgb(200, 200, 200);
 }
