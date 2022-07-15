@@ -1,6 +1,10 @@
 .note{
   margin: 16px 0 0 8px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgb(25, 25, 25);
+  border-radius: 10px;
 }
 @media (orientation: portrait) {
   .note{
@@ -26,6 +30,12 @@
     margin: 4px 0 0 8px;
   }
 }
+body.no_border .note{
+  border: 0;
+}
+body.no_border_radius .note{
+  border-radius: 0;
+}
 
 .note_header{
   height: 64px;
@@ -40,7 +50,6 @@
   box-sizing: border-box;
   vertical-align: top;
   color: rgb(245, 245, 245);
-  font-size: 15px;
   transition: background-color 0.1s linear;
 }
 
@@ -50,15 +59,16 @@
   background-color: rgb(50, 50, 50);
   overflow: hidden;
 }
+.note.settings > .note_main{
+  overflow: auto;
+}
 
 .note_text{
   width: 100%;
   height: 100%;
   padding: 16px;
-  line-height: 28px;
   box-sizing: border-box;
   color: rgb(235, 235, 235);
-  font-size: 13px;
   overflow: auto;
   cursor: auto;
 }
@@ -66,14 +76,99 @@
   filter: blur(5px);
 }
 
-#note_fullscreen{
-  width: calc(100vw - 16px);
+.note_fullscreen{
   height: calc(var(--vh) - 16px);
   margin: 8px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid rgb(25, 25, 25);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+body.no_border .note_fullscreen{
+  border: 0;
+}
+body.no_border_radius .note_fullscreen{
+  border-radius: 0;
 }
 
-#note_fullscreen .note_title{
+.note_fullscreen .note_title{
   width: calc(100% - 64px);
   padding: 0 16px;
+}
+
+.note_settings_header{
+  height: 64px;
+  border-bottom: 1px solid rgb(40, 40, 40);
+  transition: margin-top 0.2s linear;
+  box-sizing: border-box;
+}
+.note_settings_header > .icon{
+  width: 25%;
+  text-align: center;
+  border-right: 1px solid rgb(40, 40, 40);
+  box-sizing: border-box;
+}
+.note_settings_header > .icon:nth-child(4){
+  border: 0;
+}
+.note_settings_header > .icon:nth-child(1) > canvas{
+  transform: rotate(270deg);
+}
+.note_settings_header > .icon:nth-child(2) > canvas{
+  transform: rotate(270deg);
+}
+.note_settings_header > .icon:nth-child(3) > canvas{
+  transform: rotate(90deg);
+}
+.note_settings_header > .icon:nth-child(4) > canvas{
+  transform: rotate(90deg);
+}
+
+.note_settings_more{
+  display: flex;
+  align-items: center;
+  margin-top: 139px;
+}
+.note_settings_more > p{
+  display: inline-block;
+  width: calc(100% - 64px);
+  padding: 16px;
+  font-family: "Verdana";
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+  box-sizing: border-box;
+  user-select: none;
+}
+.note_settings_more > .icon{
+  width: 64px;
+  text-align: center;
+}
+
+.note_settings .settings_section{
+  padding: 0;
+}
+.note_settings .settings_section.visible{
+  padding: 0;
+}
+
+.note_settings .settings_section_title{
+  width: calc(100% - 64px);
+}
+
+.note_settings .settings_section_main{
+  background-color: rgb(55, 55, 55);
+}
+
+.note_settings .settings_section_element_text{
+  width: calc(100% - 64px);
+}
+
+.note_settings .settings_section_element_description{
+  font-size: 14px;
+}
+
+.note_settings .icon{
+  width: 64px;
+  text-align: center;
 }

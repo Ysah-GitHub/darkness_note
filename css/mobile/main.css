@@ -2,6 +2,9 @@ header{
   margin: 8px 0 8px 8px;
   overflow: hidden;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  border: 1px solid rgb(25, 25, 25);
+  border-radius: 10px;
 }
 @media (orientation: portrait) {header{
   width: calc(100vw - 16px);
@@ -13,14 +16,62 @@ header{
   height: calc(var(--vh) - 16px);
   vertical-align: top;
 }}
+body.no_border > header{
+  border: 0;
+}
+body.no_border_radius > header{
+  border-radius: 0;
+}
+
+@media (orientation: portrait) {
+  header .icon:first-child{
+    border-right: 4px solid rgb(35, 35, 35);
+  }
+  body.no_border > header .icon:first-child{
+    border-right: 4px solid rgb(40, 40, 40);
+  }
+  header #icon_trash{
+    padding: 0 0 0 calc(100% - 132px);
+  }
+}
+@media (orientation: landscape) {
+  header .icon:first-child{
+    padding: calc((var(--vh) / 2) - 8px - 32px) 0;
+  }
+  header #icon_settings{
+    padding: 0;
+    border-bottom: 4px solid rgb(40, 40, 40);
+  }
+  header.border #icon_settings{
+    padding: 0;
+    border-bottom: 4px solid rgb(35, 35, 35);
+  }
+  header #icon_trash{
+    padding: calc(var(--vh) - 148px) 0 0 0;
+  }
+}
+
+@media (orientation: portrait) {header > #title_sub{
+  display: inline-flex;
+  width: calc(100% - 68px);
+  height: 64px;
+  vertical-align: top;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  font-family: "Verdana";
+  color: rgb(100, 100, 100);
+  font-size: 18px;
+  padding: 4px;
+  box-sizing: border-box;
+}}
+@media (orientation: landscape) {header > #title_sub{
+  display: none;
+}}
 
 main{
   overflow: auto;
-}
-main.full{
-  height: var(--vh);
-  width: 100%;
-  margin: 0;
 }
 @media (orientation: portrait) {main{
   height: calc(var(--vh) - 16px - 64px - 64px - 16px);
@@ -41,53 +92,41 @@ main.full{
 
 footer{
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  border: 1px solid rgb(25, 25, 25);
+  border-radius: 10px;
 }
-@media (orientation: portrait) {footer{
-  width: calc(100vw - 16px);
-  height: 64px;
-  margin: 8px 0 8px 8px;
-  text-align: center;
-}}
-@media (orientation: landscape) {footer{
-  display: inline-block;
-  width: 64px;
-  height: calc(var(--vh) - 16px);
-  margin: 8px 8px 8px 0;
-  vertical-align: top;
-}}
-
-h1, p, input, textarea, select{
-  font-family: "press_start_2p";
+body.no_border > footer{
+  border: 0;
+}
+body.no_border_radius > footer{
+  border-radius: 0;
+}
+@media (orientation: portrait) {
+  footer{
+    width: calc(100vw - 16px);
+    height: 64px;
+    margin: 8px 0 8px 8px;
+    text-align: center;
+  }
+  footer > .icon{
+    padding: 0 calc(50% - 32px);
+  }
+}
+@media (orientation: landscape) {
+  footer{
+    display: inline-block;
+    width: 64px;
+    height: calc(var(--vh) - 16px);
+    margin: 8px 8px 8px 0;
+    vertical-align: top;
+  }
+  footer > .icon{
+    padding: calc((var(--vh) / 2) - 8px - 32px) 0;
+  }
 }
 
 .icon{
   display: inline-block;
   font-size: 0;
-  transition: background-color 0.1s linear;
-}
-.icon > canvas{
-  transition: filter 0.1s linear;
-}
-.icon:active > canvas{
-  filter: brightness(3);
-}
-
-.icon.dark_background:active{
-  background-color: rgb(30, 30, 30);
-}
-.icon.red_background:active{
-  background-color: rgba(255, 75, 75, 0.6);
-}
-
-.icon.rotate_90 > canvas{
-  transform: rotate(90deg);
-}
-.icon.rotate_270 > canvas{
-  transform: rotate(270deg);
-}
-
-@font-face{
-  font-family: "press_start_2p";
-  src: url("../../rsc/font/press_start_2p.woff2");
-  font-display: swap;
 }

@@ -1,13 +1,5 @@
-body, ol, p{
+body, p{
   margin: 0;
-}
-
-input, ol{
-  padding: 0;
-}
-
-ol{
-  list-style: none;
 }
 
 a{
@@ -15,6 +7,7 @@ a{
 }
 
 input{
+  padding: 0;
   background: none;
   border: none;
   outline: none;
@@ -25,14 +18,4 @@ textarea{
   border: none;
   outline: none;
   resize: none;
-}
-
-select{
-  background: none;
-  border: none;
-  outline: none;
-}
-
-option{
-  background: inherit;
 }

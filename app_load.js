@@ -7,11 +7,12 @@ function app_load(load_stage){
     case 1: app_language(); break;
     case 2: app_file_load_css(app_file_list_css()); break;
     case 3: app_file_load_js(app_file_list_js()); break;
-    case 4: settings_load(); break;
-    case 5: note_load(); break;
-    case 6: trash_load(); break;
-    case 7: app_ready(); break;
-    case 8: app_service_worker(); delete app.load_stage;
+    case 4: app_translation_update(); app_load(app.load_stage + 1); break;
+    case 5: settings_load(); break;
+    case 6: note_load(); break;
+    case 7: trash_load(); break;
+    case 8: app_ready(); break;
+    case 9: app_service_worker(); delete app.load_stage;
   }
 }
 
@@ -75,12 +76,10 @@ function app_language(){
       let transaction_get = transaction.objectStore("settings").get("language");
       transaction_get.onsuccess = function(){
         if (transaction_get.result != null) {
-          app.language = transaction_get.result.language;
+          app.settings.language = transaction_get.result.language;
         }
         else {
-          let language = navigator.language.substr(0,2);
-          let language_available = ["en", "fr"];
-          app.language = language_available.includes(language) ? language : "en";
+          app.settings.language = app_language_navigator();
         }
         app_load(app.load_stage + 1);
       };
@@ -90,12 +89,10 @@ function app_language(){
       let transaction_get = transaction.objectStore("settings").get("language");
       transaction_get.onsuccess = function(){
         if (transaction_get.result != null) {
-          app.language = transaction_get.result.language;
+          app.settings.language = transaction_get.result.language;
         }
         else {
-          let language = navigator.language.substr(0,2);
-          let language_available = ["en", "fr"];
-          app.language = language_available.includes(language) ? language : "en";
+          app.settings.language = app_language_navigator();
         }
         app_load(app.load_stage + 1);
       };
@@ -103,7 +100,13 @@ function app_language(){
   };
 }
 
-function app_language_new_file(language, reload_func){
+function app_language_navigator(){
+  let language = navigator.language.substr(0,2);
+  let language_available = ["en", "fr"];
+  return language_available.includes(language) ? language : "en";
+}
+
+function app_language_new_file(language, func_settings_back){
   let script_list = document.getElementsByTagName("script");
   let script_already_loaded = false;
 
@@ -115,53 +118,37 @@ function app_language_new_file(language, reload_func){
   }
 
   if (script_already_loaded) {
-    app_language_update(language, reload_func);
+    app_translation_update();
+    app_lang();
+    func_settings_back();
   }
   else {
     let file = document.createElement("script");
     file.src = "js/translation/translation_" + language + ".js",
-    file.onload = function(){app_language_update(language, reload_func)};
+    file.onload = function(){app_translation_update(); app_lang(); func_settings_back()};
     document.body.append(file);
   }
 }
 
-function app_language_update(language, reload_func){
-  let request = app_db_open();
-
-  request.onsuccess = function(){
-    let transaction = request.result.transaction("settings", "readwrite");
-
-    let transaction_get = transaction.objectStore("settings").get("language");
-    transaction_get.onsuccess = function(){
-      if (transaction_get.result != null) {
-        transaction.objectStore("settings").delete("language");
-      }
-      app.language = language;
-      app_translation_update();
-      transaction.objectStore("settings").add({key: "language", language: app.language}).onsuccess = reload_func;
-    };
-  };
-}
-
 function app_translation_update(){
-  app.translate = window["translation_" + app.language];
+  app.translate = window["translation_" + app.settings.language];
 }
 
 function app_lang(){
-  document.documentElement.lang = app.language;
+  document.documentElement.lang = app.settings.language;
 }
 
 function app_description(){
   let meta = document.createElement("meta");
   meta.setAttribute("name", "description");
-  meta.setAttribute("content", app.translate().app.app_description);
+  meta.setAttribute("content", app.translate().app.description);
   document.getElementsByName("author")[0].after(meta);
 }
 
 function app_manifest(){
   let link = document.createElement("link");
   link.setAttribute("rel", "manifest");
-  link.setAttribute("href", "rsc/manifest/manifest_" + app.language + ".json");
+  link.setAttribute("href", "rsc/manifest/manifest_" + app.settings.language + ".json");
   document.getElementsByTagName("link")[0].before(link);
 }
 
@@ -186,6 +173,19 @@ function app_service_worker_delete(){
   }
 }
 
+function app_url_load(){
+  let app_url = window.location.href.split("?");
+
+  if (app_url[1] != null) {
+    switch (app_url[1]) {
+      case "trash": trash_list(); break;
+      case "settings": settings(); break;
+      case "settings_select": settings(); break;
+      default: history.replaceState({id: "darkness_note"}, null, app_url[0]);
+    }
+  }
+}
+
 function app_url(){
   let app_url = window.location.href.split("?");
 
@@ -196,35 +196,21 @@ function app_url(){
     else if (document.getElementById("settings")) {
       settings_back();
     }
-    else if (document.getElementById("note_fullscreen")) {
-      document.getElementsByClassName("note_fullscreen_back")[0].click();
+    else if (document.getElementsByClassName("note_fullscreen")[0]) {
+      document.getElementsByClassName("menu_icon_left")[0].children[0].click();
     }
   }
   else if (app_url[1] == "trash") {
     trash_list();
   }
   else if (app_url[1] == "settings") {
-    if (document.getElementById("note_fullscreen")) settings_note_fullscreen_back();
-    else if (!document.getElementById("settings")) settings();
+    settings();
+  }
+  else if (app_url[1] == "settings_select") {
+    history.replaceState({id: "darkness_note"}, "settings", app_url[0] + "?settings");
   }
   else if (app_url[1] == "note_fullscreen") {
     history.replaceState({id: "darkness_note"}, null, app_url[0]);
-  }
-  else if (app_url[1] == "settings_note_fullscreen") {
-    history.replaceState({id: "darkness_note"}, "settings", app_url[0] + "?settings");
-  }
-}
-
-function app_url_load(){
-  let app_url = window.location.href.split("?");
-
-  if (app_url[1] != null) {
-    switch (app_url[1]) {
-      case "trash": trash_list(); break;
-      case "settings": settings(); break;
-      case "settings_note_fullscreen": settings(); break;
-      default: history.replaceState({id: "darkness_note"}, null, app_url[0]);
-    }
   }
 }
 

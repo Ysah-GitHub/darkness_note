@@ -4,29 +4,44 @@
   height: 320px;
   margin: 32px 0 0 32px;
   box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid rgb(25, 25, 25);
+  border-radius: 10px;
+}
+body.no_border .note{
+  border: 0;
+}
+body.no_border_radius .note{
+  border-radius: 0;
+}
+.note:first-of-type{
+  margin: 32px 0 0 384px;
 }
 
 .note_header{
   height: 64px;
   background-color: rgb(40, 40, 40);
 }
+.note_header .icon:hover{
+  cursor: pointer;
+}
+.note_header .icon:hover > canvas {
+  transition: filter 0.1s linear;
+}
+.note_header .icon:hover > canvas {
+  filter: brightness(3);
+}
 
 .note_title{
-  width: 192px;
+  width: calc(100% - 64px - 64px);
   height: 100%;
   line-height: 64px;
   padding: 0 8px;
   box-sizing: border-box;
   vertical-align: top;
   color: rgb(245, 245, 245);
-  font-size: 15px;
   transition: background-color 0.1s linear;
-}
-.note_title:hover, .note_title:focus{
-  background-color: rgb(30, 30, 30);
-}
-.note_title.readonly:hover, .note_title.readonly:focus{
-  background-color: initial;
 }
 
 .note_main{
@@ -35,20 +50,30 @@
   background-color: rgb(50, 50, 50);
   overflow: hidden;
 }
+.note_main::-webkit-scrollbar{
+  width: 15px;
+}
+.note_main::-webkit-scrollbar-thumb{
+  border-radius: 8px;
+  border: 4px solid transparent;
+  background-clip: content-box;
+  background-color: rgb(35, 35, 35);
+}
+.note_main::-webkit-scrollbar-thumb:hover{
+  background-color: rgb(30, 30, 30);
+}
+.note.settings > .note_main{
+  overflow: auto;
+}
 
 .note_text{
   width: 100%;
   height: 100%;
   padding: 16px;
-  line-height: 28px;
   box-sizing: border-box;
   color: rgb(235, 235, 235);
-  font-size: 13px;
   overflow: auto;
   cursor: auto;
-}
-.note_text.blur{
-  filter: blur(5px);
 }
 .note_text::-webkit-scrollbar{
   width: 15px;
@@ -62,15 +87,119 @@
 .note_text::-webkit-scrollbar-thumb:hover{
   background-color: rgb(30, 30, 30);
 }
-
-#note_fullscreen{
-  width: calc(100% - 64px);
-  height: calc(100vh - 64px);
-  margin: 32px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+.note_text.blur{
+  filter: blur(5px);
 }
 
-#note_fullscreen .note_title{
+.note_fullscreen{
+  height: calc(var(--vh) - 16px);
+  margin: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  border: 1px solid rgb(25, 25, 25);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+body.no_border .note_fullscreen{
+  border: 0;
+}
+body.no_border_radius .note_fullscreen{
+  border-radius: 0;
+}
+
+.note_fullscreen .note_title{
   width: calc(100% - 64px);
   padding: 0 16px;
+}
+
+.note_settings_header{
+  height: 64px;
+  border-bottom: 1px solid rgb(40, 40, 40);
+  transition: margin-top 0.2s linear;
+  box-sizing: border-box;
+}
+.note_settings_header > .icon{
+  width: 25%;
+  text-align: center;
+  border-right: 1px solid rgb(40, 40, 40);
+  box-sizing: border-box;
+}
+.note_settings_header > .icon:hover{
+  cursor: pointer;
+}
+.note_settings_header > .icon:hover > canvas {
+  transition: filter 0.1s linear;
+}
+.note_settings_header > .icon:hover > canvas {
+  filter: brightness(3);
+}
+.note_settings_header > .icon:nth-child(4){
+  border: 0;
+}
+.note_settings_header > .icon:nth-child(1) > canvas{
+  transform: rotate(180deg);
+}
+.note_settings_header > .icon:nth-child(2) > canvas{
+  transform: rotate(180deg);
+}
+
+.note_settings_more{
+  display: flex;
+  align-items: center;
+  margin-top: 139px;
+}
+.note_settings_more:hover{
+  cursor: pointer;
+}
+.note_settings_more .icon > canvas {
+  transition: filter 0.1s linear;
+}
+.note_settings_more:hover .icon > canvas {
+  filter: brightness(3);
+}
+.note_settings_more > p{
+  display: inline-block;
+  width: calc(100% - 64px);
+  padding: 16px;
+  font-family: "Verdana";
+  color: rgb(100, 100, 100);
+  font-size: 16px;
+  box-sizing: border-box;
+  user-select: none;
+  transition: color 0.1s linear;
+}
+.note_settings_more:hover > p{
+  color: rgb(255, 255, 255);
+}
+.note_settings_more > .icon{
+  width: 64px;
+  text-align: center;
+}
+
+.note_settings .settings_section{
+  padding: 0;
+}
+.note_settings .settings_section.visible{
+  padding: 0;
+}
+
+.note_settings .settings_section_title{
+  width: calc(100% - 64px);
+}
+
+.note_settings .settings_section_main{
+  background-color: rgb(55, 55, 55);
+}
+
+.note_settings .settings_section_element_text{
+  width: calc(100% - 64px);
+}
+
+.note_settings .settings_section_element_description{
+  font-size: 14px;
+}
+
+.note_settings .icon{
+  width: 64px;
+  text-align: center;
 }

@@ -29,63 +29,53 @@ function icon_fillRect(draw, width, height, values){
 function icon_add_draw(element, color, width, height){
   let draw = icon_draw_start(element, color, width, height);
   icon_fillRect(draw, width, height, [
-    [30, 20, 4, 24],
-    [20, 30, 24, 4]
+    [29, 14, 6, 36],
+    [14, 29, 36, 6]
   ]);
 }
 
 function icon_arrow_move_draw(element, color, width, height){
   let draw = icon_draw_start(element, color, width, height);
-  icon_fillRect(draw, width, height, [
-    [20, 18, 4, 28],
-    [28, 18, 4, 4],
-    [32, 22, 4, 4],
-    [36, 26, 4, 4],
-    [40, 30, 4, 4],
-    [36, 34, 4, 4],
-    [32, 38, 4, 4],
-    [28, 42, 4, 4]
-  ]);
+
+  draw.strokeStyle = color;
+  draw.lineWidth = (3 / 64) * width;
+  draw.beginPath();
+  draw.moveTo((22 / 64) * width, (18 / 64) * height);
+  draw.lineTo((22 / 64) * width, (46 / 64) * height);
+  draw.moveTo((28 / 64) * width, (18 / 64) * height);
+  draw.lineTo((42 / 64) * width, (32 / 64) * height);
+  draw.lineTo((28 / 64) * width, (46 / 64) * height);
+  draw.stroke();
 }
 
 function icon_arrow_move_double_draw(element, color, width, height){
   let draw = icon_draw_start(element, color, width, height);
-  icon_fillRect(draw, width, height, [
-    [14, 18, 4, 28],
-    [22, 18, 4, 4],
-    [26, 22, 4, 4],
-    [30, 26, 4, 4],
-    [34, 30, 4, 4],
-    [30, 34, 4, 4],
-    [26, 38, 4, 4],
-    [22, 42, 4, 4],
-    [34, 18, 4, 4],
-    [38, 22, 4, 4],
-    [42, 26, 4, 4],
-    [46, 30, 4, 4],
-    [42, 34, 4, 4],
-    [38, 38, 4, 4],
-    [34, 42, 4, 4],
-  ]);
+
+  draw.strokeStyle = color;
+  draw.lineWidth = (3 / 64) * width;
+  draw.beginPath();
+  draw.moveTo((16 / 64) * width, (18 / 64) * height);
+  draw.lineTo((16 / 64) * width, (46 / 64) * height);
+  draw.moveTo((22 / 64) * width, (18 / 64) * height);
+  draw.lineTo((36 / 64) * width, (32 / 64) * height);
+  draw.lineTo((22 / 64) * width, (46 / 64) * height);
+  draw.moveTo((34 / 64) * width, (18 / 64) * height);
+  draw.lineTo((48 / 64) * width, (32 / 64) * height);
+  draw.lineTo((34 / 64) * width, (46 / 64) * height);
+  draw.stroke();
 }
 
 function icon_close_draw(element, color, width, height){
   let draw = icon_draw_start(element, color, width, height);
-  icon_fillRect(draw, width, height, [
-    [18, 18, 4, 4],
-    [22, 22, 4, 4],
-    [26, 26, 4, 4],
-    [30, 30, 4, 4],
-    [34, 34, 4, 4],
-    [38, 38, 4, 4],
-    [42, 42, 4, 4],
-    [42, 18, 4, 4],
-    [38, 22, 4, 4],
-    [34, 26, 4, 4],
-    [26, 34, 4, 4],
-    [22, 38, 4, 4],
-    [18, 42, 4, 4]
-  ]);
+
+  draw.strokeStyle = color;
+  draw.lineWidth = (3 / 64) * width;
+  draw.beginPath();
+  draw.moveTo((18 / 64) * width, (18 / 64) * height);
+  draw.lineTo((46 / 64) * width, (46 / 64) * height);
+  draw.moveTo((46 / 64) * width, (18 / 64) * height);
+  draw.lineTo((18 / 64) * width, (46 / 64) * height);
+  draw.stroke();
 }
 
 function icon_folder_back_draw(element, color, width, height){
@@ -162,11 +152,11 @@ function icon_select_draw(element, color, width, height){
   let draw = icon_draw_start(element, color, width, height);
 
   draw.strokeStyle = color;
-  draw.lineWidth = (10 / 64) * width;
+  draw.lineWidth = (4 / 64) * width;
   draw.beginPath();
-  draw.moveTo((8 / 64) * width, (20 / 64) * height);
-  draw.lineTo((32 / 64) * width, (44 / 64) * height);
-  draw.lineTo((56 / 64) * width, (20 / 64) * height);
+  draw.moveTo((21 / 64) * width, (27 / 64) * height);
+  draw.lineTo((31 / 64) * width, (37 / 64) * height);
+  draw.lineTo((41 / 64) * width, (27 / 64) * height);
   draw.stroke();
 }
 

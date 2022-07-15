@@ -1,21 +1,55 @@
+#settings{
+  margin: 0 8px 0 8px;
+}
+
+#settings .icon{
+  width: 96px;
+  text-align: center;
+}
+
 .settings_section{
-  margin-left: 16px;
   padding: 16px 0;
-  border-top: 1px solid rgb(65, 65, 65);
+  border-bottom: 1px solid rgb(65, 65, 65);
+  user-select: none;
 }
-.settings_section:first-child{
-  border: none;
+.settings_section.visible{
+  padding: 16px 0 0 0;
 }
-.note .settings_section{
-  margin-left: 0;
+
+.settings_section_header{
+  display: flex;
+  align-items: center;
+  padding: 16px 0 16px 16px;
+}
+.settings_section_header:hover{
+  cursor: pointer;
+}
+.settings_section_header:hover .icon > canvas {
+  transition: filter 0.1s linear;
+}
+.settings_section_header:hover:hover .icon > canvas {
+  filter: brightness(3);
+}
+.settings_section_header canvas{
+  transition: transform 0.2s linear;
+}
+.settings_section.visible .settings_section_header canvas{
+  transform: rotate(180deg);
 }
 
 .settings_section_title{
-  margin: 16px 0;
-  padding: 0 0 0 16px;
+  width: calc(100% - 96px);
+  font-family: "Verdana";
   color: rgb(100, 100, 100);
-  font-size: 10px;
-  user-select: none;
+  font-size: 16px;
+  transition: color 0.1s linear;
+}
+.settings_section_header:hover > .settings_section_title{
+  color: rgb(255, 255, 255);
+}
+
+.settings_section_main{
+  background-color: rgb(50, 50, 50);
 }
 
 .settings_section_element{
@@ -26,9 +60,8 @@
   align-items: center;
   transition: background-color 0.1s linear;
 }
-.settings_section_element:hover{
-  cursor: pointer;
-  background-color: rgb(35, 35, 35);
+.settings_section_element:active{
+  background-color: rgb(35, 35, 35)
 }
 .settings_section_element.validate{
   background-color: rgba(115, 255, 115, 0.3);
@@ -36,154 +69,64 @@
 .settings_section_element.cancel{
   background-color: rgba(255, 115, 115, 0.3);
 }
+.settings_section_element.borderTop{
+  border-top: 1px solid rgb(65, 65, 65);
+}
+.settings_section_element:hover{
+  cursor: pointer;
+  background-color: rgb(40, 40, 40);
+}
+
+.settings_section_element_text{
+  width: calc(100% - 96px);
+  font-family: "Verdana";
+}
 
 .settings_section_element_title{
-  line-height: 18px;
-  color: rgb(220, 220, 220);
-  font-size: 13px;
-  user-select: none;
+  color: rgb(255, 255, 255);
+  font-size: 18px;
 }
 
 .settings_section_element_description{
-  margin-top: 10px;
+  margin-top: 8px;
   color: rgb(100, 100, 100);
-  line-height: 15px;
-  font-size: 10px;
-  user-select: none;
+  font-size: 16px;
+}
+.settings_section_element_description.marginBottom{
+  margin-bottom: 8px;
 }
 .settings_section_element.red .settings_section_element_description{
   color: rgb(255, 115, 115);
 }
 
 .settings_section_element_icon{
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 128px;
-  min-height: 48px;
-  margin: 0 24px 0 auto;
-  font-size: 0;
-}
-.note .settings_section_element_icon{
-  width: 48px;
-  margin: 0 0 0 auto;
-}
-
-.settings_section_element_select{
-  position: relative;
-  width: 128px;
-  height: 48px;
-  margin: 0 24px 0 auto;
+  width: 96px;
   text-align: center;
   font-size: 0;
-  overflow: hidden;
-}
-.note .settings_section_element_select{
-  width: 48px;
-  margin: 0 0 0 auto;
-}
-.settings_section_element_select.visible{
-  overflow: visible;
-}
-.settings_section_element_select:hover{
-  cursor: pointer;
 }
 
-.settings_section_element_select .option_list{
-  z-index: 2;
-  position: absolute;
-  right: 0;
-  width: max-content;
-  max-width: 100vw;
-  margin-right: 8px;
-  border: 1px solid rgb(100, 100, 100);
-}
-
-.settings_section_element_select .option{
-  min-width: 96px;
-  line-height: 48px;
-  padding: 6px 12px;
-  color: rgb(200, 200, 200);
-  font-size: 13px;
-  background-color: rgb(40, 40, 40);
+.settings_option{
+  font-family: "Verdana";
+  color: rgb(255, 255, 255);
+  font-size: 18px;
+  padding: 16px 0 16px 24px;
+  border-bottom: 1px solid rgb(65, 65, 65);
   user-select: none;
-  transition: 0.1s;
+  transition: background-color 0.1s linear;
 }
-.settings_section_element_select .option:hover{
-  color: rgb(255, 255, 255);
-  background-color: rgb(35, 35, 35);
-}
-.settings_section_element_select .option.selected{
-  color: rgb(255, 255, 255);
+.settings_option.selected{
   background-color: rgb(40, 120, 215);
 }
-
-.settings_note_more{
-  margin-top: 150px;
+.settings_option.custom{
+  color: rgb(100, 100, 100);
 }
-.settings_note_more:hover{
-  cursor: pointer;
-}
-.settings_note_more:hover > p{
+.settings_option.custom.selected{
   color: rgb(255, 255, 255);
 }
-.settings_note_more.active{
-  border-bottom: 1px solid rgb(65, 65, 65);
-}
-.settings_note_more > p{
-  display: inline-block;
-  width: calc(100% - 38px);
-  padding: 16px;
-  color: rgb(100, 100, 100);
-  font-size: 10px;
-  box-sizing: border-box;
-  user-select: none;
-  transition: color 0.1s linear;
-}
-.settings_note_more canvas{
-  transition: transform 0.2s linear, filter 0.1s linear;
-}
-.settings_note_more.active canvas{
-  transform: rotate(180deg);
-}
-.settings_note_more:hover canvas{
-  filter: brightness(3);
-}
-
-.settings_note{
-  height: calc(320px - 106px);
-  overflow: auto;
-  background-color: rgb(50, 50, 50);
-}
-.settings_note.hidden{
-  display: none;
-}
-.settings_note::-webkit-scrollbar{
-  width: 15px;
-}
-.settings_note::-webkit-scrollbar-thumb{
-  border-radius: 8px;
-  border: 4px solid transparent;
-  background-clip: content-box;
+.settings_option:hover{
+  cursor: pointer;
   background-color: rgb(35, 35, 35);
 }
-.settings_note::-webkit-scrollbar-thumb:hover{
-  background-color: rgb(30, 30, 30);
-}
-
-.settings_note_header{
-  height: 63px;
-  border-bottom: 1px solid rgb(40, 40, 40);
-  transition: margin-top 0.1s linear;
-}
-.settings_note_header.hidden{
-  margin-top: -212px;
-}
-.settings_note_header > *{
-  width: 63px;
-  border-right: 1px solid rgb(40, 40, 40);
-}
-.settings_note_header > *:last-child{
-  width: 64px;
-  border: none;
+.settings_option.selected:hover{
+  background-color: rgb(40, 120, 215);
 }

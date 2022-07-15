@@ -1,20 +1,17 @@
 function translation_fr(){
   return {
     main: {
-      about: "À propos",
       blur: "Flou",
       contact: "Contact",
+      custom: "Personnalisé",
       delete: "Supprimer",
-      disable: "Désactivé",
-      enable: "Activé",
+      disabled: "Désactivé",
+      enabled: "Activé",
       extra_large: "Très Grand",
       extra_small: "Très Petit",
-      language: "Langage",
       large: "Grand",
-      links: "Liens",
       medium: "Moyen",
       note: "Note",
-      other: "Autre",
       reset: "Réinitialiser",
       settings: "Paramètres",
       small: "Petit",
@@ -27,9 +24,7 @@ function translation_fr(){
     },
     settings: {
       cache_delete_description: "Supprimer les fichiers en cache",
-      cache_offline: "Cache - Hors-Ligne",
       more_settings: "Plus de Paramètres...",
-      note_auto_clean: "Suppression automatique des notes vides",
       note_delete_all: "Supprimer toutes les notes",
       note_delete_all_description: "Déplacement de toutes les notes vers la corbeille",
       note_duplicate : "Dupliquer",
@@ -42,23 +37,37 @@ function translation_fr(){
       note_import_description: "Importation d'une note depuis un fichier .txt",
       note_import_all: "Importer des notes",
       note_import_all_description: "Importation de plusieurs notes depuis un fichier .json",
-      note_management: "Gestion des notes",
-      note_style: "Style des notes",
-      note_text_size: "Taille du texte",
-      note_title_size: "Taille des titres",
       reset_description: "Réinitialiser les paramètres"
     },
+    settings_option: {
+      app_border: "Bordures",
+      app_border_radius: "Coins arrondis",
+      language: "Langage",
+      note_line_spacing: "Interligne",
+      note_text_font: "Police du texte",
+      note_text_size: "Taille du texte",
+      note_title_font: "Police du titre",
+      note_title_size: "Taille du titre",
+      note_auto_clean: "Suppression automatique des notes vides"
+    },
+    settings_section: {
+      app_style: "Apparence de l'application",
+      cache_offline: "Cache - Hors-Ligne",
+      links: "Liens",
+      other: "Autre",
+      note_management: "Gestion des notes",
+      note_style: "Apparence des notes"
+    },
+    settings_note_section: {
+      management: "Gestion",
+      style: "Apparence"
+    },
     error: {
-      character_length_100000: "Erreur: Le nombre de caractères est supérieur à 100000 \no_O",
-      file_size_1000000: "Erreur: La taille du fichier est supérieur à 1Mo \nT-T",
-      file_json: "Erreur: Le fichier n'est pas au format .json \n:x",
-      file_txt: "Erreur: Le fichier n'est pas au format .txt \n:x",
-      navigator_offline: "Erreur: Le Navigateur est Hors-Ligne \n:/"
+      file_json: "Erreur: Le fichier n'est pas au format .json",
+      file_txt: "Erreur: Le fichier n'est pas au format .txt",
+      navigator_offline: "Erreur: Le Navigateur est Hors-Ligne"
     },
     app: {
-      about: "L'équipe de développement de l'application Darkness Note s'engage à offrir une expérience respectueuse pour l'utilisateur et son appareil, sans traitement de données personnelles dans un but publicitaire, commerciale ou statistique." +
-      "\n\n\nUtilisation des données :\n\nLes données sont sauvegardées localement dans le navigateur, aucune information n'est envoyée sur nos serveurs. Vous êtes est le seul à y avoir accès." +
-      "\n\n\nCode :\n\nLe code source de l'application est libre d'utilisation, de redistribution et de modification à la seule condition que ce dernier soit utilisé dans des projets eux-mêmes libres d'utilisation, de redistribution et de modification. Le code n'a pas besoin d'être crédité, mais nous apprécierons si vous décidez de le faire quand même. <3",
       description: "Application web de prise de notes"
     }
   };

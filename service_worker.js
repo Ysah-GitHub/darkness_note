@@ -9,8 +9,7 @@ function service_worker_cache(){
     "app.js",
     "app_load.js",
     "rsc/img/main.png",
-    "rsc/img/main_maskable.png",
-    "rsc/font/press_start_2p.woff2"
+    "rsc/img/main_maskable.png"
   ];
 
   sw_cache = sw_cache.concat(app_file_list_css());
@@ -31,12 +30,12 @@ self.addEventListener("install", function(event){
 
         transaction_get.onsuccess = function(){
           if (transaction_get.result != null) {
-            app.language = transaction_get.result.language;
+            app.settings.language = transaction_get.result.language;
           }
           else {
             let language = navigator.language.substr(0,2);
             let language_available = ["en", "fr"];
-            app.language = language_available.includes(language) ? language : "en";
+            app.settings.language = language_available.includes(language) ? language : "en";
           }
           cache.addAll(service_worker_cache());
         };
