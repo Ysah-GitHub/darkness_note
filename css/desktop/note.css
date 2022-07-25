@@ -91,6 +91,21 @@ body.no_border_radius .note{
   filter: blur(5px);
 }
 
+.note_main > .icon.fullscreen{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.note_main > .icon.fullscreen:hover{
+  cursor: pointer;
+}
+.note_main > .icon.fullscreen:hover > canvas {
+  transition: filter 0.1s linear;
+}
+.note_main > .icon.fullscreen:hover > canvas {
+  filter: brightness(3);
+}
+
 .note_fullscreen{
   height: calc(var(--vh) - 16px);
   margin: 8px;

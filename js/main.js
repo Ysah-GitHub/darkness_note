@@ -47,7 +47,7 @@ function app_vh(){
 
 function app_icon(name, size, color, func_onclick, id, className){
   let icon = document.createElement("span");
-  if (typeof id === "string") {icon.id = id}
+  if (typeof id === "string" && id != "") {icon.id = id}
   icon.className = "icon";
   if (typeof className === "string") {icon.classList.add(className)}
   if (typeof func_onclick === "function") {icon.onclick = func_onclick}

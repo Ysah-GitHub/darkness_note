@@ -241,6 +241,7 @@ function note_list_add(app_note){
   main.className = "note_main";
 
   main.append(note_list_add_text(app_note));
+  main.append(app_icon("fullscreen", 64, "rgb(60, 60, 60)", function(){note_fullscreen(app.note[this.parentElement.parentElement.id])}, "", "fullscreen"));
 
   note.append(main);
   return note;
@@ -348,23 +349,21 @@ function note_settings(note_interface){
   note_interface.getElementsByClassName("note_header")[0].getElementsByClassName("icon")[0].replaceWith(
     app_icon("folder_back", 64, "rgb(65, 65, 65)", function(){note_settings_back(note_interface)})
   );
-  note_interface.getElementsByClassName("note_header")[0].getElementsByClassName("icon")[1].replaceWith(
-    app_icon("fullscreen", 64, "rgb(65, 65, 65)", function(){note_fullscreen(app.note[note_interface.id])})
+  note_interface.getElementsByClassName("note_main")[0].replaceChildren(
+    note_settings_header(note_interface),
+    note_settings_more(note_interface)
   );
-  note_interface.getElementsByClassName("note_text")[0].remove();
-  note_interface.getElementsByClassName("note_main")[0].append(note_settings_header(note_interface));
-  note_interface.getElementsByClassName("note_main")[0].append(note_settings_more(note_interface));
 }
 
 function note_settings_back(note_interface){
   note_interface.classList.remove("settings");
   note_interface.getElementsByClassName("note_header")[0].getElementsByClassName("icon")[0].replaceWith(
-    app_icon("settings_note", 64, "rgb(65, 65, 65)", function(){note_settings(this.parentElement.parentElement)})
+    app_icon("settings_note", 64, "rgb(65, 65, 65)", function(){note_settings(note_interface)})
   );
-  note_interface.getElementsByClassName("note_header")[0].getElementsByClassName("icon")[1].replaceWith(
-    app_icon("close", 64, "rgb(65, 65, 65)", function(){note_remove(app.note[this.parentElement.parentElement.id])})
+  note_interface.getElementsByClassName("note_main")[0].replaceChildren(
+    note_list_add_text(app.note[note_interface.id]),
+    app_icon("fullscreen", 64, "rgb(60, 60, 60)", function(){note_fullscreen(app.note[note_interface.id])}, "", "fullscreen")
   );
-  note_interface.getElementsByClassName("note_main")[0].replaceChildren(note_list_add_text(app.note[note_interface.id]));
 }
 
 function note_settings_header(note_interface){
