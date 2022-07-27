@@ -1,8 +1,11 @@
 var app = {
-  version: "1.7.1",
+  version: "1.7.2",
   db_version: 2,
   device: /Mobi/.test(navigator.userAgent) ? "mobile" : "desktop",
-  settings: {}
+  note: [],
+  trash: [],
+  settings: {},
+  translate: null
 };
 
 function app_file_list_css(){

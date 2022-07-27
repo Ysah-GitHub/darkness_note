@@ -15,9 +15,6 @@ body.no_border .note{
 body.no_border_radius .note{
   border-radius: 0;
 }
-.note:first-of-type{
-  margin: 32px 0 0 384px;
-}
 
 .note_header{
   height: 64px;

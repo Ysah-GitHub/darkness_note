@@ -6,6 +6,12 @@
   border: 1px solid rgb(25, 25, 25);
   border-radius: 10px;
 }
+body.no_border .note{
+  border: 0;
+}
+body.no_border_radius .note{
+  border-radius: 0;
+}
 @media (orientation: portrait) {
   .note{
     width: calc(100vw - 16px);
@@ -29,12 +35,6 @@
   .note:first-child{
     margin: 4px 0 0 8px;
   }
-}
-body.no_border .note{
-  border: 0;
-}
-body.no_border_radius .note{
-  border-radius: 0;
 }
 
 .note_header{

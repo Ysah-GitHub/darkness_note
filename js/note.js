@@ -1,6 +1,5 @@
 function note_load(){
   let request = app_db_open();
-  app.note = [];
 
   request.onsuccess = function(){
     let transaction = request.result.transaction("note", "readonly");
@@ -9,7 +8,7 @@ function note_load(){
         note_load_db(transaction, this.result, 0);
       }
       else {
-        app.note.push({id: 0, title: null, text: null, blur: note_settings_values_default().note_blur});
+        app.note.push(note_initial());
         app_load(app.load_stage + 1);
       }
     };
@@ -40,7 +39,7 @@ function note_load_db(transaction, note_length, load_number){
       id: transaction_get.result.id,
       title: transaction_get.result.title,
       text: transaction_get.result.text,
-      blur: transaction_get.result.blur
+      settings: {...transaction_get.result.settings}
     });
     load_number = load_number + 1;
     if (load_number < note_length) {
@@ -76,14 +75,17 @@ function note_db_replace_delete(transaction, note_length, delete_number){
   };
 }
 
-function note_add(){
-  app.note.unshift({
+function note_initial(){
+  return {
     id: 0,
     title: null,
     text: null,
-    blur: note_settings_values_default().note_blur
-  });
+    settings: {}
+  };
+}
 
+function note_add(){
+  app.note.unshift(note_initial());
   document.getElementById("note_list").prepend(note_list_add(app.note[0]));
   document.getElementById("note_list").scrollTop = 0;
   note_refresh_id_with_interface();
@@ -282,7 +284,7 @@ function note_list_add_text(app_note){
     text.style.lineHeight = app.settings.note_line_spacing;
   }
 
-  if (app_note.blur == "enabled") {
+  if (app_note.settings.blur == "enabled") {
     text.classList.add("blur")
     text.onfocus = function(){text.classList.remove("blur")};
     text.onblur = function(){text.classList.add("blur")};
@@ -331,7 +333,7 @@ function note_fullscreen_back(){
 
 function note_settings_values(){
   return {
-    note_blur: [
+    blur: [
       ["enabled", app.translate().main.enabled],
       ["disabled", app.translate().main.disabled]
     ]
@@ -340,7 +342,7 @@ function note_settings_values(){
 
 function note_settings_values_default(){
   return {
-    note_blur: "disabled"
+    blur: ["disabled", app.translate().main.disabled]
   };
 }
 
@@ -382,16 +384,16 @@ function note_settings_more(note_interface){
   let more_settings = document.createElement("div");
   more_settings.className = "note_settings_more";
   more_settings.onclick = function(){
-      let settings_container = document.createElement("div");
-      settings_container.className = "note_settings";
+    let settings_container = document.createElement("div");
+    settings_container.className = "note_settings";
 
-      settings_container.append(
-        note_settings_section("style", note_interface),
-        note_settings_section("management", note_interface)
-      );
+    settings_container.append(
+      note_settings_section("style", note_interface),
+      note_settings_section("management", note_interface)
+    );
 
-      note_interface.getElementsByClassName("note_main")[0].replaceChildren(settings_container);
-      note_interface.getElementsByClassName("note_header")[0].children[0].onclick = function(){note_settings_more_back(note_interface)};
+    note_interface.getElementsByClassName("note_main")[0].replaceChildren(settings_container);
+    note_interface.getElementsByClassName("note_header")[0].children[0].onclick = function(){note_settings_more_back(note_interface)};
   };
 
   let more_settings_text = document.createElement("p");
@@ -451,8 +453,8 @@ function note_settings_section_style(section_main, note_interface){
 }
 
 function note_settings_section_style_blur(note_interface){
-  let section = note_settings_section_element_select("note_blur", "blur", note_interface);
-  section.append(settings_text(app.translate().main.blur, note_settings_select_section_value("note_blur", "blur", note_interface.id)));
+  let section = note_settings_section_element_select("blur", note_interface);
+  section.append(settings_text(app.translate().main.blur, note_settings_select_section_value("blur", note_interface.id)));
   section.append(app_icon("select_double", 48, "rgb(200, 200, 200)"));
   return section;
 }
@@ -504,16 +506,16 @@ function note_settings_section_management_export(note_interface){
   return section;
 }
 
-function note_settings_section_element_select(value_name, name, note_interface){
+function note_settings_section_element_select(name, note_interface){
   let section = document.createElement("div");
-  section.className = "settings_section_element " + value_name;
-  section.onclick = function(){note_settings_select(value_name, name, note_interface)};
+  section.className = "settings_section_element " + name;
+  section.onclick = function(){note_settings_select(name, note_interface)};
   return section;
 }
 
-function note_settings_select(value_name, name, note_interface){
-  let section_name = note_interface.getElementsByClassName(value_name)[0].parentElement.parentElement.classList.item(1);
-  let option_list = note_settings_values()[value_name];
+function note_settings_select(name, note_interface){
+  let section_name = note_interface.getElementsByClassName(name)[0].parentElement.parentElement.classList.item(1);
+  let option_list = note_settings_values()[name];
 
   note_interface.getElementsByClassName("note_header")[0].children[0].onclick = function(){
     note_settings_select_back(section_name, note_interface);
@@ -525,10 +527,15 @@ function note_settings_select(value_name, name, note_interface){
     option.className = "settings_option";
     option.dataset.value = option_list[i][0];
     option.textContent = option_list[i][1];
-    if (option_list[i][0] == app.note[note_interface.id][name]) {option.classList.add("selected")}
+    if (app.note[note_interface.id].settings[name]) {
+      if (option_list[i][0] == app.note[note_interface.id].settings[name]) {option.classList.add("selected")}
+    }
+    else {
+      if (option_list[i][0] == note_settings_values_default()[name][0]) {option.classList.add("selected")}
+    }
     option.onclick = function(){
       if (!option.classList.contains("selected")) {
-        app.note[note_interface.id][name] = option.dataset.value;
+        app.note[note_interface.id].settings[name] = option.dataset.value;
         note_save();
         note_interface.getElementsByClassName("note_header")[0].children[0].click();
       }
@@ -547,10 +554,11 @@ function note_settings_select_back(section_name, note_interface){
   note_interface.getElementsByClassName(section_name)[0].children[0].click();
 }
 
-function note_settings_select_section_value(value_name, name, note_id){
-  for (let i = 0; i < note_settings_values()[value_name].length; i++) {
-    if (note_settings_values()[value_name][i][0] == app.note[note_id][name]) {
-      return note_settings_values()[value_name][i][1];
+function note_settings_select_section_value(name, note_id){
+  for (let i = 0; i < note_settings_values()[name].length; i++) {
+    if (note_settings_values()[name][i][0] == app.note[note_id].settings[name]) {
+      return note_settings_values()[name][i][1];
     }
   }
+  return note_settings_values_default()[name][1];
 }

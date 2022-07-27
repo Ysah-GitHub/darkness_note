@@ -1,6 +1,5 @@
 function trash_load(){
   let request = app_db_open();
-  app.trash = [];
 
   request.onsuccess = function(){
     let transaction = request.result.transaction("trash", "readonly");
@@ -73,8 +72,12 @@ function trash_note_remove(note){
   app.trash.splice(note.id, 1);
   document.getElementById(note.id).remove();
 
-  note.id = 0;
-  app.note.unshift(note);
+  app.note.unshift({
+    id: 0,
+    title: note.title,
+    text: note.text,
+    settings: {...note.settings}
+  });
 
   trash_refresh_id_with_interface();
   trash_save();
