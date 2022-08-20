@@ -84,6 +84,19 @@ function settings_values(){
       ["enabled", app.translate().main.enabled],
       ["disabled", app.translate().main.disabled]
     ],
+    note_auto_select: [
+      ["title", app.translate().main.title],
+      ["text", app.translate().main.text],
+      ["disabled", app.translate().main.disabled]
+    ],
+    note_delete_confirm: [
+      ["enabled", app.translate().main.enabled],
+      ["disabled", app.translate().main.disabled]
+    ],
+    trash_delete_confirm: [
+      ["enabled", app.translate().main.enabled],
+      ["disabled", app.translate().main.disabled]
+    ],
     language: [
       ["en", "English"],
       ["fr", "Français"]
@@ -101,6 +114,9 @@ function settings_values_default(){
     note_text_size: "20px",
     note_line_spacing: "175%",
     note_auto_clean: "enabled",
+    note_auto_select: "text",
+    note_delete_confirm: "disabled",
+    trash_delete_confirm: "enabled",
     language: app_language_navigator()
   };
 }
@@ -164,6 +180,7 @@ function settings(){
     settings_section("app_style"),
     settings_section("note_style"),
     settings_section("note_management"),
+    settings_section("trash_management"),
     settings_section("links"),
     settings_section("other"),
     settings_section("cache_offline")
@@ -330,6 +347,8 @@ function settings_section_note_management(section_main){
   section_main.append(settings_section_note_management_import_all());
   section_main.append(settings_section_note_management_export_all());
   section_main.append(settings_section_note_management_auto_clean());
+  section_main.append(settings_section_note_management_auto_select());
+  section_main.append(settings_section_note_management_delete_confirm());
   section_main.append(settings_section_note_management_delete_all());
 }
 
@@ -432,6 +451,20 @@ function settings_section_note_management_auto_clean(){
   return section;
 }
 
+function settings_section_note_management_auto_select(){
+  let section = settings_section_element_select("note_auto_select");
+  section.append(settings_text(app.translate().settings_option.note_auto_select, settings_select_section_value("note_auto_select")));
+  section.append(app_icon("select_double", 48, "rgb(200, 200, 200)"));
+  return section;
+}
+
+function settings_section_note_management_delete_confirm(){
+  let section = settings_section_element_select("note_delete_confirm");
+  section.append(settings_text(app.translate().settings_option.note_delete_confirm, settings_select_section_value("note_delete_confirm")));
+  section.append(app_icon("select_double", 48, "rgb(200, 200, 200)"));
+  return section;
+}
+
 function settings_section_note_management_delete_all(){
   let section = document.createElement("div");
   section.className = "settings_section_element red";
@@ -447,6 +480,17 @@ function settings_section_note_management_delete_all(){
 
   section.append(settings_text(app.translate().settings.note_delete_all, app.translate().settings.note_delete_all_description));
   section.append(app_icon("arrow_move", 48, "rgb(200, 200, 200)"));
+  return section;
+}
+
+function settings_section_trash_management(section_main){
+  section_main.append(settings_section_trash_management_delete_confirm());
+}
+
+function settings_section_trash_management_delete_confirm(){
+  let section = settings_section_element_select("trash_delete_confirm");
+  section.append(settings_text(app.translate().settings_option.note_delete_confirm, settings_select_section_value("trash_delete_confirm")));
+  section.append(app_icon("select_double", 48, "rgb(200, 200, 200)"));
   return section;
 }
 

@@ -16,11 +16,12 @@ function translation_en(){
       settings: "Settings",
       small: "Small",
       source_code: "Source Code",
+      text: "Text",
       title: "Title",
       trash: "Trash"
     },
     trash: {
-      delete_all: "Delete all notes from the trash"
+      delete_all: "Permanently delete all notes from the trash"
     },
     settings: {
       cache_delete_description: "Delete files in cache",
@@ -44,6 +45,8 @@ function translation_en(){
       app_border_radius: "Rounded corners",
       language: "Language",
       note_auto_clean: "Automatic deletion of empty notes",
+      note_auto_select: "Automatic selection of new notes",
+      note_delete_confirm: "Confirmation when deleting notes",
       note_line_spacing: "Line spacing",
       note_text_font: "Text font",
       note_text_size: "Text size",
@@ -56,11 +59,16 @@ function translation_en(){
       links: "Links",
       other: "Other",
       note_management: "Note management",
-      note_style: "Note style"
+      note_style: "Note style",
+      trash_management: "Trash management"
     },
     settings_note_section: {
       management: "Management",
       style: "Style"
+    },
+    confirm: {
+      note_delete: "Delete the note?",
+      note_delete_permanently: "Delete the note permanently?"
     },
     error: {
       file_json: "Error: The file is not in .json format",

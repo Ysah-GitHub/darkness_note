@@ -182,7 +182,16 @@ function trash_list_add(note_trash){
   title.value = note_trash.title;
   header.append(title);
 
-  header.append(app_icon("trash", 64, "rgb(65, 65, 65)", function(){trash_note_delete(app.trash[this.parentElement.parentElement.id])}));
+  header.append(app_icon("trash", 64, "rgb(65, 65, 65)", function(){
+    if (app.settings.trash_delete_confirm == "enabled") {
+      if (confirm(app.translate().confirm.note_delete_permanently)) {
+        trash_note_delete(app.trash[this.parentElement.parentElement.id]);
+      }
+    }
+    else {
+      trash_note_delete(app.trash[this.parentElement.parentElement.id]);
+    }
+  }));
 
   note.append(header);
 

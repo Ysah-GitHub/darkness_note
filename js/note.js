@@ -89,6 +89,13 @@ function note_add(){
   document.getElementById("note_list").prepend(note_list_add(app.note[0]));
   document.getElementById("note_list").scrollTop = 0;
   note_refresh_id_with_interface();
+
+  if (app.settings.note_auto_select == "text") {
+    document.getElementById("0").getElementsByClassName("note_text")[0].focus();
+  }
+  else if (app.settings.note_auto_select == "title") {
+    document.getElementById("0").getElementsByClassName("note_title")[0].focus();
+  }
 }
 
 function note_remove(note){
@@ -235,7 +242,16 @@ function note_list_add(app_note){
 
   header.append(app_icon("settings_note", 64, "rgb(65, 65, 65)", function(){note_settings(this.parentElement.parentElement)}));
   header.append(note_list_add_title(app_note));
-  header.append(app_icon("close", 64, "rgb(65, 65, 65)", function(){note_remove(app.note[this.parentElement.parentElement.id])}));
+  header.append(app_icon("close", 64, "rgb(65, 65, 65)", function(){
+    if (app.settings.note_delete_confirm == "enabled") {
+      if (confirm(app.translate().confirm.note_delete)) {
+        note_remove(app.note[this.parentElement.parentElement.id]);
+      }
+    }
+    else {
+      note_remove(app.note[this.parentElement.parentElement.id]);
+    }
+  }));
 
   note.append(header);
 

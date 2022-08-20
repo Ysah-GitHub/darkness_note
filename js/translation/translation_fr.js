@@ -16,11 +16,12 @@ function translation_fr(){
       settings: "Paramètres",
       small: "Petit",
       source_code: "Code source",
+      text: "Texte",
       title: "Titre",
       trash: "Corbeille"
     },
     trash: {
-      delete_all: "Supprimer toutes les notes de la corbeille"
+      delete_all: "Supprimer définitivement toutes les notes de la corbeille"
     },
     settings: {
       cache_delete_description: "Supprimer les fichiers en cache",
@@ -43,12 +44,14 @@ function translation_fr(){
       app_border: "Bordures",
       app_border_radius: "Coins arrondis",
       language: "Langage",
+      note_auto_clean: "Suppression automatique des notes vides",
+      note_auto_select: "Selection automatique des nouvelles notes",
+      note_delete_confirm: "Confirmation lors de la suppression des notes",
       note_line_spacing: "Interligne",
       note_text_font: "Police du texte",
       note_text_size: "Taille du texte",
       note_title_font: "Police du titre",
-      note_title_size: "Taille du titre",
-      note_auto_clean: "Suppression automatique des notes vides"
+      note_title_size: "Taille du titre"
     },
     settings_section: {
       app_style: "Apparence de l'application",
@@ -56,11 +59,16 @@ function translation_fr(){
       links: "Liens",
       other: "Autre",
       note_management: "Gestion des notes",
-      note_style: "Apparence des notes"
+      note_style: "Apparence des notes",
+      trash_management: "Gestion de la corbeille"
     },
     settings_note_section: {
       management: "Gestion",
       style: "Apparence"
+    },
+    confirm: {
+      note_delete: "Supprimer la note ?",
+      note_delete_permanently: "Supprimer la note définitivement ?"
     },
     error: {
       file_json: "Erreur: Le fichier n'est pas au format .json",
